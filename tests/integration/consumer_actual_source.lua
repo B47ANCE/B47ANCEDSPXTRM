@@ -64,8 +64,13 @@ assert(#owner.data.waterWorksTreatmentHistory==1 and owner.data.waterWorksTreatm
 local crop={typeOfSeed="Carrots",waterLvl=45,nbOfGrow=3,x=4.5,y=.5,z=0}
 local light=assert(C.cropLighting(crop));assert(light.complete and light.artificialVisible>0)
 assert(light.growthEffect=="NONE" and light.source==nil and crop.waterLvl==45 and crop.nbOfGrow==3)
+local crop2={typeOfSeed="Carrots",waterLvl=50,nbOfGrow=4,x=8.5,y=.5,z=0}
+local page=assert(C.cropLightingBatch({crop,crop2}))
+assert(page.complete and page.sampled==2 and page.query.scans==1)
+assert(page.results[1].observation.artificialVisible==light.artificialVisible)
+assert(crop2.waterLvl==50 and crop2.nbOfGrow==4)
 isClient=function()return true end
 assert(not C.treatWater(owner,"actual-client") and not C.treatSunburn(patient,.1,"actual-client","source"))
 assert(C.cropLighting(crop),"observation remains client-safe")
 assert(powerWorks==nil and experienceWorks==nil,"do not hide obsolete loader contracts with globals")
-print("PASS actual Nightfall aliases, Medical procedure replay, Water transaction/rollback, Farming observation")
+print("PASS actual Nightfall aliases, Medical procedure replay, Water transaction/rollback, Farming single/batch observations")

@@ -2,7 +2,7 @@
 
 B47ANCED Spectrum is a Lua-only lighting and optical-effects framework for Project Zomboid Build 42.
 
-- Version: `0.27.0`
+- Version: `0.28.0`
 - Mod ID: `lightWorks`
 - Author: B47ANCE
 - Minimum game version: `42.20.3`
@@ -56,8 +56,8 @@ The display name is B47ANCED Spectrum. The technical Mod ID, Lua API/require nam
 Public source: https://github.com/B47ANCE/B47ANCEDSpectrum
 
 `VERSION` is the sole project-version authority. This iteration is a
-MINOR consumer-integration iteration with Nightfall stored-bulb aliases, Medical
-procedure delegation, opt-in UVC Water treatment and read-only Farming lighting. It remains a development build. See [Repository setup](docs/REPOSITORY_SETUP.md),
+MINOR query iteration with one-scan batch exposure and paged read-only crop
+lighting, plus three reproduced audit fixes. It remains a development build. See [Repository setup](docs/REPOSITORY_SETUP.md),
 [Versioning](docs/VERSIONING.md), [Changelog](CHANGELOG.md), and
 [Current validation](docs/VALIDATION.md).
 
@@ -112,7 +112,17 @@ UVC device, treatment action or crop growth effect is invented.
 
 See [Consumer contracts/settings](docs/CONSUMER_INTEGRATIONS.md) and
 [Current in-game handoff](docs/IN_GAME_TEST_HANDOFF.md). Core Spectrum + Power
-passes source preflight. Full Nightfall startup is currently BLOCKED by its old
-medWorks dependency versus the renamed B47ANCEDHealthCare Mod ID. The unchanged
-medWorks Lua procedure namespace still works for the optional API bridge.
+passes source preflight. The refreshed Nightfall checkout now requires the matching
+B47ANCEDHealthCare Mod ID, so that source profile also passes. The unchanged
+medWorks Lua procedure namespace continues to serve the optional API bridge.
 Neither source checks nor API presence certify an installed or runtime pairing.
+
+## Current audit and L8 queries
+
+The [0.28.0 audit](docs/AUDIT_0_28_0.md) reproduces and fixes three defects in
+prototype debug gating, mutable fixture registration and laser overflow geometry.
+New ConsumerExposure.sampleMany and ConsumerIntegrations.cropLightingBatch share
+one bounded source scan for up to 32 nearby targets. They return read-only
+observations with explicit completeness and paging; they do not change crop growth
+or supply cached treatment evidence. Debug mode adds LWIntegrationCropLightingBatch.
+Current query contracts and exact limits are in the consumer documentation above.

@@ -1,6 +1,6 @@
 # Repository onboarding
 
-Project Version: 0.27.0
+Project Version: 0.28.0
 
 Public repository: https://github.com/B47ANCE/B47ANCEDSpectrum
 
@@ -79,6 +79,13 @@ feature/spectrum-consumers starts from feature/spectrum-roadmap (7fd163b) and
 uses a stacked PR targeting that branch. It is a 0.27.0 MINOR API/settings
 iteration. The user explicitly kept all consumer folders read-only. No consumer
 remote, version adoption, source relocation or repository migration is performed
-by Spectrum. The externally renamed B47ANCEDHealthCare checkout retains its
-medWorks Lua API, while Nightfall still requires the old Mod ID. New preflight
-scripts fingerprint the actual selected source and fail that mismatch explicitly.
+by Spectrum. That iteration observed an external medical Mod ID mismatch, retained in its
+validation record. The refreshed pairing now matches; current source preflights
+record exact selected source independently from those historical observations.
+
+## Audit and batch-query branch
+
+feature/spectrum-batched-queries starts from feature/spectrum-consumers (79775cd)
+and targets that branch with a stacked PR. Version 0.28.0 is a MINOR API addition
+plus targeted bug fixes. No open predecessor PR is merged. Historical validation
+and supplied artwork stay intact. No deployment, packaging or upload is implied.

@@ -9,7 +9,7 @@ developer investigation; mocked execution is not an in-game PASS.
 
 1. Run `LWStartReleaseSuite()`. It performs the API, servicing, UV-semantic, and available B47ANCEDPower battery checks, then starts the visual tour.
 2. Inspect each equipped light, enter `PASS` or describe the issue, and continue; every report is written to `console.txt`.
-3. Confirm metadata, version `0.27.0`, B47ANCED Spectrum sandbox page, and error-free load.
+3. Confirm metadata, version `0.28.0`, B47ANCED Spectrum sandbox page, and error-free load.
 4. Right-click supported, unsupported, nested, equipped, attached, and weapon-part lights.
 5. Confirm bulb actions share the light's existing submenu and show correct icons.
 6. Install, remove, and replace every bulb with and without required tools; verify no loss or duplication.
@@ -127,3 +127,19 @@ preflight, disabled-by-default UVC tests, both bulb aliases, Medical procedure
 replay, crop immutability and two-client/restart acceptance. Debug status is not
 a runtime PASS. New regressions: test_consumer_aliases.lua, test_consumer_bridges.lua,
 test_consumer_exposure.lua, test_integration_harness.lua and test_readiness.py.
+
+## Batch queries and audit regressions
+
+Run python scripts/validate.py. New tests test_batched_exposure.lua and
+test_crop_batches.lua cover one-scan parity, independent walls, dynamic on/off,
+output isolation, bounded paging and partial/invalid input. test_debug_guard.lua,
+test_fixtures.lua and test_lasers.lua reproduce the three audited defects; the
+prototype test also verifies SP-only diagnostic sample placement.
+
+In PZ debug mode, provide a small array of actual native crops to
+LWIntegrationCropLightingBatch(crops, {cursor=0,limit=16}). Compare every successful
+observation with LWIntegrationCropLighting(crop), then alter power/cone/obstruction.
+Check ok and observation.complete separately. Continue through nextCursor; invalid
+or overly wide pages must report failures, never fabricate known darkness. Test
+streamed/unloaded squares and 32-target/source-budget cases; confirm crop growth,
+health and water never change. No automatic growth or treatment action is added.

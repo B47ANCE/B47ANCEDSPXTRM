@@ -1,56 +1,63 @@
-# Consumer integration iteration validation
+# Audit and batch-query iteration validation
 
-Project Version: 0.27.0
+Project Version: 0.28.0
 
-Date: 2026-10-16 (America/Phoenix)
-Base: 7fd163b5a43b4d46d9ed760d52fba8f0300ce5a9 (0.26.0).
-Branch: feature/spectrum-consumers; stacked PR base: feature/spectrum-roadmap.
-Compatibility: MINOR, optional consumer APIs and sandbox configuration.
+Date: 2026-10-16 (America/Phoenix).
+Base: 79775cdfa2577df7f90c77dc03ccc63323fe46f5 (0.27.0).
+Branch: feature/spectrum-batched-queries. PR base: feature/spectrum-consumers.
+Classification: MINOR, additive read-only batch exposure/crop queries plus fixes.
 
 ## Current evidence
 
-- [TESTED, offline Windows] python scripts/validate.py PASS: 41 host Lua 5.4
-  regression files; 49 Lua 5.1 source/template syntax files; disposable Python
-  preflight test; version, identity, Lua-only, owned require case, 29 language
-  fallback/schema checks and credential/path audit (216 selected files, 0 findings).
-  The historical nine defects remain covered. Host Lua is not PZ/Kahlua.
-- [TESTED, offline Windows] Actual-source consumer API probe PASS: both Nightfall
-  bulb registrations and stored-field migration with wear, actual Medical procedure
-  reduction/replay, actual Water refusal/transaction/rollback, read-only native
-  crop-provider observation and client mutation refusal. No first-party API is
-  replaced by a compatibility shim. Native objects are stubs. Full mod bootstraps,
-  native inventory/fluids, loader and dedicated availability are NOT TESTED.
-- [TESTED, offline Windows] Actual-source B47ANCEDPower probe PASS: profiles,
-  canonical binding, pattern/disabled-pattern demand, world debit and failed-debit
-  checkpoint retention. Clean dependency HEAD 40ff9ebfe247d56d7dd2e308e7b7eabfb61a7ce0;
-  shared Lua tree hash a165c3f3262733afc1ea94a8e0ff223df004d5a753db5daecf1c93221073b4c5.
-- [TESTED, offline Windows] Source preflight: core PASS, consumers PASS,
-  nightfall BLOCKED with expected exit 1: required Mod ID medWorks is absent.
-  The current medical source declares B47ANCEDHealthCare but preserves medWorks
-  Lua APIs. No namespace/metadata aliases were invented. This is the current
-  blocker; retired experienceWorks imports in the earlier medWorks snapshot are
-  historical and no longer attributed to the renamed medical source.
-- [VERIFIED, source snapshots] Exact API-probe and profile inventories are
-  validation/0.27.0-consumers.json and validation/0.27.0-*-preflight.json. They
-  fingerprint selected files/paths and record dependency HEAD/dirty state.
-  Snapshot fingerprints were stable during each check. External Medical and
-  Knowledge edits were observed during the task; dirty source is not a verified
-  deployable pairing. Repeat source selection and fingerprints before installing.
-  Water/Farming remain legacy non-Git sources; Spectrum adopts no canonical
-  versions or remotes for them. All external checkouts were read-only to this task.
-- [TESTED, offline Windows] Exact staged credential/path audit: 72 intended files,
-  zero findings. Working/staged whitespace checks PASS.
-- [VERIFIED, history/artwork] Supplied thumbnail/preview, icon, 0.25.5 audit records,
-  0.26.0 feature ledger and previous change-note bytes match base history exactly.
-  The original 0.26.0 validation is retained as validation/0.26.0-features.md.
-- [VERIFIED, installed-source history] Steam build 25485521 was inspected for
-  the prior feature iteration; full engine version remains UNKNOWN. No new
-  native API guarantee or runtime result is inferred from that history.
+- [TESTED, offline Windows host Lua 5.4] Three regression assertions fail against
+  baseline production and pass after fixes: missing-debug-API hook registration,
+  mutable fixture definition and finite laser magnitude overflow. Before-fix
+  scripts/test_lua.py: 42 files, exactly those three failures. Reproductions,
+  priority, scope, causes and acceptance are in AUDIT_0_28_0.md.
+- [TESTED, offline Windows] python scripts/validate.py PASS: 44 host Lua 5.4
+  regression files, 49 Lua 5.1 source/template syntax files, disposable Python
+  preflight test, canonical versions, identity, Lua-only, require-path case,
+  29-language fallback/schema checks and repository credential/path scan
+  (225 selected files, zero findings). No source/test tool is a PZ runtime test.
+- [TESTED, offline Windows] New batch coverage: shared capture for 32 points,
+  exact single/batch parity including per-target scope boundaries, independent
+  walls, dynamic on/off state, detached output tables, input/page budgets,
+  span/floor rejection before discovery, partial-source incompleteness, stable
+  page indices, unknown/absent Farming rejection and unchanged crop state.
+  Existing Water, Medical, migration, rendering and authority regressions pass.
+- [TESTED, offline Windows] Actual-source consumer probe PASS: Nightfall bulb
+  registration/aliases, Medical treatment/replay, Water refusal/transaction/rollback
+  and Farming single/two-crop batch parity. Native objects are stubs; complete mod
+  bootstraps were not loaded. Exact paired source inventory/fingerprints and
+  HEAD/dirty states are in validation/0.28.0-consumers.json. One preceding probe
+  was invalidated when an external source changed during execution; later stable
+  probes passed. Some dependencies are dirty; repeat pinning/fingerprints before
+  installation rather than treating their HEAD alone as the observed source.
+- [TESTED, offline Windows] Source preflights core, nightfall, consumers PASS.
+  Current Nightfall 0.29.0 metadata now requires B47ANCEDHealthCare (0.10.0),
+  closing the prior external Mod ID mismatch. Current snapshots are
+  validation/0.28.0-*-preflight.json. These are source checks, not native loader
+  or dependency runtime validation. Consumer folders were read-only to this task.
+- [TESTED, offline Windows] Actual B47ANCEDPower integration probe PASS against
+  clean HEAD 40ff9ebfe247d56d7dd2e308e7b7eabfb61a7ce0. Shared Lua tree SHA-256:
+  a165c3f3262733afc1ea94a8e0ff223df004d5a753db5daecf1c93221073b4c5.
+- [TESTED, offline Windows] Exact staged credential/path audit: 40 intended
+  files, zero findings; working/staged whitespace checks PASS.
+- [VERIFIED, history] Thumbnail, preview, icon, prior audit/feature records and
+  0.27.0 snapshots match exact base bytes. Previous changenote remains an exact
+  suffix. Original 0.27.0 validation is preserved as validation/0.27.0-integrations.md;
+  it retains its original BLOCKED result rather than being relabeled as current.
+- [VERIFIED, installed source] Steam manifest build remains 25485521; full engine
+  version UNKNOWN. Existing vanilla FishingUtils.lua uses getAimVector(Vector2)
+  and reads its returned getX/getY (lines 89-92). No new native symbol or render
+  hook is introduced; batch queries reuse existing grid/occlusion APIs. Prior
+  class/source fingerprints remain historical, not refreshed runtime proof.
 
-## Exact commands and freshness
+## Exact commands
 
-Python used: C:/Users/willi/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe.
-Development dependencies are in requirements-dev.txt.
+Python executable used:
+C:/Users/willi/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe.
+Dependencies: requirements-dev.txt.
 
 ```sh
 python scripts/check_versions.py --root .
@@ -58,36 +65,37 @@ python scripts/validate.py
 python scripts/check_consumer_integrations.py --dependencies ..
 python scripts/check_power_integration.py --dependency-root ../B47ANCEDPower
 python scripts/check_test_readiness.py --dependencies .. --profile core
-python scripts/check_test_readiness.py --dependencies .. --profile consumers
 python scripts/check_test_readiness.py --dependencies .. --profile nightfall
+python scripts/check_test_readiness.py --dependencies .. --profile consumers
 python scripts/check_repository.py --staged
 git diff --check
 git diff --cached --check
 ```
 
-The nightfall command intentionally returns 1 while its external Mod ID mismatch
-exists. A blocked startup profile is not ignored or converted into PASS by the
-API probe. CI runs only repository-local offline tests; it does not have the
-private machine's sibling checkouts. Current package integrity/version --release
-checks are deferred because no package was requested or generated.
+Freshness command: Test-PZRepositoryFreshness.ps1 -Repository <explicit Spectrum
+repository>. On entry: clean HEAD/upstream 79775cd, ahead/behind 0/0; main ahead 5,
+behind 0, no unfinished operations. Named branch starts from that verified commit;
+it temporarily tracks the verified base until first push. Dirty precommit REVIEW
+is interpreted against only this iteration's intended changes. Exact staged diff,
+tracked files and ignored outputs are reviewed and credential-audited before push.
+Commit/remote SHA and CI outcome are reported with the PR; no main merge or tag.
 
-Shared freshness command:
-`Test-PZRepositoryFreshness.ps1 -Repository <explicit Spectrum repository>`.
-Entry clean HEAD/upstream 7fd163b: 0/0, main ahead 4/behind 0, no unfinished operation.
-Precommit REVIEW: the same ancestry, dirty only with this intended iteration.
-The new branch temporarily tracks its verified base branch until first push;
-no source reconciliation/reset is performed. Review includes the staged diff,
-tracked files, ignored outputs and exact staged credential/path audit before push.
-The PR records resulting commit, verified remote SHA and CI status.
+## Limits and runtime gates
 
-## Runtime gates and test scope
+No new gameplay state, networking, persistent schema or meaningful gameplay
+setting. Batch/page/scan caps are internal resource limits; Water still samples
+fresh optical facts on the authority. Fixture callbacks retain live owner state,
+while changing a registration now requires unregister/register. The debug native
+blood prototype remains a gated experiment; its guard fix does not complete FBO
+rendering or verify Lua native redraw. New manual sample placement is SP-only.
 
-See CONSUMER_INTEGRATIONS.md for contracts, settings, limits and ownership;
-IN_GAME_TEST_HANDOFF.md for staged acceptance and the external loader blocker.
-Core source preparation is complete. Full Nightfall startup remains blocked under
-Spectrum-only write scope. Native laser/fixture rendering, crop sample placement,
-clothing, migration, authority, treatment costs/consent in owning actions, fluid
-synchronization, source streaming, late join/reconnect and restart need actual
-engine evidence. No real save, external mod source or installed game was modified.
-SP NOT TESTED; G7 BLOCKED / NOT TESTED; stable-release G8 BLOCKED.
-No package, deploy, game/server launch, Workshop upload, stable tag or merge.
+Next acceptance: actual native crop arrays; compare single/page output across
+lights, walls/glass, source budgets and unloaded squares; verify no growth/water
+changes; repeat with client/server matching source and late join/restart. Review
+laser rendering, native power/fluids/inventory, clothing, save/streaming and MP
+synchronization separately. Native shaders/model rotation and consumer-specific
+Medical/Water actions or growth effects remain outside this completed query slice.
+
+SP NOT TESTED; dedicated G7 BLOCKED / NOT TESTED; stable-release G8 BLOCKED.
+No package, --release artifact check, deploy, game/server launch, Workshop upload,
+Steam restart, merge or stable tag. See IN_GAME_TEST_HANDOFF.md for acceptance.

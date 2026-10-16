@@ -70,6 +70,10 @@
     {
       "path": "docs/IN_GAME_TEST_HANDOFF.md",
       "pattern": "^Project Version: (?P<version>\\S+)$"
+    },
+    {
+      "path": "docs/AUDIT_0_28_0.md",
+      "pattern": "^Project Version: (?P<version>\\S+)$"
     }
   ],
   "changelog": {
@@ -139,6 +143,14 @@
     {
       "reference": "docs/validation/0.27.0-*.json",
       "reason": "Point-in-time offline source/API probe snapshots, including independent dependency versions and precommit dirty/HEAD state. Never relabel these observations as newer source or runtime proof."
+    },
+    {
+      "reference": "docs/validation/0.27.0-integrations.md",
+      "reason": "Exact 0.27.0 validation record; not refreshed runtime evidence."
+    },
+    {
+      "reference": "docs/validation/0.28.0-*.json",
+      "reason": "Point-in-time host/source preflight evidence, with independent dependency versions and dirty/HEAD states; not PZ runtime or a newer source pairing."
     }
   ]
 }

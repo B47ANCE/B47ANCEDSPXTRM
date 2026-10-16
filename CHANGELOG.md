@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.28.0] - Bounded field queries and audit hardening
+
+- Add one-scan batch exposure and paged read-only crop lighting queries for L8.
+- Freeze fixture adapter definitions; make debug prototype registration fail closed;
+  reject overflowing laser directions. Retain live state callbacks and all save IDs.
+- Record reproduced offline defects, current source evidence and runtime gates.
+  No consumer writes, packaging, deployment, launch or upload.
+
 ## [0.27.0] - Spectrum-owned consumer integrations
 
 - Declare versioned Nightfall stored-bulb aliases in the Spectrum adapter.

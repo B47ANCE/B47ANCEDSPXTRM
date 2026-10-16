@@ -49,8 +49,16 @@ function Harness.crop(crop)
         .." artificial="..tostring(result.artificialVisible).." growthEffect="..result.growthEffect)
     return result
 end
+function Harness.cropBatch(crops,options)
+    local page,reason=Consumers.cropLightingBatch(crops,options)
+    if not page then say(reason);return nil,reason end
+    say("crop page sampled="..page.sampled.." rejected="..page.rejected
+        .." complete="..tostring(page.complete).." next="..tostring(page.nextCursor))
+    return page
+end
 LWIntegrationStatus=Harness.status
 LWIntegrationKit=Harness.kit
 LWIntegrationMigrateHeld=Harness.migrateHeld
 LWIntegrationCropLighting=Harness.crop
+LWIntegrationCropLightingBatch=Harness.cropBatch
 return Harness

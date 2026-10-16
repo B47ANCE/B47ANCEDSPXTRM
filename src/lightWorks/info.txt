@@ -35,8 +35,8 @@ Known limitations:
 Author:
 B47ANCE
 
-Version: 0.27.0
-0.27.0
+Version: 0.28.0
+0.28.0
 
 Internal Mod ID:
 lightWorks

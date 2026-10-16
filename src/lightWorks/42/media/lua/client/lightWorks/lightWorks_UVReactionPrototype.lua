@@ -1,5 +1,5 @@
 -- Explicit feasibility prototype. Never install render hooks in normal play.
-if type(isDebugEnabled)=="function" and isDebugEnabled()~=true then return {} end
+if type(isDebugEnabled)~="function" or isDebugEnabled()~=true then return {} end
 
 require "lightWorks/lightWorks_API"
 
@@ -137,6 +137,7 @@ function LWUVBloodTestRadius(radius)
 end
 
 function LWUVBloodTestPlace(count)
+    if type(isClient)=="function" and isClient()==true then log("sample placement is SP-only"); return false end
     local player=player0(); local square=player and player:getSquare() or nil
     if not square or not addBloodSplat then log("cannot place sample here"); return false end
     count=math.max(1,math.min(40,math.floor(tonumber(count) or 12)))

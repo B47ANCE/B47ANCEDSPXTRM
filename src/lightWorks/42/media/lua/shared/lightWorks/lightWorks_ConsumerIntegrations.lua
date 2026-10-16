@@ -2,7 +2,7 @@ local API=require "lightWorks/lightWorks_API"
 local Access=require "lightWorks/lightWorks_ItemAccess"
 local Migration=require "lightWorks/lightWorks_LegacyMigration"
 local Exposure=require "lightWorks/lightWorks_ConsumerExposure"
-local Consumers={CONTRACT_VERSION=1,WATER_TREATMENT="lightWorks.uvc.v1",MEDICAL_PROCEDURE="medWorks.treatSunburn"}
+local Consumers={CONTRACT_VERSION=1,MAX_CROP_PAGE=32,WATER_TREATMENT="lightWorks.uvc.v1",MEDICAL_PROCEDURE="medWorks.treatSunburn"}
 local OWNER="B47ANCE/Spectrum.Nightfall.v1"
 local aliases={
     {old="ProjectNightfall.UVBulb",current="ProjectNightfall.LightBulbUV"},
@@ -113,19 +113,64 @@ function Consumers.treatWater(owner,operationId)
     local ok,reason=Consumers.registerWater();if not ok then return false,reason end
     return waterWorks.applyTreatment(owner,Consumers.WATER_TREATMENT,{operationId=operationId})
 end
-function Consumers.cropLighting(crop)
+local function cropView(crop)
     local farm=rawget(_G,"farmWorks")
     if type(farm)~="table" or type(farm.inspectCrop)~="function" then return nil,"Farming API unavailable" end
     local ok,view=pcall(farm.inspectCrop,crop)
     if not ok or type(view)~="table" then return nil,"crop inspection unavailable" end
     local point=Exposure.point(view.x,view.y,view.z)
-    local sample,reason=Exposure.sample(point);if not sample then return nil,reason end
+    if not point then return nil,"crop world position unavailable" end
+    return view,point
+end
+local function cropResult(view,point,sample)
     -- No source references, provider callbacks or crop mutations escape here.
     local cropType=type(view.cropType)=="string" and #view.cropType<=128 and not view.cropType:find("[%c]") and view.cropType or "unknown"
     return {schemaVersion=1,cropType=cropType,x=point.x,y=point.y,z=point.z,complete=sample.complete,
         naturalVisible=sample.naturalVisible,artificialVisible=sample.artificialVisible,totalVisible=sample.totalVisible,
         uv={uva=sample.uv.uva,uvb=sample.uv.uvb,uvc=sample.uv.uvc},scope=sample.scope,radius=sample.radius,
         growthEffect="NONE",units="normalized gameplay illumination; not lux or photon flux"}
+end
+function Consumers.cropLighting(crop)
+    local view,point=cropView(crop);if not view then return nil,point end
+    local sample,reason=Exposure.sample(point);if not sample then return nil,reason end
+    return cropResult(view,point,sample)
+end
+function Consumers.cropLightingBatch(crops,options)
+    if type(crops)~="table" or (options~=nil and type(options)~="table") then return nil,"crop array and page options required" end
+    options=options or {}
+    local cursor,limit=options.cursor,options.limit
+    if cursor==nil then cursor=0 end
+    if limit==nil then limit=16 end
+    if not finite(cursor) or cursor<0 or cursor~=math.floor(cursor) or not finite(limit)
+        or limit<1 or limit>Consumers.MAX_CROP_PAGE or limit~=math.floor(limit) then return nil,"invalid crop page" end
+    local total=#crops
+    if cursor>total then return nil,"crop cursor beyond input" end
+    local last=math.min(total,cursor+limit)
+    local page={schemaVersion=1,results={},cursor=cursor,limit=limit,totalCandidates=total,
+        nextCursor=last<total and last or nil,sampled=0,rejected=0,complete=true}
+    local views,points,entries={},{},{}
+    for index=cursor+1,last do
+        local view,point=cropView(crops[index])
+        local entry={index=index,ok=false};page.results[#page.results+1]=entry
+        if view then
+            views[#views+1]=view;points[#points+1]=point;entries[#entries+1]=entry
+        else entry.reason=point;page.rejected=page.rejected+1;page.complete=false end
+    end
+    if #points>0 then
+        local samples,details=Exposure.sampleMany(points)
+        if not samples then
+            page.complete=false;page.rejected=page.rejected+#points
+            for _,entry in ipairs(entries) do entry.reason=details end
+        else
+            page.query=details
+            for index,entry in ipairs(entries) do
+                entry.ok=true;entry.observation=cropResult(views[index],points[index],samples[index])
+                page.sampled=page.sampled+1
+                if samples[index].complete~=true then page.complete=false end
+            end
+        end
+    end
+    return page
 end
 function Consumers.refresh()
     Consumers.refreshNightfall()

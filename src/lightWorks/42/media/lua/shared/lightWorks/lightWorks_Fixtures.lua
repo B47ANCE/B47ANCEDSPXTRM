@@ -11,8 +11,10 @@ function Fixtures.register(def)
     local count=0;for _ in pairs(Fixtures.providers) do count=count+1 end
     assert(count<Fixtures.MAX_PROVIDERS,"fixture provider limit")
     local providerId="lightWorks.fixture."..def.id
+    -- Registration is stable; only the original callback's owner state is live.
+    local inspect,customPresentation=def.inspect,def.customPresentation==true
     Sources.registerProvider{id=providerId,priority=200,inspect=function(object,context)
-        local state=def.inspect(object,context)
+        local state=inspect(object,context)
         if state==nil then return nil end
         if API.Config.EnableWorldEmitters==false then return {emitting=false,reason="world emitters disabled"} end
         if type(state)~="table" or state.known~=true or state.active~=true or state.powered~=true then
@@ -42,7 +44,7 @@ function Fixtures.register(def)
             channels={visible=intensity>0,UV=uv~=nil},uvIntensity=uv and uv.intensity or 0,
             uvRange=uv and uv.range or 0,spectrum=uv and uv.spectrum,
             directional=state.directional==true,orientation=state.orientation,directionX=dx,directionY=dy,
-            color={r=color.r,g=color.g,b=color.b},customPresentation=def.customPresentation==true}
+            color={r=color.r,g=color.g,b=color.b},customPresentation=customPresentation}
     end}
     Fixtures.providers[def.id]=providerId
     return true

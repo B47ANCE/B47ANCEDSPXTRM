@@ -20,7 +20,7 @@ end
 function Lasers.trace(cell,source,dx,dy,range)
     if not source or not finite(source.x) or not finite(source.y) or not finite(source.z)
         or not finite(dx) or not finite(dy) or not finite(range) or range<=0 or range>Lasers.MAX_RANGE then return nil,"invalid ray" end
-    local length=math.sqrt(dx*dx+dy*dy);if length<.0001 then return nil,"invalid direction" end
+    local length=math.sqrt(dx*dx+dy*dy);if not finite(length) or length<.0001 then return nil,"invalid direction" end
     dx,dy=dx/length,dy/length
     local endpoint={x=source.x,y=source.y,z=source.z,distance=0,blocked=false}
     for step=1,math.ceil(range/Lasers.STEP) do

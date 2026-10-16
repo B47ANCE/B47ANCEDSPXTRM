@@ -12,4 +12,12 @@ facts.known=false;assert(not Sources.inspect(object));facts.known=true
 facts.range=math.huge;assert(not Sources.inspect(object));facts.range=10
 facts.uv.spectrum.uvc=0/0;assert(not Sources.inspect(object));facts.uv.spectrum.uvc=0
 assert(Fixtures.unregister("test") and not Sources.inspect(object))
+local def={id="stable",customPresentation=false,inspect=function(got)if got==object then return facts end end}
+Fixtures.register(def)
+def.customPresentation=true
+def.inspect=function()return {known=true,active=true,powered=true,range=2,intensity=1}end
+local retained=assert(Sources.inspect(object))
+assert(retained.customPresentation==false and retained.range==facts.range,
+    "mutating a registration table cannot silently replace callbacks or opt into a second renderer")
+facts.range=6;assert(Sources.inspect(object).range==6,"original callback still reads live owner state")
 print("advanced fixture contracts and unknown-state rejection pass")

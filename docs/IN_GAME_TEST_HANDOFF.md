@@ -1,14 +1,14 @@
 # Spectrum development test handoff
 
-Project Version: 0.27.0
+Project Version: 0.28.0
 
-Core Spectrum + B47ANCEDPower passes source preflight and is prepared for manual
-in-game testing after an explicitly authorized deployment. No package, deployment,
-game/server launch or Workshop upload was performed by this iteration. Full
-Nightfall startup is BLOCKED: its metadata requires medWorks, while the current
-medical checkout declares B47ANCEDHealthCare. Spectrum cannot repair another mod's
-loader metadata within the read-only scope. Fix that in the owning project, then
-rerun the profile. Do not use a fake metadata/global alias or enable both copies.
+Core Spectrum + B47ANCEDPower, Nightfall and optional-consumer source preflights
+pass against the recorded current checkouts. The earlier medWorks loader mismatch
+is corrected in Nightfall 0.29.0 metadata, which now requires B47ANCEDHealthCare.
+No source preflight proves actual native loading, installation or runtime behavior.
+Some dependencies are dirty; review and pin matching copies before any explicitly
+authorized deployment. No package, deployment, game/server launch or upload was
+performed by this iteration. All consumer folders remain read-only to this task.
 
 ## Before installing
 
@@ -52,7 +52,7 @@ release, package-integrity, installation or native loader PASS.
 
 ## Optional integration stage
 
-- Nightfall: wait for the metadata blocker to be corrected upstream. Confirm both
+- Nightfall: rerun preflight and verify the installed matching dependency IDs. Confirm both
   canonical bulb profiles, power loads, AVAILABLE alias status and expected UVA
   semantics. Make only disposable held-light legacy fixtures. Test each old ID
   in installed and last-burned fields with wear, then run
@@ -75,7 +75,11 @@ release, package-integrity, installation or native loader PASS.
   disinfection gameplay action; do not claim sterilization or completed hardware.
 - Farming: LWIntegrationCropLighting(nativeCrop) reads a supplied compatible crop.
   Compare light on/off, cone, wall/window, darkness/unknown sunlight and source
-  budget cases. Crop water/growth/health must stay unchanged. This helper reports
+  budget cases. LWIntegrationCropLightingBatch(crops, options) adds bounded pages: compare
+  with individual observations, check completeness, nextCursor and rejected input
+  indices, then test 32 targets and too-wide/multiple-floor clusters. A successful
+  page uses one source capture, with no retained cross-call cache. Crop
+  water/growth/health must stay unchanged. These helpers report
   normalized observations only; there is no growth effect or new farming UI.
 
 ## Dedicated authority stage

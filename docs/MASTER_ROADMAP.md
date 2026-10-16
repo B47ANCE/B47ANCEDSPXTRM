@@ -1,6 +1,6 @@
 # B47ANCED Spectrum Master Roadmap
 
-Canonical version: 0.27.0.
+Canonical version: 0.28.0.
 
 ## Implemented in source with offline coverage
 
@@ -14,6 +14,8 @@ Canonical version: 0.27.0.
   cached local/nearby-remote UI dot/optional beam presentation. No combat changes.
 - L7-L8: protected pattern registry, server-owned replay-safe selection, demand,
   exact fixture-provider contracts, bounded discovery and retained consumer APIs.
+  L8 now includes immediate one-scan clustered exposure and paged crop observations
+  (maximum 32 targets), with explicit completeness/failure instead of per-crop scans.
 - World lights: durable state, native backing, activation, elapsed drain,
   arbitrary-angle/cardinal aiming, shared visible/UV geometry, explicit replication,
   physical-thump adapter, cleanup and conservative known-record migration.
@@ -34,9 +36,9 @@ All nine 886f97d defects remain covered. See the historical AUDIT_FIXES.md and
   items remain quarantined/unsupported.
 - L9/L10: Spectrum-side aliases, Medical delegation, opt-in UVC Water transaction
   and Farming optical observations are implemented. Infected effects, complete
-  Medical/Water action content and crop growth remain owned by consumers. Full
-  Nightfall startup is blocked by the old medWorks Mod ID; all consumers remain
-  read-only. See CONSUMER_INTEGRATIONS.md and IN_GAME_TEST_HANDOFF.md.
+  Medical/Water action content and crop growth remain owned by consumers. Refreshed
+  Nightfall metadata now matches B47ANCEDHealthCare; its source profile passes.
+  All consumers remain read-only. See CONSUMER_INTEGRATIONS.md and IN_GAME_TEST_HANDOFF.md.
 - Additional fixture/item content needs exact approved definitions/assets. The
   generic advanced fixture capability is implemented without invented content.
 
@@ -51,3 +53,14 @@ Offline checks and the source-integration probe are not SP or dedicated evidence
 G7 BLOCKED / NOT TESTED; stable-release G8 BLOCKED. Packaging, deployment, game/server
 launch and Workshop upload were not requested or performed. See TESTING.md and
 VALIDATION.md for exact commands and acceptance scenarios.
+
+Current audit findings, fixes and L8 acceptance: [AUDIT_0_28_0.md](AUDIT_0_28_0.md).
+
+## Next bounded work
+
+- L8 query batching is implemented; versioned consumer notification/event contracts
+  still need an explicit owner/lifecycle design before claiming all L8 complete.
+- Validate the current source in disposable SP and dedicated sessions, including
+  batch parity and unchanged crops. No deployment or launch is automatic.
+- Native blood/FBO presentation and model rotation require supported Lua evidence;
+  consumer-owned treatment/device/growth content stays outside Spectrum-only writes.
