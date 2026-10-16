@@ -15,8 +15,8 @@ local cell = {
 function cell:getGridSquare(x,y,z)
     return {
         x=x,y=y,z=z,
-        CalculateVisionBlocked=function(self,target)
-            return self.x < 12 and target.x >= 12
+        testVisionAdjacent=function(self,dx,dy)
+            return self.x < 12 and self.x+dx >= 12 and "Blocked" or "Clear"
         end,
     }
 end
@@ -177,3 +177,19 @@ assert(#calls.removed==cleaned,"repeat disable must not remove sources twice")
 lightWorks.Config.EnableColoredLightRenderer=true
 assert(lightWorks.refreshColoredTorches()and item.lightStrength==0,"re-enable must bind fresh sources normally")
 print("lightWorks colored IsoLightSource renderer and disable/re-enable checks passed")
+
+local remoteItem={getFullType=function()return "Test.RemoteUV"end,getModData=function()return {}end,
+    getLightStrength=function()return .5 end,setLightStrength=function(self,v)self.strength=v end}
+local remote={getX=function()return 8 end,getY=function()return 18 end,getZ=function()return 2 end,
+    getActiveLightItems=function(_,list)list:add(remoteItem)end,getLookVector=player.getLookVector}
+getOnlinePlayers=function()return {size=function()return 1 end,get=function()return remote end}end
+local addedBefore=#calls.added
+assert(lightWorks.refreshColoredTorches() and #calls.added>addedBefore and remoteItem.strength==0,
+    "nearby remote-player lights need custom presentation too")
+getOnlinePlayers=function()return {size=function()return 0 end}end
+assert(lightWorks.refreshColoredTorches() and remoteItem.strength==.5,"disconnect must restore suppressed remote item")
+
+remote.getActiveLightItems=function()error("unavailable remote native list")end
+getOnlinePlayers=function()return {size=function()return 1 end,get=function()return remote end}end
+assert(lightWorks.refreshColoredTorches() and item.lightStrength==0,
+    "one unavailable remote collection must not break local presentation or cleanup")

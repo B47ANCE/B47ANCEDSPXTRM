@@ -1,8 +1,12 @@
 require "lightWorks/lightWorks_API"
 require "lightWorks/lightWorks_Vanilla"
+require "lightWorks/lightWorks_LegacyMigration"
 require "lightWorks/lightWorks_UV"
 require "lightWorks/lightWorks_EmissionSources"
+require "lightWorks/lightWorks_Fixtures"
+require "lightWorks/lightWorks_Lasers"
 local Sunburn=require "lightWorks/lightWorks_Sunburn"
+require "lightWorks/lightWorks_ClothingProtection"
 require "lightWorks/lightWorks_LowPowerFlicker"
 require "lightWorks/lightWorks_Patterns"
 -- Canonical light definitions must exist before the powerWorks bridge walks the
@@ -32,14 +36,8 @@ if Events and Events.OnServerStarted then Events.OnServerStarted.Add(function() 
 local sunburnFrame=0
 if Events and Events.OnTick then Events.OnTick.Add(function()
     sunburnFrame=sunburnFrame+1;if sunburnFrame%60~=0 then return end
-    local seen={}
-    local function update(character)if character and not seen[character]then seen[character]=true;pcall(Sunburn.update,character)end end
-    if type(getOnlinePlayers)=="function"then
-        local ok,players=pcall(getOnlinePlayers);if ok and players then
-            local sizeOk,size=pcall(function()return players:size()end);size=sizeOk and math.min(256,math.max(0,tonumber(size)or 0))or 0
-            for index=0,size-1 do local got,player=pcall(function()return players:get(index)end);if got then update(player)end end
-        end
-    elseif type(getSpecificPlayer)=="function"then for index=0,3 do local ok,player=pcall(getSpecificPlayer,index);if ok then update(player)end end end
+    if type(isClient)=="function" and isClient()==true and not(type(isServer)=="function" and isServer()==true) then return end
+    for _,character in ipairs(require("lightWorks/lightWorks_Players").collect(false)) do Sunburn.update(character) end
 end)end
 
 if type(isDebugEnabled)~="function" or isDebugEnabled()==true then

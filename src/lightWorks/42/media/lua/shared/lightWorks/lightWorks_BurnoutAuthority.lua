@@ -50,6 +50,7 @@ function Burnout.onTick()
         for _,item in ipairs(API.collectPlayerLights(player)) do
             if not seen[item] then
                 seen[item]=true
+                if API.LegacyMigration then API.LegacyMigration.process(item,player,Access.findWeaponForPart(player,item)) end
                 local before=API.getBulbBurnMinutes(item)
                 local burned,brokenType=API.updateBulbBurnout(item,elapsed)
                 if burned then

@@ -2,11 +2,11 @@
 
 B47ANCED Spectrum is a Lua-only lighting and optical-effects framework for Project Zomboid Build 42.
 
-- Version: `0.25.5`
+- Version: `0.26.0`
 - Mod ID: `lightWorks`
 - Author: B47ANCE
 - Minimum game version: `42.20.3`
-- Required Mod ID: `powerWorks`
+- Required Mod ID: `B47ANCEDPower`
 
 ## Features
 
@@ -21,7 +21,7 @@ B47ANCED Spectrum is a Lua-only lighting and optical-effects framework for Proje
 - Automatic candidate discovery with a human-review queue.
 - Verified compatibility providers for modded lights.
 - Public APIs for light definitions, bulbs, emitters, spectra, sunlight, and UV exposure.
-- Required powerWorks integration for sized cells, charge, and consumption.
+- Required B47ANCEDPower integration for sized cells, charge, and consumption.
 - Device-owned pattern selector with server-authoritative owned-item mutation.
 - Real vanilla-backed world illumination for active dropped/placed registered
   lights, with persistent identity, orientation, pattern and UV semantics.
@@ -31,7 +31,7 @@ B47ANCED Spectrum is a Lua-only lighting and optical-effects framework for Proje
   vanilla thump contract so Nightfall can order physical—not simulated—destruction.
 
 Project Nightfall registers UV bulbs through this API and consumes B47ANCED Spectrum exposure data for infected-specific consequences. B47ANCED Spectrum never implements Nightfall zombie behavior.
-powerWorks behavior reaches registered third-party lights and Nightfall UV lights through B47ANCED Spectrum's canonical light registry.
+B47ANCEDPower behavior reaches registered third-party lights and Nightfall UV lights through B47ANCED Spectrum's canonical light registry.
 
 Heavy-Duty Flashlights are intentionally not attachable. Straight Flashlights and Penlights may hang from belts; angle-headed lights may use belts or webbing.
 
@@ -49,15 +49,15 @@ an issue report and writes the result to `console.txt`.
 
 The authoritative mod source is `src/lightWorks/42/`. `Contents/mods` is a preserved packaging copy. Versions use `MAJOR.MINOR.PATCH`; game compatibility is declared separately through `versionMin`.
 
-The display name is B47ANCED Spectrum. The technical Mod ID, Lua API/require namespace, save fields, sandbox option identifiers and network command module remain `lightWorks` to preserve existing integrations. The required `powerWorks` Mod ID and Workshop item `3788592008` are unchanged.
+The display name is B47ANCED Spectrum. The technical Mod ID, Lua API/require namespace, save fields, sandbox option identifiers and network command module remain `lightWorks` to preserve existing integrations. The required dependency is now `B47ANCEDPower`; the Workshop item remains `3788592008`. Update the dependency and all clients/server together. Older clients cannot interpret saved numeric aiming angles.
 
 ## Development repository
 
 Public source: https://github.com/B47ANCE/B47ANCEDSpectrum
 
-`VERSION` is the sole project-version authority. This iteration is a compatible
-PATCH fix for the nine offline-reproduced audit defects; it preserves the public
-API/save/configuration contracts and does not claim a stable release. See [Repository setup](docs/REPOSITORY_SETUP.md),
+`VERSION` is the sole project-version authority. This iteration is a
+MINOR feature iteration with free-angle aiming, lasers, fixture adapters, sunburn
+status/clothing protection and conservative legacy migration. It remains a development build. See [Repository setup](docs/REPOSITORY_SETUP.md),
 [Versioning](docs/VERSIONING.md), [Changelog](CHANGELOG.md), and
 [Current validation](docs/VALIDATION.md).
 
@@ -85,3 +85,19 @@ The nine defects audited at `886f97d` are corrected in source with offline
 regressions: authority-owned burnout and drops, world-energy accounting/retries,
 renderer cleanup, replay identity, disabled-pattern demand and incomplete sunburn
 samples. See [Audit fixes and dedicated test plan](docs/AUDIT_FIXES.md).
+
+
+## Current feature completion
+
+- Aim a dropped directional light along your facing, including arbitrary angles.
+- Mounted Base.Laser presentation while aiming, with optional visible beam lines.
+- Sunburn dose/severity/protection in the local world menu and server-owned
+  clothing coverage/holes. Timing remains configurable and provisional.
+- Explicit advanced-fixture providers and conservative legacy conversion with
+  retained originals and quarantine of conflicts/unknown identities.
+- Nearby remote-player colored lights, real-millisecond flicker, bounded
+  inventory discovery and boundary-by-boundary optical checks.
+
+See [Feature/API/settings ledger](docs/FEATURE_COMPLETION.md) for ownership,
+consumer contracts, migration/downgrade limits and blocked native features.
+Source completion and offline tests do not establish PZ runtime correctness.

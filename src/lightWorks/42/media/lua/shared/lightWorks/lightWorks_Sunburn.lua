@@ -1,5 +1,6 @@
 local lightWorks=require "lightWorks/lightWorks_API"
 local UV=require "lightWorks/lightWorks_UV"
+local Operations=require "lightWorks/lightWorks_Operations"
 local Sunburn={SCHEMA_VERSION=1,MAX_DELTA_HOURS=.25,MAX_PROVIDERS=32,MAX_OPERATIONS=32}
 local providers={}
 
@@ -16,7 +17,9 @@ local function dataFor(character,create)
     if state==nil and create then state={schemaVersion=1,dose=0,severity=0,processedOperations={}};data.lightWorksSunburn=state end
     if state==nil then return{schemaVersion=1,dose=0,severity=0,processedOperations={}}end
     if type(state)~="table"or state.schemaVersion~=1 then return nil,"unsupported sunburn state"end
-    state.processedOperations=type(state.processedOperations)=="table"and state.processedOperations or{}
+    if state.processedOperations==nil then state.processedOperations={} end
+    if not Operations.validHistory(state.processedOperations) or type(state.dose)~="number" or not finite(state.dose) or state.dose<0 or state.dose>1
+        or type(state.severity)~="number" or not finite(state.severity) or state.severity<0 or state.severity>1 then return nil,"malformed sunburn state" end
     return state
 end
 local function snapshot(state)return{schemaVersion=1,dose=clamp(state.dose,0,1),severity=clamp(state.severity,0,1),
@@ -33,14 +36,14 @@ function Sunburn.registerProtectionProvider(id,callback)
 end
 function Sunburn.unregisterProtectionProvider(id)local existed=providers[id]~=nil;providers[id]=nil;return existed end
 function Sunburn.getProtection(character,exposure)
-    local remaining=1;local details={}
+    local remaining=1;local details={};local complete=true
     local ids={};for id in pairs(providers)do ids[#ids+1]=id end;table.sort(ids)
     for _,id in ipairs(ids)do
         local ok,value=pcall(providers[id],character,exposure)
         value=ok and finite(value)or nil
-        if value then value=clamp(value,0,1);details[id]=value;remaining=remaining*(1-value)end
+        if value then value=clamp(value,0,1);details[id]=value;remaining=remaining*(1-value)else complete=false end
     end
-    return clamp(1-remaining,0,1),details
+    return clamp(1-remaining,0,1),details,complete
 end
 function Sunburn.getState(character)local state,err=dataFor(character,false);return state and snapshot(state)or nil,err end
 
@@ -51,8 +54,10 @@ function Sunburn.update(character,worldAgeHours)
     if not now and type(getGameTime)=="function"then local ok,value=pcall(function()return getGameTime():getWorldAgeHours()end);if ok then now=finite(value)end end
     if not now then return nil,"world age unavailable"end
     local state,err=dataFor(character,true);if not state then return nil,err end
-    local previous=finite(state.lastWorldAgeHours);state.lastWorldAgeHours=now
-    if not previous or now<=previous then return snapshot(state)end
+    local previous=finite(state.lastWorldAgeHours)
+    if not previous then state.lastWorldAgeHours=now;return snapshot(state)end
+    if now<=previous then return snapshot(state)end
+    state.lastWorldAgeHours=now
     local elapsed=math.min(Sunburn.MAX_DELTA_HOURS,now-previous)
     local exposure=UV.getSunlightExposure(character)
     if type(exposure)~="table" or type(exposure.uv)~="table" or exposure.uv.complete~=true then
@@ -61,7 +66,8 @@ function Sunburn.update(character,worldAgeHours)
         return snapshot(state),"exposure incomplete"
     end
     local natural=clamp(exposure.uv.uvb,0,1)
-    local protection,details=Sunburn.getProtection(character,exposure)
+    local protection,details,complete=Sunburn.getProtection(character,exposure)
+    if not complete then return snapshot(state),"protection incomplete" end
     local effective=natural*(1-protection)
     local first=math.max(.01,finite(lightWorks.Config.SunburnFirstDegreeDoseHours)or.75)
     local maximum=math.max(first+.01,finite(lightWorks.Config.SunburnMaximumDoseHours)or 4)
@@ -76,7 +82,7 @@ end
 
 function Sunburn.applyTreatment(character,amount,operationId)
     if not authority()then return false,"non-authority"end
-    if type(operationId)~="string"or operationId==""then return false,"operationId required"end
+    if type(operationId)~="string"or operationId==""or #operationId>128 then return false,"bounded operationId required"end
     amount=finite(amount);if not amount or amount<=0 then return false,"positive treatment amount required"end
     local state,err=dataFor(character,true);if not state then return false,err end
     for _,id in ipairs(state.processedOperations)do if id==operationId then return false,"duplicate operation"end end

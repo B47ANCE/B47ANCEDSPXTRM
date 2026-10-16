@@ -28,7 +28,7 @@
     },
     {
       "path": "WORKSHOP_CHANGE_NOTE.txt",
-      "pattern": "^\\[b\\]Version (?P<version>[^\\[]+)\\[/b\\]$"
+      "pattern": "\\A\\[b\\]Version (?P<version>[^\\[]+)\\[/b\\]"
     },
     {
       "path": "WORKSHOP_DESCRIPTION.txt",
@@ -64,7 +64,7 @@
       "stage": "release"
     },
     {
-      "path": "docs/AUDIT_FIXES.md",
+      "path": "docs/FEATURE_COMPLETION.md",
       "pattern": "^Project Version: (?P<version>\\S+)$"
     }
   ],
@@ -99,7 +99,7 @@
     },
     {
       "category": "dependency",
-      "reference": "powerWorks required Mod ID; Project Nightfall and medWorks consumer APIs",
+      "reference": "B47ANCEDPower required Mod ID; Project Nightfall and Medical consumer APIs",
       "reason": "Dependencies and consumers retain independent identities and versions."
     }
   ],
@@ -123,6 +123,10 @@
     {
       "reference": "docs/validation/0.25.4-thumbnail.md",
       "reason": "Unmodified 0.25.4 artwork validation; not evidence of the subsequent gameplay defect fixes."
+    },
+    {
+      "reference": "docs/AUDIT_FIXES.md, docs/validation/0.25.5-offline-fixes.md",
+      "reason": "Exact nine-fix implementation and offline evidence for 0.25.5; not current runtime proof."
     }
   ]
 }

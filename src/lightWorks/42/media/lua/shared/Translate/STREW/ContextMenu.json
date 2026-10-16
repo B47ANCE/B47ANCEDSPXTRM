@@ -20,5 +20,10 @@
   "ContextMenu_lightWorks_East": "East",
   "ContextMenu_lightWorks_South": "South",
   "ContextMenu_lightWorks_West": "West",
-  "ContextMenu_lightWorks_AlreadyAimed": "The light is already aimed %1."
+  "ContextMenu_lightWorks_AlreadyAimed": "The light is already aimed %1.",
+  "ContextMenu_lightWorks_AimFacing": "Aim along your facing",
+  "ContextMenu_lightWorks_SunExposure": "Sun exposure",
+  "ContextMenu_lightWorks_SunDose": "Accumulated sunlight dose: %1%",
+  "ContextMenu_lightWorks_SunSeverity": "Sunburn severity: %1%",
+  "ContextMenu_lightWorks_SunProtection": "Last sampled protection: %1%"
 }

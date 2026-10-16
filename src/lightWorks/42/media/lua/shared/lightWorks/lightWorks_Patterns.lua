@@ -1,3 +1,4 @@
+local Operations=require "lightWorks/lightWorks_Operations"
 local lightWorks=require "lightWorks/lightWorks_API"
 local Patterns={MAX_PATTERNS=32,MAX_OPERATIONS=32,registry={}}
 local TAU=math.pi*2
@@ -60,15 +61,15 @@ function Patterns.set(item,id,operationId)
     if lightWorks.Config.EnableLightPatterns==false then return false,"light patterns disabled"end
     if not lightWorks.isRegisteredLight(item)then return false,"registered light required"end
     if not Patterns.registry[id]then return false,"unknown light pattern"end
-    if type(operationId)~="string"or operationId==""then return false,"operationId required"end
+    if type(operationId)~="string"or operationId==""or #operationId>128 then return false,"operationId required"end
     local data=modData(item);if not data then return false,"item ModData unavailable"end
     local state=data.lightWorksPattern
-    if state~=nil and(type(state)~="table"or state.schemaVersion~=1 or type(state.processedOperations)~="table")then return false,"unsupported pattern state"end
+    if state~=nil and(type(state)~="table"or state.schemaVersion~=1 or not Operations.validHistory(state.processedOperations))then return false,"unsupported pattern state"end
     state=state or{schemaVersion=1,id="steady",processedOperations={}};data.lightWorksPattern=state
     for _,existing in ipairs(state.processedOperations)do if existing==operationId then return false,"duplicate operation"end end
     local previous,previousEpoch=state.id,state.startedAtWorldAgeMs
     state.id=id;state.startedAtWorldAgeMs=now()
-    local Power=rawget(_G,"powerWorks")or lightWorks.powerWorks
+    local Power=(rawget(_G,"B47ANCEDPower")or rawget(_G,"powerWorks")or lightWorks.powerWorks)
     if type(Power)=="table"and type(Power.refreshConsumer)=="function"then
         local ok,refreshed=pcall(Power.refreshConsumer,item)
         if not ok or refreshed~=true then state.id=previous;state.startedAtWorldAgeMs=previousEpoch;return false,"power demand refresh failed"end

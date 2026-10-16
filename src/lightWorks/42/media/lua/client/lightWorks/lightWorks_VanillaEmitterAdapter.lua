@@ -1,3 +1,5 @@
+local Direction=require "lightWorks/lightWorks_Direction"
+local Occlusion=require "lightWorks/lightWorks_UVOcclusion"
 local Adapter={capabilities=nil}
 
 local function call(object,method,...)
@@ -29,6 +31,8 @@ end
 
 function Adapter.exists(backing)
     if not backing then return false end
+    local healthOk,health=call(backing,"getThumpCondition")
+    if healthOk and type(health)=="number" and health<=0 then return false end
     local ok,value=call(backing,"isExistInTheWorld")
     if ok then return value==true end
     local squareOk,square=call(backing,"getSquare")
@@ -36,12 +40,14 @@ function Adapter.exists(backing)
 end
 
 function Adapter.setAttackable(backing,value)
-    local ok=call(backing,"setMovedThumpable",value==true)
-    if not ok then return false,"world backing has no verified thumpable toggle"end
     if value==true then
         local healthOk,condition=call(backing,"getThumpCondition")
-        if healthOk and tonumber(condition)and tonumber(condition)<=0 then return false,"world backing is already destroyed"end
+        if healthOk and tonumber(condition)and tonumber(condition)<=0 then
+            call(backing,"setMovedThumpable",false);return false,"world backing is already destroyed"
+        end
     end
+    local ok=call(backing,"setMovedThumpable",value==true)
+    if not ok then return false,"world backing has no verified thumpable toggle"end
     return true
 end
 
@@ -61,10 +67,9 @@ function Adapter.remove(source)
     return cell and pcall(function() cell:removeLamppost(source) end) or false
 end
 
-local DIRECTION={N={0,-1},E={1,0},S={0,1},W={-1,0}}
 function Adapter.createDirectional(x,y,z,color,profile,phase,orientation)
-    local vector=DIRECTION[string.upper(tostring(orientation or""))]
-    if not vector then return nil,"cardinal orientation required"end
+    local dx,dy=Direction.vector(orientation)
+    if not dx then return nil,"valid orientation required"end
     profile=type(profile)=="table"and profile or{}
     local distance=math.max(1,tonumber(profile.radius)or 6)
     local nodes=math.max(2,math.min(8,math.floor(tonumber(profile.nodes)or 4)))
@@ -77,15 +82,10 @@ function Adapter.createDirectional(x,y,z,color,profile,phase,orientation)
     for index=0,nodes-1 do
         local fraction=index/math.max(1,nodes-1)
         local travel=distance*fraction
-        local sx,sy=math.floor(x+vector[1]*travel),math.floor(y+vector[2]*travel)
+        local sx,sy=math.floor(x+dx*travel),math.floor(y+dy*travel)
         local square=cell:getGridSquare(sx,sy,math.floor(z));if not square then break end
-        if prior and square~=prior then
-            local blocked=false
-            local ok,value=pcall(function()return prior:CalculateVisionBlocked(square)end)
-            if not ok then ok,value=pcall(function()return prior:isBlockedTo(square)end)end
-            blocked=ok and value==true
-            if blocked then break end
-        end
+        local transmission=Occlusion.trace(cell,{x=x,y=y,z=z},{x=sx+.5,y=sy+.5,z=z},{windowTransmission=1})
+        if transmission~=1 then break end
         local localStrength=phase*(falloff^index)
         local radius=math.max(1,(distance/nodes)*(0.8+width)*math.sqrt(localStrength))
         local source,reason=Adapter.create(sx,sy,z,color,radius)

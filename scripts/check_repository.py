@@ -62,7 +62,7 @@ def credentials(staged=False):
 def source_checks():
     errors = []
     info = dict(line.split("=", 1) for line in (SOURCE / "mod.info").read_text().splitlines() if "=" in line)
-    expected = {"name": "B47ANCED Spectrum", "id": "lightWorks", "require": "powerWorks", "versionMin": "42.20.3"}
+    expected = {"name": "B47ANCED Spectrum", "id": "lightWorks", "require": "B47ANCEDPower", "versionMin": "42.20.3"}
     for key, value in expected.items():
         if info.get(key) != value:
             errors.append("Unexpected mod identity/dependency field: " + key)
@@ -101,6 +101,27 @@ def source_checks():
         used = set(re.findall(r'''["']((?:ContextMenu|Sandbox)_lightWorks(?:_[A-Za-z0-9]+)*)["']''', path.read_text()))
         for missing in used - keys:
             errors.append(f"Missing owned translation key {missing} in {path.name}")
+    # The native settings UI and the server's schema must describe the same
+    # configurable behavior; a drift here can make displayed bounds misleading.
+    declarations = {}
+    for name, body in re.findall(r"option lightWorks\.(\w+)\s*\{([^}]+)\}", (SOURCE / "media/sandbox-options.txt").read_text()):
+        fields = dict(re.findall(r"(\w+)\s*=\s*([\w.-]+)", body))
+        declarations[name] = {k: fields[k] for k in ["type", "default", "min", "max"] if k in fields}
+        for suffix in ["", "_tooltip"]:
+            if "Sandbox_lightWorks_" + name + suffix not in keys:
+                errors.append("Sandbox label/tooltip missing: " + name + suffix)
+    runtime_schema = {}
+    schema_text = (lua_root / "shared/lightWorks/lightWorks_Sandbox.lua").read_text()
+    for name, body in re.findall(r'^\s+(\w+)=\{([^}]+)\},$', schema_text, re.M):
+        fields = {}
+        for key, quoted, plain in re.findall(r'(\w+)=(?:"([^"]+)"|([\w.-]+))', body):
+            fields["type" if key == "kind" else key] = quoted or plain
+        runtime_schema[name] = fields
+    def normalized(schema):
+        return {name: {key: float(value) if key in {"min", "max"} or (key == "default" and value not in {"true", "false"}) else value
+                       for key, value in fields.items()} for name, fields in schema.items()}
+    if normalized(declarations) != normalized(runtime_schema):
+        errors.append("Native sandbox options and runtime validation schema differ")
     descriptions = [(ROOT / p).read_text(encoding="utf-8") for p in ["WORKSHOP_DESCRIPTION.txt", "docs/STEAM_WORKSHOP_DESCRIPTION.txt"]]
     workshop_lines = (ROOT / "workshop.txt").read_text(encoding="utf-8").splitlines()
     rendered = "\n".join(line[len("description="):] for line in workshop_lines if line.startswith("description=")) + "\n"

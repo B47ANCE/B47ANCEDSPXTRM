@@ -110,7 +110,7 @@ end
 local function bulbEmitter(light)
     if not light or not lightWorks.isRegisteredLight(light) or not lightWorks.hasBulb(light)
         or (lightWorks.isBulbBurnedOut and lightWorks.isBulbBurnedOut(light)) then return nil end
-    local power=rawget(_G,"powerWorks")
+    local power=(rawget(_G,"B47ANCEDPower")or rawget(_G,"powerWorks")or lightWorks.powerWorks)
     if type(power)=="table" and type(power.isRegisteredConsumer)=="function" then
         local registeredOk,registered=pcall(power.isRegisteredConsumer,light)
         if registeredOk and registered==true then

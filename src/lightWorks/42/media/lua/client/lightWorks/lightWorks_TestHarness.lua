@@ -29,8 +29,8 @@ local CORE_KIT = {
     {"Base.HandTorch", 1}, {"Base.Torch", 1}, {"Base.FlashLight_AngleHead", 1},
     {"Base.FlashLight_AngleHead_Army", 1}, {"Base.PenLight", 1}, {"Base.GunLight", 1},
     {"Base.Battery", 6}, {"Base.Screwdriver", 1}, {"Base.Pliers", 1},
-    {"powerWorks.BatteryAAA", 2}, {"powerWorks.BatteryAA", 4},
-    {"powerWorks.BatteryD", 2}, {"powerWorks.BatteryAAImprovised", 1},
+    {"B47ANCEDPower.BatteryAAA", 2}, {"B47ANCEDPower.BatteryAA", 4},
+    {"B47ANCEDPower.BatteryD", 2}, {"B47ANCEDPower.BatteryAAImprovised", 1},
     {"Base.ViseGrips", 1}, {"Base.Multitool", 1}, {"Base.LightBulb", 4},
     {"Base.LightBulbRed", 3}, {"Base.LightBulbGreen", 2}, {"Base.LightBulbBlue", 2},
     {"Base.LightBulbCyan", 2}, {"Base.LightBulbMagenta", 2}, {"Base.LightBulbOrange", 2},
@@ -187,15 +187,15 @@ function Harness.runChecks()
             log("SKIP Nightfall UV checks (Nightfall bulb not registered)")
         end
 
-        local Power = rawget(_G, "powerWorks")
+        local Power = rawget(_G, "B47ANCEDPower") or lightWorks.powerWorks
         if Power and type(Power.installBattery) == "function" then
             check("required powerWorks integration available", true)
             pcall(function() light:setActivated(false) end)
             pcall(function() light:setUsedDelta(0) end)
             local profile = Power.getConsumerProfile(light)
             local firstSize = profile and profile.sizes and profile.sizes[1] or "AA"
-            local batteryType = firstSize=="D" and "powerWorks.BatteryD" or firstSize=="AAA"
-                and "powerWorks.BatteryAAA" or "powerWorks.BatteryAA"
+            local batteryType = firstSize=="D" and "B47ANCEDPower.BatteryD" or firstSize=="AAA"
+                and "B47ANCEDPower.BatteryAAA" or "B47ANCEDPower.BatteryAA"
             local battery = add(player:getInventory(), batteryType)
             local required = Power.getRequiredCellCount and Power.getRequiredCellCount(light, battery) or 1
             local cells = battery and {battery} or {}

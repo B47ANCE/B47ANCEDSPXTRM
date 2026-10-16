@@ -9,7 +9,7 @@ Comprehensive Lighting & Optical Effects Framework
 Description:
 B47ANCED Spectrum is the theWorks ecosystem framework for light sources, illumination, optical effects, modular bulbs, emission spectra, sunlight, and UV exposure. Its current release turns compatible portable lights into serviceable equipment with replaceable bulbs, maintenance tools, burnout, colored visible light, tactical visibility profiles, attachment support, and reusable exposure APIs.
 
-It supports verified flashlights, angle-headed lights, and weapon lights while preserving their original item identity. Other mods can register exact compatible lights and custom emission channels. Project Nightfall uses B47ANCED Spectrum for UV sources and natural/artificial exposure, then owns all infected-specific consequences. Required powerWorks integration supplies sized batteries and consumption accounting.
+It supports verified flashlights, angle-headed lights, and weapon lights while preserving their original item identity. Other mods can register exact compatible lights and custom emission channels. Project Nightfall uses B47ANCED Spectrum for UV sources and natural/artificial exposure, then owns all infected-specific consequences. Required B47ANCEDPower integration supplies sized batteries and consumption accounting.
 
 Automatic discovery reports probable modded lights for human review. A discovered item is never made serviceable until an exact compatibility provider verifies it.
 
@@ -26,7 +26,7 @@ Features:
 
 Requirements:
 - Project Zomboid Build 42.20.3 or later
-- powerWorks
+- B47ANCEDPower
 
 Known limitations:
 - Automatically discovered lights require a reviewed compatibility patch.
@@ -35,8 +35,8 @@ Known limitations:
 Author:
 B47ANCE
 
-Version: 0.25.5
-0.25.5
+Version: 0.26.0
+0.26.0
 
 Internal Mod ID:
 lightWorks

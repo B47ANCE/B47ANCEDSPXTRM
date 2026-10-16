@@ -2,8 +2,9 @@
 
 `VERSION` is the sole project SemVer authority. See [VERSION_POLICY.md](VERSION_POLICY.md).
 The owner approved adoption of the evidenced `0.25.2` baseline and a compatible
-PATCH iteration for the Spectrum rename and repository setup. No identifier,
-API, save format, dependency requirement or gameplay behavior is changed.
+PATCH iteration for the original Spectrum rename/setup. Current MINOR additions,
+dependency migration and numeric-angle downgrade limits are described in
+FEATURE_COMPLETION.md; the original baseline evidence remains historical.
 
 `version-inventory.json` declares all current mirrors: authoritative `mod.info`,
 Lua API version, both authoring-info version lines, README, tester handoff,

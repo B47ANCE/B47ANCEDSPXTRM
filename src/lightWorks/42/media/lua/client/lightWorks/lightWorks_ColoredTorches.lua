@@ -1,3 +1,5 @@
+local Occlusion=require "lightWorks/lightWorks_UVOcclusion"
+local Players=require "lightWorks/lightWorks_Players"
 require "lightWorks/lightWorks_API"
 local LowPowerFlicker=require "lightWorks/lightWorks_LowPowerFlicker"
 local Patterns=require "lightWorks/lightWorks_Patterns"
@@ -192,15 +194,9 @@ local function renderWorldSources(state,x,y,z,ax,ay,dist,strength,cone,r,g,b,loc
             if sx~=lastX or sy~=lastY then
                 local square=nil
                 pcall(function() square=cell:getGridSquare(sx,sy,baseZ) end)
-                local blocked=false
-                if previous and square then
-                    local ok,value=pcall(function() return previous:CalculateVisionBlocked(square) end)
-                    if not ok then ok,value=pcall(function() return previous:isBlockedTo(square) end) end
-                    blocked=ok and value==true
-                elseif cell.getGridSquare then
-                    -- A missing square is outside the loaded/valid beam path.
-                    blocked=true
-                end
+                local transmission=Occlusion.trace(cell,{x=lastX+.5,y=lastY+.5,z=baseZ},
+                    {x=sx+.5,y=sy+.5,z=baseZ},{windowTransmission=1})
+                local blocked=transmission~=1
                 if blocked then break end
                 reachable[#reachable+1]={x=sx,y=sy,distance=step}
                 previous=square or previous
@@ -252,8 +248,9 @@ end
 local function nativeIdsByItem(player, playerIndex)
     local result, active = {}, {}
     local items = ArrayList.new()
-    player:getActiveLightItems(items)
-    local count = math.min(items:size(),4)
+    local read=pcall(function() player:getActiveLightItems(items) end)
+    local count=read and tonumber(callValue(items,"size",0)) or 0
+    count=count and count==count and math.max(0,math.min(count,4)) or 0
     for index=0,count-1 do
         local item=items:get(index)
         result[item] = playerIndex*4+index+1
@@ -272,7 +269,7 @@ local function mountedPlayerLights(player)
     if ok and attached then
         local size=0
         pcall(function() size=attached:size() end)
-        for index=0,size-1 do
+        for index=0,math.min(64,math.max(0,tonumber(size)or 0))-1 do
             local attachedItem=nil
             -- AttachedItems:get(index) returns an AttachedItem wrapper in
             -- B42.20.  The inventory item itself is exposed separately.
@@ -304,10 +301,8 @@ local function refreshPlayer(player, playerIndex, seen)
             candidateSeen[item]=true
         end
     end
-    -- Keep inactive/attached discovery for lightWorks-owned fallback sources.
-    for _,item in ipairs(lightWorks.collectPlayerLights(player)) do
-        if not candidateSeen[item] then candidates[#candidates+1]=item end
-    end
+    -- Native active lights plus exact hands/attachment slots cover renderable
+    -- portable emitters. Do not traverse remote or nested inventories per frame.
     for _, item in ipairs(candidates) do
         local profileItem=emitterProfileItem(item)
         -- B42's authoritative player-torch list can contain active lights whose
@@ -323,7 +318,6 @@ local function refreshPlayer(player, playerIndex, seen)
             local location = attachmentLocation(player,item)
             if color or location then
                 local state = ensureState(profileItem)
-                seen[profileItem] = true
                 -- Reuse the engine-owned ID whenever this is one of the four
                 -- active player torches. A separate ID would leave the native
                 -- warm-white beam underneath and wash every color toward white.
@@ -343,8 +337,10 @@ local function refreshPlayer(player, playerIndex, seen)
                 local visible=LowPowerFlicker.shouldRender(profileItem)
                 local patternIntensity=Patterns.evaluate(profileItem)
                 if visible and patternIntensity>0 then
-                    renderWorldSources(state,x,y,z,ax,ay,dist,strength*patternIntensity,cone,r,g,b,lockChroma)
-                else clearSources(state) end
+                    if renderWorldSources(state,x,y,z,ax,ay,dist,strength*patternIntensity,cone,r,g,b,lockChroma) then
+                        seen[profileItem]=true
+                    else restoreState(state) end
+                else clearSources(state);seen[profileItem]=true end
                 local signature=string.format("%s:%.3f:%.3f:%.3f",tostring(state.bulbType),r,g,b)
                 if lastReports[profileItem]~=signature then
                     lastReports[profileItem]=signature
@@ -366,7 +362,13 @@ function lightWorks.refreshColoredTorches()
     if not ArrayList or type(IsoLightSource)~="table" then return false end
     local ok, err = pcall(function()
         local seen = {}
-        for playerIndex=0,3 do refreshPlayer(getSpecificPlayer(playerIndex),playerIndex,seen) end
+        for index,player in ipairs(Players.collect(true)) do
+            local playerOk,playerError=pcall(refreshPlayer,player,index-1,seen)
+            if not playerOk and not reportedFailure then
+                reportedFailure=true
+                print("[lightWorks] Portable light presentation failed: "..tostring(playerError))
+            end
+        end
         for item,state in pairs(states) do
             if state.active and not seen[item] then
                 -- Never remove an engine-owned native ID here; the engine owns

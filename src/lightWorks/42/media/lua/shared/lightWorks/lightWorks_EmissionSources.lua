@@ -63,7 +63,7 @@ local function physicalThump(object,pawn)
 end
 
 local function powered(object)
-    local power=rawget(_G,"powerWorks")
+    local power=(rawget(_G,"B47ANCEDPower")or rawget(_G,"powerWorks")or lightWorks.powerWorks)
     if type(power)=="table" and type(power.isRegisteredConsumer)=="function" then
         local ok,registered=pcall(power.isRegisteredConsumer,object)
         if ok and registered==true then
@@ -84,15 +84,16 @@ end
 
 local function persistedDirection(object)
     local ok,data=call(object,"getModData");local state=ok and type(data)=="table" and data.lightWorksWorldEmitter or nil
-    local facing=state and string.upper(tostring(state.orientation or"")) or""
-    facing=string.match(facing,"([NSEW]+)$") or facing
-    local vectors={N={0,-1},NE={.707,-.707},E={1,0},SE={.707,.707},S={0,1},SW={-.707,.707},W={-1,0},NW={-.707,-.707}}
-    local vector=vectors[facing];return vector and vector[1] or nil,vector and vector[2] or nil,facing~=""and facing or nil
+    local facing=state and state.orientation
+    local x,y=require("lightWorks/lightWorks_Direction").vector(facing)
+    return x,y,facing
 end
 
 function Sources.registerProvider(definition)
     assert(type(definition)=="table" and type(definition.id)=="string" and definition.id~="","emission-source provider id is required")
     assert(type(definition.inspect)=="function","emission-source provider inspect callback is required")
+    local count=0;for _ in pairs(providers) do count=count+1 end
+    assert(providers[definition.id] or count<64,"emission provider limit")
     providers[definition.id]={id=definition.id,priority=finite(definition.priority) or 0,inspect=definition.inspect}
     return providers[definition.id]
 end
@@ -103,6 +104,7 @@ function Sources.unregisterProvider(id)local existed=providers[id]~=nil;provider
 -- contract. requestAttack must issue or configure an engine-native physical
 -- attack; consumers must never call it as a disguised setOn(false).
 function Sources.requestPhysicalAttack(source,pawn)
+    if type(isClient)=="function" and isClient()==true and not(type(isServer)=="function" and isServer()==true) then return false,"non-authority" end
     local destruction=type(source)=="table" and source.destroy or nil
     if type(destruction)~="table" or destruction.supported~=true or type(destruction.requestAttack)~="function" then
         return false,"source has no verified physical-attack provider"
@@ -120,6 +122,8 @@ end
 
 function Sources.inspect(object,context)
     if not object then return nil,"missing source object" end
+    local healthOk,health=call(object,"getThumpCondition")
+    if healthOk and type(health)=="number" and health<=0 then return nil,"destroyed backing" end
     for _,provider in ipairs(orderedProviders()) do
         local ok,result=pcall(provider.inspect,object,context or {})
         if ok and type(result)=="table" then
@@ -187,6 +191,9 @@ Sources.registerProvider{
         local backingObject=object
         local wrappedOk,wrapped=call(object,"getItem")
         if wrappedOk and wrapped then object=wrapped end
+        if wrappedOk and wrapped and lightWorks.Config.EnableWorldEmitters==false then
+            return {on=false,powered=false,emitting=false,reason="world emitters disabled"}
+        end
         local bulbType
         local ok,value=call(object,"getBulbItem")
         if ok then bulbType=value elseif lightWorks.isRegisteredLight(object) then bulbType=lightWorks.getInstalledBulbType(object) end

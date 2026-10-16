@@ -38,7 +38,7 @@
 
 The registry is the only compatibility authority. Discovery never enables servicing. Verified core definitions or exact compatibility patches register serviceable lights. Bulb providers are independent, so a verified mod light accepts Nightfall UV bulbs automatically unless its provider restricts them.
 
-powerWorks is required. Every registered light's declarative `power` profile is registered as a powerWorks consumer, including verified third-party lights and lights carrying Nightfall UV bulbs.
+B47ANCEDPower is required. Every registered light's declarative `power` profile is registered as a B47ANCEDPower consumer, including verified third-party lights and lights carrying Nightfall UV bulbs.
 
 Callbacks fail closed on nil or unusual modded items. Servicing must preserve both bulbs if an inventory mutation fails. Background work stays bounded to local player inventories and cached catalog data; it never scans the world each frame.
 
@@ -132,3 +132,30 @@ advance only the observation checkpoint and apply no retroactive exposure/healin
 UUID IDs preserve the existing bounded replay history and payload format; old
 counter IDs remain historical entries. All clients must update to stop generating
 old colliding IDs. No schema migration, new setting or custom Java is introduced.
+
+
+## Current feature ownership
+
+The maintained dependency uses `B47ANCEDPower/Definitions` and `_G.B47ANCEDPower`.
+The existing `lightWorks_powerWorks` module and `lightWorks.powerWorks` reference
+remain public adapter paths; no power state/global alias is introduced. Historical
+versioned milestones above retain their original dependency names.
+
+`Direction` and `WorldOrientation` share angle validation and server/SP replay-safe
+mutation across world UI and source semantics. Both portable and world source
+chains check every intervening native vision boundary. `Players` enumerates bounded
+local/nearby remote presentation candidates, without requiring local slots on a
+headless authority. Colored rendering reads mounted/native-active items without
+recursive inventory scans per frame.
+
+`Lasers` owns bounded geometry and exact profiles; `LaserRenderer` samples rays
+and draws cached UI overlays. `Fixtures` validates provider facts;
+`FixtureRenderer` owns only explicitly opted-in client presentation. Neither owns
+provider persistence, energy, damage or consumer-specific effects.
+
+`ClothingProtection` supplies deduplicated native covered-region/hole facts to
+Sunburn. Unknown protection preserves dose/severity. `SunburnMenu` reads replicated
+state. `LegacyMigration` is called only by existing authority inventory/world/drop
+lifecycles and retains original records plus bounded migration receipts.
+
+See FEATURE_COMPLETION.md for full contracts, settings, budgets and runtime gates.

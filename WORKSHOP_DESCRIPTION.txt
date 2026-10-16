@@ -1,6 +1,6 @@
 [h1]⚠ DEVELOPMENT BUILD — NOT YET PLAYABLE ⚠[/h1]
 
-[b]Mod Version: 0.25.5[/b]
+[b]Mod Version: 0.26.0[/b]
 
 [b]This mod is under active development and is not yet considered playable or release-ready.[/b]
 
@@ -55,7 +55,7 @@ B47ANCED Spectrum owns bulbs, compatible emitters, rendered light behavior, and 
 [list]
 [*]Device-owned selectors for steady, strobe, pulse, beacon, SOS, alternating, and emergency patterns
 [*]Persistent server-authoritative pattern changes with stale and unknown request rejection
-[*]Average duty-cycle power accounting through powerWorks
+[*]Average duty-cycle power accounting through B47ANCEDPower
 [*]Deterministic near-empty battery flicker for handheld, attached, and weapon-mounted lights
 [*]Configurable flicker threshold, cadence, and near-empty off-window strength
 [/list]
@@ -73,7 +73,7 @@ B47ANCED Spectrum owns bulbs, compatible emitters, rendered light behavior, and 
 [h2]Ecosystem Integration[/h2]
 
 [list]
-[*]Requires powerWorks for battery size, persistent charge, servicing, consumption, pattern drain, and low-power flicker
+[*]Requires B47ANCEDPower for battery size, persistent charge, servicing, consumption, pattern drain, and low-power flicker
 [*]Owns artificial-UV and sunlight semantics consumed by Project Nightfall
 [*]Exposes sunlight and sunburn state to medWorks treatment providers
 [*]Supports compatible vanilla and third-party lights through verified providers
@@ -97,7 +97,7 @@ Visible color, detection behavior, and semantic emissions are separate propertie
 
 [h2]Compatibility[/h2]
 
-Unknown modded lights are inspected safely and placed in a review queue; they are not silently treated as verified. Compatibility patches register approved lights once, after which servicing, bulb color, UV semantics, rendering, and powerWorks behavior flow through the canonical registries.
+Unknown modded lights are inspected safely and placed in a review queue; they are not silently treated as verified. Compatibility patches register approved lights once, after which servicing, bulb color, UV semantics, rendering, and B47ANCEDPower behavior flow through the canonical registries.
 
 [i]Dedicated-server multiplayer compatibility has not yet been certified.[/i]
 
@@ -131,3 +131,13 @@ Formerly lightWorks. Technical Mod ID remains lightWorks for existing saves and 
 
 [b]Workshop ID:[/b] 3788592008
 [b]Mod ID:[/b] lightWorks
+
+
+[h2]Development feature additions[/h2]
+Free-angle world-light geometry, mounted aiming-laser presentation, registered
+advanced fixture adapters, local sunburn status and clothing protection, and
+conservative legacy migration are implemented in source with offline regressions.
+Update the required B47ANCEDPower dependency and all clients/server together.
+Numeric aiming angles are not supported by older Spectrum clients. Unknown legacy
+records and unresolved bulb identities remain quarantined. Native presentation,
+save/streaming and dedicated behavior remain NOT TESTED; G7 and stable G8 BLOCKED.

@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.26.0] - Spectrum core features and improvements
+
+- Add free-angle world aiming, mounted laser presentation, advanced fixture adapters,
+  sunburn status/clothing protection, and conservative authority-owned legacy migration.
+- Use the maintained B47ANCEDPower loader/API and updated developer kits. Existing
+  installations must update that dependency. All client/server code must match;
+  older Spectrum clients cannot interpret saved numeric aiming angles.
+- Correct the real-millisecond flicker clock, include nearby remote lights, bound
+  inventory recursion, verify every beam boundary, and harden replay/state handling.
+- Preserve technical identities, original legacy records, existing sandbox keys,
+  Workshop item and supplied artwork. New settings have validated bounds and fallback text.
+- Offline regression, source integration and runtime gate details: docs/FEATURE_COMPLETION.md
+  and docs/VALIDATION.md. SP/dedicated NOT TESTED; G7 and stable G8 BLOCKED.
+
 ## [0.25.5] — audit defect fixes
 
 - Fix the nine offline-reproduced defects from the audit of 886f97d: authority-owned burnout and drop initialization, world-power settlement/retry checkpoints, renderer cleanup, replay identity, disabled-pattern demand and incomplete sunburn samples.

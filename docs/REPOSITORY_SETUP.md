@@ -1,6 +1,6 @@
 # Repository onboarding
 
-Project Version: 0.25.5
+Project Version: 0.26.0
 
 Public repository: https://github.com/B47ANCE/B47ANCEDSpectrum
 
@@ -50,9 +50,9 @@ of canonical version tracking. See [VERSIONING.md](VERSIONING.md).
   this rename. Its artifact-generation path remains NOT TESTED.
 
 Runtime remains Lua-only. Python/Lupa are development tools only; no Java/JAR or
-native runtime mod dependency was introduced. Existing `powerWorks` remains the
-required battery/consumption owner. It was not modified or runtime-certified by
-this task. No license grant is invented for the imported project; public source
+native runtime mod dependency was introduced. The original onboarding retained `powerWorks`; the current loader uses
+`B47ANCEDPower`. Its repository was inspected read-only for the adapter and an
+actual-source host integration probe, without runtime certification. No license grant is invented for the imported project; public source
 visibility alone does not establish a reuse license.
 
 ## Subsequent thumbnail iteration
@@ -65,3 +65,10 @@ and evidence. The existing game icon and historical packages are preserved.
 ## Audit fixes branch
 
 `fix/offline-audit-defects` starts from the thumbnail/setup branch and carries the compatible nine-defect fixes. Its PR targets `chore/b47anced-spectrum-setup` so the fixes can be reviewed separately while the onboarding PR remains open. Neither main merge nor stable release is implied.
+
+
+## Core features branch
+
+`feature/spectrum-roadmap` starts from `fix/offline-audit-defects` and targets that
+branch in a stacked PR. It does not merge the open onboarding/fix PRs. The MINOR
+feature iteration and dependency/save-extension decisions are in FEATURE_COMPLETION.md.

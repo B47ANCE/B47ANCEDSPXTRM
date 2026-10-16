@@ -9,7 +9,7 @@ Preserve project-specific identity, instructions, source, local settings and run
 # B47ANCED Spectrum repository
 
 - Display name: B47ANCED Spectrum. Technical Mod ID and Lua namespace:
-  `lightWorks`; required Mod ID: `powerWorks`; Workshop ID: `3788592008`.
+  `lightWorks`; required Mod ID: `B47ANCEDPower`; Workshop ID: `3788592008`.
 - Authoritative source: `src/lightWorks`. Root `Contents` is a preserved stale
   packaging snapshot. Never build from it, overwrite it or delete it implicitly.
 - Canonical version: root `VERSION`; see `docs/VERSION_POLICY.md`,
@@ -24,7 +24,7 @@ Preserve project-specific identity, instructions, source, local settings and run
 - Keep existing public API, save/config/protocol identifiers and developer
   commands unless a separately authorized compatibility migration is designed.
 - Lua-only runtime; server-authoritative gameplay; meaningful shared options
-  belong in sandbox settings. This branding iteration adds no gameplay setting.
+  belong in sandbox settings. New settings require localized labels, supported bounds and server interpretation.
 - Use named feature/fix branches and PRs before merging main. No main merge or
   stable tag is implied by a push. No branch protection change without approval.
 - G7 remains BLOCKED / NOT TESTED and stable-release G8 BLOCKED until required

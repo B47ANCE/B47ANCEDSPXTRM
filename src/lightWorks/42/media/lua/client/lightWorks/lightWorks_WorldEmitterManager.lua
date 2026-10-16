@@ -1,3 +1,4 @@
+local Direction=require "lightWorks/lightWorks_Direction"
 require "lightWorks/lightWorks_API"
 require "lightWorks/lightWorks_Patterns"
 require "lightWorks/lightWorks_LowPowerFlicker"
@@ -24,6 +25,7 @@ local function setActive(item,value)
 end
 local function emitterId(item)
     local mdOk,md=call(item,"getModData");if not mdOk or type(md)~="table" then return nil end
+    if md.lightWorksWorldEmitter~=nil and (type(md.lightWorksWorldEmitter)~="table" or md.lightWorksWorldEmitter.schemaVersion~=1) then return nil end
     md.lightWorksWorldEmitter=type(md.lightWorksWorldEmitter)=="table" and md.lightWorksWorldEmitter or {schemaVersion=1}
     local state=md.lightWorksWorldEmitter
     if type(state.id)~="string" or state.id=="" then
@@ -44,7 +46,7 @@ local function profileFor(item)
         pattern=lightWorks.Patterns.getPatternId(item)}
 end
 local function powerState(item)
-    local power=rawget(_G,"powerWorks")
+    local power=(rawget(_G,"B47ANCEDPower")or rawget(_G,"powerWorks")or lightWorks.powerWorks)
     if power and type(power.getConsumerPowerState)=="function" then
         local ok,state=pcall(power.getConsumerPowerState,item)
         if ok and type(state)=="table" and state.known==true then return state.powered==true,state end
@@ -68,7 +70,7 @@ function Manager.ensure(backing,transitionActive,orientation)
     local profile=profileFor(item)
     if not profile then Manager.unregister(backing);return nil,"unregistered or bulb-less light" end
     local id,state=emitterId(item);if not id then return nil,"item ModData unavailable" end
-    if orientation~=nil then state.orientation=tostring(orientation) end
+    if orientation~=nil and Direction.normalize(orientation)~=nil then state.orientation=orientation end
     if type(transitionActive)=="boolean" then state.active=transitionActive end
     if state.active==nil then state.active=active(item) end
     if state.active==true and not active(item) then setActive(item,true) end
@@ -91,12 +93,12 @@ function Manager.ensure(backing,transitionActive,orientation)
     -- Fallback adapters recreate sources for phase changes. Quantization keeps
     -- pulses smooth enough without hammering the native light registry.
     local renderPhase=record.mode=="pulse" and math.floor(phase*8+.5)/8 or phase
-    local orientation=string.upper(tostring(record.orientation or""))
+    local orientation=record.orientation
     local signature=table.concat({math.floor(x),math.floor(y),math.floor(z),profile.color.r,profile.color.g,profile.color.b,
-        profile.radius,renderPhase,tostring(profile.directional),orientation,profile.width,profile.nodes,profile.falloff},":")
+        profile.radius,renderPhase,tostring(profile.directional),tostring(orientation),profile.width,profile.nodes,profile.falloff},":")
     if signature~=record.signature then
         clear(record)
-        if profile.directional and(orientation=="N"or orientation=="E"or orientation=="S"or orientation=="W")then
+        if profile.directional and Direction.normalize(orientation)~=nil then
             record.sources=Adapter.createDirectional(x,y,z,profile.color,profile,renderPhase,orientation)
             record.source=record.sources and record.sources[1]or nil
         else

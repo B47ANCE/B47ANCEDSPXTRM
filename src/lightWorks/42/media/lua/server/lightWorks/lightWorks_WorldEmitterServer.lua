@@ -19,16 +19,11 @@ local function nearby(player,args)
     px,py,pz=tonumber(px),tonumber(py),tonumber(pz)
     return px and py and pz and math.floor(pz)==args.z and (px-args.x)^2+(py-args.y)^2<=9
 end
-local ORIENTATION={N=true,E=true,S=true,W=true}
-local function setOrientation(resolved,orientation)
-    orientation=type(orientation)=="string"and string.upper(orientation)or nil
-    if not ORIENTATION[orientation]then return false end
-    local data=Access.modData(resolved.item);if type(data)~="table"then return false end
-    data.lightWorksWorldEmitter=type(data.lightWorksWorldEmitter)=="table"and data.lightWorksWorldEmitter or{schemaVersion=1}
-    data.lightWorksWorldEmitter.orientation=orientation
-    Access.call(resolved.item,"transmitModData")
-    WorldPower.prepareBacking(resolved.backing,resolved.item)
-    return true,orientation
+local Orientation=require "lightWorks/lightWorks_WorldOrientation"
+local function setOrientation(resolved,orientation,operationId)
+    local changed,value=Orientation.set(resolved.item,orientation,operationId)
+    if changed then WorldPower.prepareBacking(resolved.backing,resolved.item) end
+    return changed,value
 end
 local function onCommand(module,command,player,args)
     if module~="lightWorks"or(command~="setWorldEmitterActive"and command~="setWorldEmitterOrientation")or type(args)~="table"or not player then return end
@@ -39,7 +34,7 @@ local function onCommand(module,command,player,args)
     if command=="setWorldEmitterOrientation"then
         local profile=lightWorks.getLightProfile(resolved.item)
         if not profile or not profile.emitter or profile.emitter.cone~=true then return end
-        local changed,orientation=setOrientation(resolved,args.orientation);if not changed then return end
+        local changed,orientation=setOrientation(resolved,args.orientation,args.operationId);if not changed then return end
         if type(sendServerCommand)=="function"then
             pcall(sendServerCommand,"lightWorks","worldEmitterOrientation",{x=args.x,y=args.y,z=args.z,
                 itemId=args.itemId,orientation=orientation,operationId=args.operationId})

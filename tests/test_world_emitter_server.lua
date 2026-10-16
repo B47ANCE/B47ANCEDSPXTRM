@@ -37,3 +37,11 @@ assert(#broadcasts==2 and broadcasts[2].command=="worldEmitterOrientation"and br
 Server.onCommand("lightWorks","setWorldEmitterOrientation",player,{x=10,y=20,z=0,itemId=77,orientation="UP",operationId="aim-bad"})
 assert(item.data.lightWorksWorldEmitter.orientation=="W"and #broadcasts==2,"invalid orientation must fail closed")
 print("lightWorks authoritative world-emitter command checks passed")
+
+Server.onCommand("lightWorks","setWorldEmitterOrientation",player,{x=10,y=20,z=0,itemId=77,orientation=27.5,operationId="angle-1"})
+assert(item.data.lightWorksWorldEmitter.orientation==27.5 and #broadcasts==3)
+Server.onCommand("lightWorks","setWorldEmitterOrientation",player,{x=10,y=20,z=0,itemId=77,orientation=180,operationId="angle-1"})
+assert(item.data.lightWorksWorldEmitter.orientation==27.5 and #broadcasts==3,"orientation replays must not mutate")
+local future={schemaVersion=99};item.data.lightWorksWorldEmitter=future
+Server.onCommand("lightWorks","setWorldEmitterOrientation",player,{x=10,y=20,z=0,itemId=77,orientation=180,operationId="future"})
+assert(item.data.lightWorksWorldEmitter==future and #broadcasts==3,"future state must be retained")

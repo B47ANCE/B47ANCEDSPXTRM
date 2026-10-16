@@ -18,3 +18,13 @@ powered=false;assert(not Flicker.shouldRender(item,1234),"known empty consumers 
 known=false;local unknown=Flicker.getState(item,1234);assert(unknown.visible and not unknown.flickering,"unknown power state must not invent flicker")
 lightWorks.Config.EnableLowBatteryFlicker=false;assert(Flicker.shouldRender(item,1234),"sandbox disable must preserve normal rendering")
 print("lightWorks deterministic powerWorks-backed low-battery flicker checks passed")
+
+lightWorks.Config.EnableLowBatteryFlicker=true;known=true;powered=true;charge=.05
+local milliseconds=100
+getTimestampMs=function()return milliseconds end
+getGameTime=function()error("flicker must not use accelerated game time")end
+assert(Flicker.getState(item).visible==Flicker.getState(item,milliseconds).visible)
+milliseconds=2200
+assert(Flicker.getState(item).visible==Flicker.getState(item,milliseconds).visible)
+B47ANCEDPower={getConsumerPowerState=function()return {known=true,powered=false,chargeFraction=0}end}
+assert(not Flicker.shouldRender(item),"maintained power namespace must take precedence")

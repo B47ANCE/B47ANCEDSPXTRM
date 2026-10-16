@@ -6,7 +6,7 @@ local function burnoutAuthority()
     return not(type(isClient)=="function" and isClient()==true)
 end
 
-lightWorks.VERSION = "0.25.5"
+lightWorks.VERSION = "0.26.0"
 lightWorks.MODDATA_KEY = "lightWorks"
 -- UV is a mechanical emission with one canonical visible representation.
 -- Emitter profiles still control strength, reach, cone geometry and falloff.
@@ -64,23 +64,13 @@ lightWorks.Config = lightWorks.Config or {
     DefaultToolInstallBulbTime = 100,
 }
 
-local SANDBOX_CONFIG_KEYS = {
-    "EnableBurnout", "BulbLifetimeMultiplier", "ServiceTimeMultiplier",
-    "RequireServiceTools", "EnableAutomaticDiscovery", "EnableColoredLightRenderer",
-    "EnableAttachmentGeometry", "EnableSpawnBulbConfiguration", "EnableSunburn",
-    "SunburnDoseMultiplier", "SunburnFirstDegreeDoseHours", "SunburnMaximumDoseHours",
-    "SunburnRecoveryDoseHoursPerHour",
-    "EnableLowBatteryFlicker", "LowBatteryFlickerThreshold", "LowBatteryFlickerPeriodMs",
-    "LowBatteryFlickerMinimumOffFraction", "LowBatteryFlickerMaximumOffFraction",
-    "EnableLightPatterns", "EnableWorldEmitters",
-}
+local Sandbox=require "lightWorks/lightWorks_Sandbox"
+for key,value in pairs(Sandbox.read()) do if lightWorks.Config[key]==nil then lightWorks.Config[key]=value end end
 function lightWorks.applySandbox()
     local root=rawget(_G,"SandboxVars")
-    local values=root and root.lightWorks or nil
+    local values=root and root.lightWorks
     if not values then return false end
-    for _,key in ipairs(SANDBOX_CONFIG_KEYS) do
-        if values[key]~=nil then lightWorks.Config[key]=values[key] end
-    end
+    for key,value in pairs(Sandbox.read(values)) do lightWorks.Config[key]=value end
     return true
 end
 lightWorks.applySandbox()
@@ -385,6 +375,10 @@ function lightWorks.canServiceLight(playerObj, lightItem)
     if not lightWorks.isRegisteredLight(lightItem) then
         return false, nil, "not_registered_light"
     end
+    local md=Access.modData(lightItem)
+    if md and md.Bulbworks~=nil and (not lightWorks.LegacyMigration or lightWorks.LegacyMigration.isBlocked(lightItem)) then
+        return false,nil,"legacy_state_requires_inspection"
+    end
 
     local ok, toolType = lightWorks.playerHasRequiredTool(playerObj, lightItem)
     if not ok then
@@ -411,6 +405,8 @@ local function stateFor(lightItem)
     if not lightItem then return nil end
     local md = Access.modData(lightItem)
     if not md then return nil end
+    if md.Bulbworks~=nil and (not lightWorks.LegacyMigration or lightWorks.LegacyMigration.isBlocked(lightItem)) then return nil end
+    if md[lightWorks.MODDATA_KEY]~=nil and type(md[lightWorks.MODDATA_KEY])~="table" then return nil end
     md[lightWorks.MODDATA_KEY] = md[lightWorks.MODDATA_KEY] or {}
     local state = md[lightWorks.MODDATA_KEY]
 
@@ -433,7 +429,9 @@ function lightWorks.getInstalledBulbType(lightItem)
 
     if type(lightItem) == "string" then return lightProfile.defaultBulb end
     local md = Access.modData(lightItem)
+    if md and md.Bulbworks~=nil and (not lightWorks.LegacyMigration or lightWorks.LegacyMigration.isBlocked(lightItem)) then return nil end
     local state = md and md[lightWorks.MODDATA_KEY] or nil
+    if state~=nil and type(state)~="table" then return nil end
     if state and state.hasExplicitBulbState then
         return state.installedBulb -- nil means physically no bulb installed
     end
@@ -689,7 +687,7 @@ end
 -- Returns the old bulb type. A stock/unmodified light is treated as containing
 -- its registered default bulb, so installing UV correctly returns Base.LightBulb.
 local function refreshpowerWorks(lightItem)
-    local power=rawget(_G,"powerWorks")
+    local power=(rawget(_G,"B47ANCEDPower")or rawget(_G,"powerWorks")or lightWorks.powerWorks)
     if power and power.refreshConsumer then pcall(power.refreshConsumer,lightItem) end
 end
 

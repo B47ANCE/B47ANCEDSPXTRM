@@ -3,6 +3,8 @@ local lightWorks = lightWorks
 
 lightWorks.ItemAccess = lightWorks.ItemAccess or {}
 local Access = lightWorks.ItemAccess
+Access.MAX_ITEMS=1024
+Access.MAX_CONTAINERS=64
 local unpackArgs = unpack or table.unpack
 
 function Access.call(object, methodName, ...)
@@ -29,11 +31,12 @@ function Access.modData(item)
     return ok and value or nil
 end
 
-local function appendJavaList(out, list)
+local function appendJavaList(out, list, limit)
     if not list then return end
+    limit=limit or Access.MAX_ITEMS
     local okIterator, iterator = Access.call(list, "iterator")
     if okIterator and iterator then
-        while true do
+        for _=1,math.max(0,limit-#out) do
             local okHas, has = Access.call(iterator, "hasNext")
             if not okHas or not has then break end
             local okNext, value = Access.call(iterator, "next")
@@ -43,7 +46,7 @@ local function appendJavaList(out, list)
     end
     local okSize, size = Access.call(list, "size")
     if not okSize or type(size) ~= "number" then return end
-    for i = 0, size - 1 do
+    for i = 0, math.min(size,limit-#out) - 1 do
         local okGet, value = Access.call(list, "get", i)
         if okGet and value then out[#out + 1] = value end
     end
@@ -53,30 +56,43 @@ function Access.inventoryItems(playerObj)
     local out = {}
     local inv = Access.inventory(playerObj)
     if not inv then return out end
-    if ArrayList and ArrayList.new then
-        local target = ArrayList.new()
-        local ok, list = Access.call(inv, "getAllEvalRecurse", function() return true end, target)
-        if ok then
-            appendJavaList(out, list or target)
-            return out
+    -- Explicit breadth-first discovery bounds both native list reads and nested
+    -- containers. Never ask the engine to traverse the entire inventory first.
+    local queue,seen,items={inv},{[inv]=true},{}
+    local cursor=1
+    while cursor<=#queue and cursor<=Access.MAX_CONTAINERS and #out<Access.MAX_ITEMS do
+        local container=queue[cursor];cursor=cursor+1
+        local ok,list=Access.call(container,"getItems")
+        local found={};if ok then appendJavaList(found,list,Access.MAX_ITEMS-#out) end
+        for _,item in ipairs(found) do
+            if not items[item] then
+                items[item]=true;out[#out+1]=item
+                local got,nested=Access.call(item,"getInventory")
+                if got and nested and not seen[nested] and #queue<Access.MAX_CONTAINERS then
+                    seen[nested]=true;queue[#queue+1]=nested
+                end
+                if #out>=Access.MAX_ITEMS then break end
+            end
         end
     end
-    local ok, list = Access.call(inv, "getItems")
-    if ok then appendJavaList(out, list) end
     return out
 end
 
 function Access.attachedItems(playerObj)
     local out = {}
     local ok, list = Access.call(playerObj, "getAttachedItems")
-    if ok then appendJavaList(out, list) end
+    if ok then appendJavaList(out, list,64) end
+    for index,entry in ipairs(out) do
+        local wrapped,item=Access.call(entry,"getItem")
+        if wrapped and item then out[index]=item end
+    end
     return out
 end
 
 function Access.weaponParts(item)
     local out = {}
     local ok, list = Access.call(item, "getAllWeaponParts")
-    if ok then appendJavaList(out, list) end
+    if ok then appendJavaList(out, list,32) end
     return out
 end
 

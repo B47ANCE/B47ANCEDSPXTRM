@@ -16,15 +16,12 @@ lightWorks owns lighting, optical effects, UV, sunlight exposure, and sunburn. B
 10. **L9 — Nightfall migration:** lightWorks exposure with Nightfall-owned infected damage and behavior.
 11. **L10 — Optional integrations:** waterWorks UV treatment, farmWorks grow-light output, and medWorks sunburn treatment.
 
-Current implementation includes the renamed bulb/portable-light framework, the
-natural/artificial UV exposure API, and an initial persistent authority-owned
-sunburn vertical slice. Portable emitters also use deterministic powerWorks-backed
-low-battery flicker. Registered dropped/placed lights now bind real vanilla
-world sources, persist semantic identity/orientation, share effect phase with
-UV queries, and cleanly rebind or unregister across lifecycle transitions.
-Destructible placement proxies, advanced directional
-world cones, lasers, advanced fixtures/occlusion, and live
-multiplayer validation remain planned and must not be claimed complete.
+Current source includes L0-L5/L7 optical and bulb foundations, an L6 mounted-laser
+presentation slice, explicit advanced fixture adapters, arbitrary-angle world-light
+geometry, clothing protection/status and conservative known-record migration.
+See MASTER_ROADMAP.md and FEATURE_COMPLETION.md for exact completion/gate status.
+Native model rotation/blood redraw, live calibration, dedicated verification and
+consumer-owned L9/L10 work remain gated; no Java fallback is authorized.
 
 Version 0.25 adds deliberate cardinal aiming for directional dropped lights and
 a bounded falloff-aware visible source chain that stops at verified wall
@@ -102,3 +99,11 @@ contain legacy item state, so compatibility is required, but implementation is
 blocked: obsolete Nightfall bulb identities lack an explicit alias and no single
 authority-owned bounded migration/synchronization path currently covers carried
 and streamed-world items. Legacy data remains untouched until both gates close.
+
+
+## Migration implementation follow-up
+
+The dated Phase B conclusion above is historical. Current authority callers and
+receipt/quarantine handling are implemented in LegacyMigration; known registered
+records can convert. Obsolete Nightfall IDs and conflicting records remain
+quarantined until their owners declare aliases/precedence. See FEATURE_COMPLETION.md.

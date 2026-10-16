@@ -1,6 +1,6 @@
-# B47ANCED Spectrum 0.25.5 playtester handoff
+# B47ANCED Spectrum 0.26.0 playtester handoff
 
-Begin only after powerWorks is reviewed as PASS. Enable only powerWorks and
+Begin only after B47ANCEDPower is reviewed as PASS. Enable only B47ANCEDPower and
 B47ANCED Spectrum (Mod ID `lightWorks`) on a disposable save and run `lightWorksTestStart(true)`.
 
 1. Run `lightWorksTestChecks()` to prepare the kit and verify core behavior.
@@ -16,3 +16,12 @@ Return the stage report, `console.txt`, and screenshots for visual failures. Do
 not enable Nightfall until this stage is reviewed.
 
 This iteration fixes the nine audit defects in source. Follow `docs/AUDIT_FIXES.md` for dedicated checks; host regressions alone do not establish a stage PASS.
+
+
+Additional 0.26.0 tests: arbitrary facing before/after walking to a world light;
+thin-wall beam boundaries; two-client remote light/reconnect; wall-clock flicker
+at different game speeds; Base.Laser while aiming with mouse/controller and
+split-screen; custom fixture power/off/remove; clothing layers/holes and unknown
+protection; known/empty/conflicting legacy fixtures through restart/late join.
+Use disposable migration fixtures, never real saves. Update all clients/server.
+See docs/FEATURE_COMPLETION.md and docs/VALIDATION.md for blockers.

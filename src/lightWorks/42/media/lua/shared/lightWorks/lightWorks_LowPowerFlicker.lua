@@ -9,17 +9,14 @@ local function identity(item)
     return tostring(item)
 end
 local function now()
-    if type(getGameTime)=="function"then
-        local ok,gameTime=pcall(getGameTime)
-        if ok and gameTime then local ageOk,hours=pcall(function()return gameTime:getWorldAgeHours()end);if ageOk and finite(hours)then return math.floor(hours*3600000)end end
-    end
+    -- The sandbox period is real milliseconds, independent of world speed.
     if type(getTimestampMs)=="function"then local ok,value=pcall(getTimestampMs);if ok and finite(value)then return finite(value)end end
     return math.floor((os.time and os.time()or 0)*1000)
 end
 function Flicker.getState(item,timestampMs)
     local result={known=false,flickering=false,visible=true,chargeFraction=nil}
     if lightWorks.Config.EnableLowBatteryFlicker==false then return result end
-    local Power=rawget(_G,"powerWorks")or lightWorks.powerWorks
+    local Power=(rawget(_G,"B47ANCEDPower")or rawget(_G,"powerWorks")or lightWorks.powerWorks)
     if type(Power)~="table"or type(Power.getConsumerPowerState)~="function"then return result end
     local ok,state=pcall(Power.getConsumerPowerState,item)
     if not ok or type(state)~="table"or state.known~=true then return result end
