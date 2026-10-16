@@ -1,8 +1,8 @@
-# lightWorks
+# B47ANCED Spectrum
 
-lightWorks is the comprehensive lighting and optical-effects framework for the theWorks ecosystem.
+B47ANCED Spectrum is a Lua-only lighting and optical-effects framework for Project Zomboid Build 42.
 
-- Version: `0.25.2`
+- Version: `0.25.3`
 - Mod ID: `lightWorks`
 - Author: B47ANCE
 - Minimum game version: `42.20.3`
@@ -30,8 +30,8 @@ lightWorks is the comprehensive lighting and optical-effects framework for the t
 - Active powered world lights expose their real inventory backing through the
   vanilla thump contract so Nightfall can order physical—not simulated—destruction.
 
-Project Nightfall registers UV bulbs through this API and consumes lightWorks exposure data for infected-specific consequences. lightWorks never implements Nightfall zombie behavior.
-powerWorks behavior reaches registered third-party lights and Nightfall UV lights through lightWorks' canonical light registry.
+Project Nightfall registers UV bulbs through this API and consumes B47ANCED Spectrum exposure data for infected-specific consequences. B47ANCED Spectrum never implements Nightfall zombie behavior.
+powerWorks behavior reaches registered third-party lights and Nightfall UV lights through B47ANCED Spectrum's canonical light registry.
 
 Heavy-Duty Flashlights are intentionally not attachable. Straight Flashlights and Penlights may hang from belts; angle-headed lights may use belts or webbing.
 
@@ -49,4 +49,31 @@ an issue report and writes the result to `console.txt`.
 
 The authoritative mod source is `src/lightWorks/42/`. `Contents/mods` is a preserved packaging copy. Versions use `MAJOR.MINOR.PATCH`; game compatibility is declared separately through `versionMin`.
 
-lightWorks was renamed from its pre-release working name because bulbs are now one subsystem within a broader lighting, optical-effects, sunlight, and UV framework.
+The display name is B47ANCED Spectrum. The technical Mod ID, Lua API/require namespace, save fields, sandbox option identifiers and network command module remain `lightWorks` to preserve existing integrations. The required `powerWorks` Mod ID and Workshop item `3788592008` are unchanged.
+
+## Development repository
+
+Public source: https://github.com/B47ANCE/B47ANCEDSpectrum
+
+`VERSION` is the sole project-version authority. This iteration is a compatible
+PATCH rename and repository onboarding; it does not change gameplay or claim a
+stable release. See [Repository setup](docs/REPOSITORY_SETUP.md),
+[Versioning](docs/VERSIONING.md), [Changelog](CHANGELOG.md), and
+[Current validation](docs/VALIDATION.md).
+
+With Python 3.12 and the development dependencies installed:
+
+```sh
+python -m pip install -r requirements-dev.txt
+python scripts/validate.py
+```
+
+The Lupa dependency is for offline host tests only. The shipped mod remains Lua
+only. CI performs offline checks and never packages, deploys, uploads, or launches
+the game. Run `python scripts/build.py` only when packaging is explicitly wanted;
+it reads `VERSION` and `src`, refuses nonempty current outputs, and preserves the
+legacy `Contents` copy and archives. No package was built for this rename.
+
+Dedicated multiplayer G7 is **BLOCKED / NOT TESTED**. Stable-release G8 is
+**BLOCKED**. Original source/API audits are historical evidence; neither those
+records nor host tests establish current PZ runtime behavior.

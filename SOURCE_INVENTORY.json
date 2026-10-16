@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "display_name": "B47ANCED Spectrum",
+  "canonical_version": "VERSION",
+  "authoritative_source_roots": [
+    "src/lightWorks"
+  ],
+  "generated_roots": [
+    "dist/current"
+  ],
+  "mirror_roots": [],
+  "historical_local_roots": [
+    "Contents",
+    "dist/release-backups",
+    "dist/staging-backups"
+  ],
+  "mod_ids": [
+    "lightWorks"
+  ],
+  "workshop_id": "3788592008",
+  "required_mod_ids": [
+    "powerWorks"
+  ],
+  "translation_languages": [
+    "AR",
+    "CA",
+    "CH",
+    "CN",
+    "CS",
+    "DA",
+    "DE",
+    "EN",
+    "ES",
+    "ES_CL",
+    "ES_MX",
+    "FI",
+    "FR",
+    "HU",
+    "ID",
+    "IT",
+    "JP",
+    "KO",
+    "NL",
+    "NO",
+    "PL",
+    "PT",
+    "PTBR",
+    "RO",
+    "RU",
+    "STREW",
+    "TH",
+    "TR",
+    "UA"
+  ],
+  "build_command": "python scripts/build.py",
+  "validation_command": "python scripts/validate.py",
+  "notes": [
+    "Legacy Contents is a stale preserved packaging snapshot, not a current mirror; no files are regenerated there.",
+    "Lua-only runtime; Lupa is a development dependency, not distributed with the mod.",
+    "Existing preview, icon and thumbnail artwork is preserved."
+  ]
+}

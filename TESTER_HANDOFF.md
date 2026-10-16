@@ -1,7 +1,7 @@
-# lightWorks 0.25.2 playtester handoff
+# B47ANCED Spectrum 0.25.3 playtester handoff
 
 Begin only after powerWorks is reviewed as PASS. Enable only powerWorks and
-lightWorks on a disposable save and run `lightWorksTestStart(true)`.
+B47ANCED Spectrum (Mod ID `lightWorks`) on a disposable save and run `lightWorksTestStart(true)`.
 
 1. Run `lightWorksTestChecks()` to prepare the kit and verify core behavior.
 2. Run `lightWorksTestTour()`. Move and turn with each named light. Enter PASS only when the described beam, halo, color, and attachment behavior is visible.

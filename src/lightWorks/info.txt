@@ -1,15 +1,15 @@
-lightWorks — STEAM WORKSHOP INFO
+B47ANCED Spectrum — STEAM WORKSHOP INFO
 
 Title:
-lightWorks
+B47ANCED Spectrum
 
 Subtitle:
 Comprehensive Lighting & Optical Effects Framework
 
 Description:
-lightWorks is the theWorks ecosystem framework for light sources, illumination, optical effects, modular bulbs, emission spectra, sunlight, and UV exposure. Its current release turns compatible portable lights into serviceable equipment with replaceable bulbs, maintenance tools, burnout, colored visible light, tactical visibility profiles, attachment support, and reusable exposure APIs.
+B47ANCED Spectrum is the theWorks ecosystem framework for light sources, illumination, optical effects, modular bulbs, emission spectra, sunlight, and UV exposure. Its current release turns compatible portable lights into serviceable equipment with replaceable bulbs, maintenance tools, burnout, colored visible light, tactical visibility profiles, attachment support, and reusable exposure APIs.
 
-It supports verified flashlights, angle-headed lights, and weapon lights while preserving their original item identity. Other mods can register exact compatible lights and custom emission channels. Project Nightfall uses lightWorks for UV sources and natural/artificial exposure, then owns all infected-specific consequences. Required powerWorks integration supplies sized batteries and consumption accounting.
+It supports verified flashlights, angle-headed lights, and weapon lights while preserving their original item identity. Other mods can register exact compatible lights and custom emission channels. Project Nightfall uses B47ANCED Spectrum for UV sources and natural/artificial exposure, then owns all infected-specific consequences. Required powerWorks integration supplies sized batteries and consumption accounting.
 
 Automatic discovery reports probable modded lights for human review. A discovered item is never made serviceable until an exact compatibility provider verifies it.
 
@@ -35,8 +35,8 @@ Known limitations:
 Author:
 B47ANCE
 
-Version: 0.25.2
-0.25.2
+Version: 0.25.3
+0.25.3
 
 Internal Mod ID:
 lightWorks

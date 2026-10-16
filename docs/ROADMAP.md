@@ -1,4 +1,4 @@
-# lightWorks Roadmap
+# B47ANCED Spectrum Roadmap
 
 > Consolidated status: [MASTER_ROADMAP.md](MASTER_ROADMAP.md).
 

@@ -1,7 +1,7 @@
-# lightWorks in-game validation
+# B47ANCED Spectrum in-game validation
 
 Begin stage 5 only after powerWorks is reviewed as PASS. Enable only powerWorks
-and lightWorks on a disposable save.
+and B47ANCED Spectrum (Mod ID `lightWorks`) on a disposable save.
 
 Run `lightWorksTestStart(true)`, then `lightWorksTestChecks()` and
 `lightWorksTestTour()`. The visual tour names each device in plain language,

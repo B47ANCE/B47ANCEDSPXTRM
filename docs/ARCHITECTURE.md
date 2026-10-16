@@ -1,4 +1,4 @@
-# lightWorks Architecture
+# B47ANCED Spectrum Architecture
 
 ## Ownership
 
@@ -98,3 +98,7 @@ inherited moved-object thump contract on both server and client. The shared
 emission contract exposes a destruction provider only when the physical backing
 supports `getThumpableFor` and `Thump`; Nightfall remains the behavior owner and
 vanilla owns damage and networked removal.
+
+## Spectrum branding compatibility
+
+B47ANCED Spectrum is the display name. `lightWorks` remains the technical contract for Mod ID, source layout, Lua globals/requires, persistence, sandbox keys and networking. The rename adds no shared state, gameplay settings, migrations or new network paths. Existing server-authority and sandbox behavior is preserved; dedicated verification remains required. See [NAMING.md](NAMING.md).

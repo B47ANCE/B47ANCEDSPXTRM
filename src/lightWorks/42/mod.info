@@ -1,4 +1,4 @@
-name=lightWorks
+name=B47ANCED Spectrum
 id=lightWorks
 author=B47ANCE
 require=powerWorks
@@ -7,4 +7,4 @@ poster=thumbnail.png
 icon=icon.png
 tags=Build 42;Framework;Items;Gameplay;Utilities
 versionMin=42.20.3
-modversion=0.25.2
+modversion=0.25.3

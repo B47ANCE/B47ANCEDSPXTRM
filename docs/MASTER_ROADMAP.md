@@ -1,6 +1,6 @@
-# lightWorks Master Roadmap
+# B47ANCED Spectrum Master Roadmap
 
-Canonical version: 0.25.2.
+Canonical version: 0.25.3.
 
 ## Implemented
 
