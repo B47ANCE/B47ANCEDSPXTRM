@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.27.0] - Spectrum-owned consumer integrations
+
+- Declare versioned Nightfall stored-bulb aliases in the Spectrum adapter.
+- Add optional Medical procedure delegation, authoritative UVC Water treatment
+  registration and read-only Farming optical observations without consumer writes.
+- Add actual-source integration checks and a strict in-game startup/test preflight.
+- Preserve consumer repositories, native saves, technical identities and artwork.
+  Full-family startup and SP/dedicated runtime remain explicit gates.
+
 ## [0.26.0] - Spectrum core features and improvements
 
 - Add free-angle world aiming, mounted laser presentation, advanced fixture adapters,

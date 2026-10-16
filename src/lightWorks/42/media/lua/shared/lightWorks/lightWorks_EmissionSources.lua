@@ -153,13 +153,18 @@ function Sources.collectWorld(center,radius,limit)
     limit=math.max(1,math.min(512,math.floor(finite(limit) or 128)))
     local cell=rawget(_G,"getCell") and getCell() or nil
     local cx,cy,cz=position(center)
-    if not cell or not cx then return {} end
+    if not cell or not cx or not cy or not cz or math.abs(cx)>2147483615
+        or math.abs(cy)>2147483615 or math.abs(cz)>2147483615 then
+        return {},{complete=false,reason="world position/cell unavailable or out of bounds"}
+    end
     cx,cy,cz=math.floor(cx),math.floor(cy),math.floor(cz)
     local result,seen={},{}
+    local scan={complete=true,inspectedObjects=0}
     for x=cx-radius,cx+radius do
         for y=cy-radius,cy+radius do
             if (x-cx)^2+(y-cy)^2<=radius^2 then
                 local ok,square=pcall(function()return cell:getGridSquare(x,y,cz)end)
+                if not ok then scan.complete=false;scan.reason="square lookup failed" end
                 if ok and square then
                     -- Fixtures and IsoWorldInventoryObject instances live in
                     -- separate square collections in Build 42. Inspect both,
@@ -167,12 +172,19 @@ function Sources.collectWorld(center,radius,limit)
                     for _,getter in ipairs({"getObjects","getWorldObjects"}) do
                         local got,objects=call(square,getter);local count
                         if got and objects then local countOk;countOk,count=call(objects,"size");if not countOk then count=nil end end
+                        count=finite(count)
+                        if not count or count<0 or count~=math.floor(count) or count>4096 then
+                            scan.complete=false;scan.reason="object collection unavailable or truncated"
+                        end
                         count=math.min(4096,math.max(0,math.floor(finite(count) or 0)))
                         for index=0,count-1 do
                             local read,object=call(objects,"get",index)
+                            if not read or not object then scan.complete=false;scan.reason="object lookup failed" end
                             if read and object and not seen[object] then
+                                if scan.inspectedObjects>=2048 then scan.complete=false;scan.reason="object budget";return result,scan end
+                                scan.inspectedObjects=scan.inspectedObjects+1
                                 seen[object]=true;local source=Sources.inspect(object,{center=center})
-                                if source then result[#result+1]=source;if #result>=limit then return result end end
+                                if source then result[#result+1]=source;if #result>=limit then scan.complete=false;scan.reason="source budget";return result,scan end end
                             end
                         end
                     end
@@ -180,7 +192,7 @@ function Sources.collectWorld(center,radius,limit)
             end
         end
     end
-    return result
+    return result,scan
 end
 
 Sources.registerProvider{

@@ -49,5 +49,13 @@
   "Sandbox_lightWorks_LowBatteryFlickerPeriodMs_tooltip": "Length of the flicker cycle in real milliseconds, independent of accelerated game time.",
   "Sandbox_lightWorks_LowBatteryFlickerMinimumOffFraction_tooltip": "Cycle fraction spent dark when charge first reaches the flicker threshold.",
   "Sandbox_lightWorks_LowBatteryFlickerMaximumOffFraction_tooltip": "Maximum dark fraction near empty. Values below the initial dark fraction are corrected.",
-  "Sandbox_lightWorks_EnableLightPatterns_tooltip": "Allow registered pattern changes and output. Disabled patterns retain selection and use steady demand."
+  "Sandbox_lightWorks_EnableLightPatterns_tooltip": "Allow registered pattern changes and output. Disabled patterns retain selection and use steady demand.",
+  "Sandbox_lightWorks_EnableWaterUVIntegration": "Enable optional UVC Water treatment",
+  "Sandbox_lightWorks_EnableWaterUVIntegration_tooltip": "Register a server-only Water treatment pulse. Disabled by default. Requires complete, confirmed UVC exposure at a placed water container; ordinary Nightfall UVA bulbs do not qualify. Not a real disinfection guarantee.",
+  "Sandbox_lightWorks_WaterUVMinimumIntensity": "Minimum UVC treatment intensity",
+  "Sandbox_lightWorks_WaterUVMinimumIntensity_tooltip": "Minimum confirmed local UVC in Spectrum gameplay units for a treatment pulse. Unknown geometry and windows fail closed.",
+  "Sandbox_lightWorks_WaterUVMaximumTurbidity": "Maximum UV-treated water turbidity",
+  "Sandbox_lightWorks_WaterUVMaximumTurbidity_tooltip": "Reject treatment above this normalized turbidity. UV does not remove particles, chemicals or salinity.",
+  "Sandbox_lightWorks_WaterUVBiologicalReduction": "Biological reduction per UVC pulse",
+  "Sandbox_lightWorks_WaterUVBiologicalReduction_tooltip": "Fraction removed from the biological gameplay axis by one accepted treatment operation. No effect on other quality axes and no elapsed-dose guarantee."
 }

@@ -1,81 +1,93 @@
-# Feature iteration validation
+# Consumer integration iteration validation
 
-Project Version: 0.26.0
+Project Version: 0.27.0
 
 Date: 2026-10-16 (America/Phoenix)
-Base: eae1e6f (0.25.5). Branch: feature/spectrum-roadmap.
+Base: 7fd163b5a43b4d46d9ed760d52fba8f0300ce5a9 (0.26.0).
+Branch: feature/spectrum-consumers; stacked PR base: feature/spectrum-roadmap.
+Compatibility: MINOR, optional consumer APIs and sandbox configuration.
 
-## Source and offline evidence
+## Current evidence
 
-- [TESTED, offline Windows] Current full validation: 37 host Lua 5.4 regression
-  files, 46 Lua 5.1 source/template syntax checks, version/source/localization/path
-  and credential checks PASS (197 selected files). Host Lua is not PZ Kahlua.
-- [TESTED, offline Windows] Actual local B47ANCEDPower source integration PASS:
-  profile registration, canonical precedence, pattern demand, disabled-pattern
-  steady demand, world debit and failed-debit checkpoint retention.
-  Dependency HEAD 40ff9ebfe247d56d7dd2e308e7b7eabfb61a7ce0; checkout CLEAN.
-  Shared Lua tree SHA-256 (sorted relative paths, NUL then bytes):
-  a165c3f3262733afc1ea94a8e0ff223df004d5a753db5daecf1c93221073b4c5.
-  The first probe observed dirty HEAD 6772aa9 with the same source fingerprint.
-  A later probe passed against the now-clean dependency commit above. Neither
-  result certifies a deployed pairing. The dependency was read-only and no source was bundled.
-- [VERIFIED, installed source] Steam build 25485521; full engine version UNKNOWN.
-  Vanilla uses native covered-part/hole APIs, mounted weapon-part lookup, indexed
-  projection, UI drawing and activated-mod enumeration. Evidence below records
-  source fingerprints, not runtime or dedicated availability guarantees.
-- [VERIFIED, history] Exact 0.25.5 validation is retained under
-  validation/0.25.5-offline-fixes.md; AUDIT_FIXES.md remains tied to 0.25.5.
-- [TESTED, offline Windows] Targeted staged credential/path audit: 133 changed
-  files, zero findings. Unstaged/staged whitespace checks PASS. Artwork and
-  historical nine-defect records match their exact prior bytes. Remote SHA and
-  CI verification are recorded with the PR after commit/push.
+- [TESTED, offline Windows] python scripts/validate.py PASS: 41 host Lua 5.4
+  regression files; 49 Lua 5.1 source/template syntax files; disposable Python
+  preflight test; version, identity, Lua-only, owned require case, 29 language
+  fallback/schema checks and credential/path audit (216 selected files, 0 findings).
+  The historical nine defects remain covered. Host Lua is not PZ/Kahlua.
+- [TESTED, offline Windows] Actual-source consumer API probe PASS: both Nightfall
+  bulb registrations and stored-field migration with wear, actual Medical procedure
+  reduction/replay, actual Water refusal/transaction/rollback, read-only native
+  crop-provider observation and client mutation refusal. No first-party API is
+  replaced by a compatibility shim. Native objects are stubs. Full mod bootstraps,
+  native inventory/fluids, loader and dedicated availability are NOT TESTED.
+- [TESTED, offline Windows] Actual-source B47ANCEDPower probe PASS: profiles,
+  canonical binding, pattern/disabled-pattern demand, world debit and failed-debit
+  checkpoint retention. Clean dependency HEAD 40ff9ebfe247d56d7dd2e308e7b7eabfb61a7ce0;
+  shared Lua tree hash a165c3f3262733afc1ea94a8e0ff223df004d5a753db5daecf1c93221073b4c5.
+- [TESTED, offline Windows] Source preflight: core PASS, consumers PASS,
+  nightfall BLOCKED with expected exit 1: required Mod ID medWorks is absent.
+  The current medical source declares B47ANCEDHealthCare but preserves medWorks
+  Lua APIs. No namespace/metadata aliases were invented. This is the current
+  blocker; retired experienceWorks imports in the earlier medWorks snapshot are
+  historical and no longer attributed to the renamed medical source.
+- [VERIFIED, source snapshots] Exact API-probe and profile inventories are
+  validation/0.27.0-consumers.json and validation/0.27.0-*-preflight.json. They
+  fingerprint selected files/paths and record dependency HEAD/dirty state.
+  Snapshot fingerprints were stable during each check. External Medical and
+  Knowledge edits were observed during the task; dirty source is not a verified
+  deployable pairing. Repeat source selection and fingerprints before installing.
+  Water/Farming remain legacy non-Git sources; Spectrum adopts no canonical
+  versions or remotes for them. All external checkouts were read-only to this task.
+- [TESTED, offline Windows] Exact staged credential/path audit: 72 intended files,
+  zero findings. Working/staged whitespace checks PASS.
+- [VERIFIED, history/artwork] Supplied thumbnail/preview, icon, 0.25.5 audit records,
+  0.26.0 feature ledger and previous change-note bytes match base history exactly.
+  The original 0.26.0 validation is retained as validation/0.26.0-features.md.
+- [VERIFIED, installed-source history] Steam build 25485521 was inspected for
+  the prior feature iteration; full engine version remains UNKNOWN. No new
+  native API guarantee or runtime result is inferred from that history.
 
-## Exact validation commands
+## Exact commands and freshness
 
-Use Python with requirements-dev.txt installed. On the developer machine the
-executable used is:
-`C:/Users/willi/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe`.
+Python used: C:/Users/willi/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe.
+Development dependencies are in requirements-dev.txt.
 
 ```sh
 python scripts/check_versions.py --root .
 python scripts/validate.py
-python scripts/check_power_integration.py --dependency-root <verified-power-repository>
+python scripts/check_consumer_integrations.py --dependencies ..
+python scripts/check_power_integration.py --dependency-root ../B47ANCEDPower
+python scripts/check_test_readiness.py --dependencies .. --profile core
+python scripts/check_test_readiness.py --dependencies .. --profile consumers
+python scripts/check_test_readiness.py --dependencies .. --profile nightfall
 python scripts/check_repository.py --staged
 git diff --check
 git diff --cached --check
 ```
 
-Run the shared Test-PZRepositoryFreshness.ps1 with this explicit repository before
-edits and commit. Fetch succeeded on entry: clean HEAD/upstream eae1e6f, 0/0;
-main ancestry ahead 3/behind 0. Dirty development REVIEW is not a PASS and must be
-interpreted against the intended changes before commit/push.
+The nightfall command intentionally returns 1 while its external Mod ID mismatch
+exists. A blocked startup profile is not ignored or converted into PASS by the
+API probe. CI runs only repository-local offline tests; it does not have the
+private machine's sibling checkouts. Current package integrity/version --release
+checks are deferred because no package was requested or generated.
 
-## API evidence fingerprints
+Shared freshness command:
+`Test-PZRepositoryFreshness.ps1 -Repository <explicit Spectrum repository>`.
+Entry clean HEAD/upstream 7fd163b: 0/0, main ahead 4/behind 0, no unfinished operation.
+Precommit REVIEW: the same ancestry, dirty only with this intended iteration.
+The new branch temporarily tracks its verified base branch until first push;
+no source reconciliation/reset is performed. Review includes the staged diff,
+tracked files, ignored outputs and exact staged credential/path audit before push.
+The PR records resulting commit, verified remote SHA and CI status.
 
-Paths are relative to the installed game. No vanilla bodies are redistributed.
+## Runtime gates and test scope
 
-| Evidence | SHA-256 |
-| --- | --- |
-| media/lua/client/ISUI/ISGarmentUI.lua (43-44, covered regions) | 3188981fb5060afd1c83993a6d2153ebf4ce282227cdab8b8ca8a8ccd95f676f |
-| media/lua/shared/TimedActions/ISRepairClothing.lua (26-27, holes) | e5e7a777b2f4b7e10542c16987162cc0710e69d3e66aa2363ac575bb6d58d3c3 |
-| media/lua/client/Fishing/TensionUI.lua (11-12, indexed projection) | 6339605e37529c104825325088fe2cd03d7134ee971802b69787b7d397480ab5 |
-| media/lua/shared/TimedActions/ISRemoveWeaponUpgrade.lua (15-18, part lookup) | 38dcfe612f8c54e5c721e34399c917750f02861e5ea369e878ad8a9c84db119a |
-| media/lua/client/ISUI/ISUIElement.lua (UI draw/input/viewport APIs) | 2de4720f995ae35e76a1465c6690ad17fe272e33dec3b106e49c475310440f8f |
-| media/lua/client/ISUI/ISPauseModListUI.lua (19-22, activated-mod list) | 05f83001e8f975c5ee3ea0823ae40384387eceea6d668cda5bbedf22ad72a62c |
-| media/scripts/generated/items/weaponpart.txt (113-125, Base.Laser Canon slot) | 30bc0d5c67711d8aa4ae6a9106137dd37779bebef10a5711e9e5e3559de7d2ea |
-
-Read-only class metadata additionally confirms String getPartType and String
-getWeaponPart overloads. HandWeapon.class SHA-256:
-2d1d3266cd03730fc8af8bfc631eea37a8e07708ceb6fe7b376d2b0e5f4174e4;
-WeaponPart.class SHA-256:
-c378358d6449cc7b1c2e968420b456a9108c8550246bb29b99a13e7ac69a857a.
-Native signatures alone are not Lua invocation proof. Relevant observations were
-recorded in the unmanaged local API audit draft with runtime NOT_TESTED.
-
-## Runtime gates and scope
-
-SP and dedicated multiplayer NOT TESTED. G7 BLOCKED / NOT TESTED; stable G8 BLOCKED.
-No game/server launched, real-save migration, package, deployment, upload, stable
-tag or other-repository write. See TESTING.md for acceptance scenarios and
-FEATURE_COMPLETION.md for exact APIs, settings, retained legacy records,
-dependency/downgrade limits and external/native blockers. No stable-release claim.
+See CONSUMER_INTEGRATIONS.md for contracts, settings, limits and ownership;
+IN_GAME_TEST_HANDOFF.md for staged acceptance and the external loader blocker.
+Core source preparation is complete. Full Nightfall startup remains blocked under
+Spectrum-only write scope. Native laser/fixture rendering, crop sample placement,
+clothing, migration, authority, treatment costs/consent in owning actions, fluid
+synchronization, source streaming, late join/reconnect and restart need actual
+engine evidence. No real save, external mod source or installed game was modified.
+SP NOT TESTED; G7 BLOCKED / NOT TESTED; stable-release G8 BLOCKED.
+No package, deploy, game/server launch, Workshop upload, stable tag or merge.

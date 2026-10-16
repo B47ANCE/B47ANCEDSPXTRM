@@ -2,7 +2,7 @@
 
 B47ANCED Spectrum is a Lua-only lighting and optical-effects framework for Project Zomboid Build 42.
 
-- Version: `0.26.0`
+- Version: `0.27.0`
 - Mod ID: `lightWorks`
 - Author: B47ANCE
 - Minimum game version: `42.20.3`
@@ -56,8 +56,8 @@ The display name is B47ANCED Spectrum. The technical Mod ID, Lua API/require nam
 Public source: https://github.com/B47ANCE/B47ANCEDSpectrum
 
 `VERSION` is the sole project-version authority. This iteration is a
-MINOR feature iteration with free-angle aiming, lasers, fixture adapters, sunburn
-status/clothing protection and conservative legacy migration. It remains a development build. See [Repository setup](docs/REPOSITORY_SETUP.md),
+MINOR consumer-integration iteration with Nightfall stored-bulb aliases, Medical
+procedure delegation, opt-in UVC Water treatment and read-only Farming lighting. It remains a development build. See [Repository setup](docs/REPOSITORY_SETUP.md),
 [Versioning](docs/VERSIONING.md), [Changelog](CHANGELOG.md), and
 [Current validation](docs/VALIDATION.md).
 
@@ -101,3 +101,18 @@ samples. See [Audit fixes and dedicated test plan](docs/AUDIT_FIXES.md).
 See [Feature/API/settings ledger](docs/FEATURE_COMPLETION.md) for ownership,
 consumer contracts, migration/downgrade limits and blocked native features.
 Source completion and offline tests do not establish PZ runtime correctness.
+
+## Consumer integrations and test preparation
+
+Spectrum owns two explicit Nightfall stored-bulb aliases, delegates the existing
+Medical procedure, registers an optional UVC-only Water quality treatment, and
+reports read-only Farming illumination. No consumer files are edited. Water's
+sandbox opt-in defaults off; Nightfall bulbs use UVA and cannot trigger it. No
+UVC device, treatment action or crop growth effect is invented.
+
+See [Consumer contracts/settings](docs/CONSUMER_INTEGRATIONS.md) and
+[Current in-game handoff](docs/IN_GAME_TEST_HANDOFF.md). Core Spectrum + Power
+passes source preflight. Full Nightfall startup is currently BLOCKED by its old
+medWorks dependency versus the renamed B47ANCEDHealthCare Mod ID. The unchanged
+medWorks Lua procedure namespace still works for the optional API bridge.
+Neither source checks nor API presence certify an installed or runtime pairing.

@@ -1,6 +1,7 @@
 # B47ANCED Spectrum Testing
 
-Test on Project Zomboid Build 42.20.3 and inspect `console.txt` afterward.
+Record the exact installed Build 42 version (minimum declared: 42.20.3) and
+inspect `console.txt` afterward. The full current engine version is UNKNOWN.
 
 External playtesters should use [IN_GAME_TESTING.md](IN_GAME_TESTING.md) and
 `lightWorksTestStart(true)`. The `LW*` commands remain available for focused
@@ -8,7 +9,7 @@ developer investigation; mocked execution is not an in-game PASS.
 
 1. Run `LWStartReleaseSuite()`. It performs the API, servicing, UV-semantic, and available B47ANCEDPower battery checks, then starts the visual tour.
 2. Inspect each equipped light, enter `PASS` or describe the issue, and continue; every report is written to `console.txt`.
-3. Confirm metadata, version `0.26.0`, B47ANCED Spectrum sandbox page, and error-free load.
+3. Confirm metadata, version `0.27.0`, B47ANCED Spectrum sandbox page, and error-free load.
 4. Right-click supported, unsupported, nested, equipped, attached, and weapon-part lights.
 5. Confirm bulb actions share the light's existing submenu and show correct icons.
 6. Install, remove, and replace every bulb with and without required tools; verify no loss or duplication.
@@ -116,4 +117,13 @@ disabled patterns, unknown sunlight, bulb removal and renderer disable/re-enable
 
 All items above remain runtime NOT TESTED until evidence is recorded; G7 and stable
 G8 remain BLOCKED. Native blood redraw/model rotation and consumer-specific actions
-retain the blockers in FEATURE_COMPLETION.md.
+retain the historical native blockers in FEATURE_COMPLETION.md. Current consumer
+contracts and the Nightfall loader blocker are in CONSUMER_INTEGRATIONS.md.
+
+## Current consumer stage
+
+Follow [IN_GAME_TEST_HANDOFF.md](IN_GAME_TEST_HANDOFF.md), including source
+preflight, disabled-by-default UVC tests, both bulb aliases, Medical procedure
+replay, crop immutability and two-client/restart acceptance. Debug status is not
+a runtime PASS. New regressions: test_consumer_aliases.lua, test_consumer_bridges.lua,
+test_consumer_exposure.lua, test_integration_harness.lua and test_readiness.py.

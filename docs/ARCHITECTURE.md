@@ -159,3 +159,16 @@ state. `LegacyMigration` is called only by existing authority inventory/world/dr
 lifecycles and retains original records plus bounded migration receipts.
 
 See FEATURE_COMPLETION.md for full contracts, settings, budgets and runtime gates.
+
+## Spectrum-owned consumer adapters
+
+ConsumerIntegrations declares contract-1 Nightfall stored-field aliases only when
+both canonical bulbs exist; it delegates Medical transactions, registers the
+opt-in Water UVC treatment and returns detached Farming light observations.
+ConsumerExposure reuses Sources, Fixtures, UV and native occlusion at canonical
+world coordinates with bounded scans. No client-supplied exposure or new gameplay
+RPC exists. Water's transaction owns quality persistence/rollback; Medical owns
+procedure locks; Spectrum owns sunburn dose and migration receipts; Farming state
+is read only. No obsolete Mod ID, Power or experience global aliases are installed.
+Full contracts, limits and settings: CONSUMER_INTEGRATIONS.md. Runtime acceptance
+and the external Nightfall loader blocker: IN_GAME_TEST_HANDOFF.md.

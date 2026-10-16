@@ -1,4 +1,4 @@
-# B47ANCED Spectrum 0.26.0 playtester handoff
+# B47ANCED Spectrum 0.27.0 playtester handoff
 
 Begin only after B47ANCEDPower is reviewed as PASS. Enable only B47ANCEDPower and
 B47ANCED Spectrum (Mod ID `lightWorks`) on a disposable save and run `lightWorksTestStart(true)`.
@@ -25,3 +25,7 @@ split-screen; custom fixture power/off/remove; clothing layers/holes and unknown
 protection; known/empty/conflicting legacy fixtures through restart/late join.
 Use disposable migration fixtures, never real saves. Update all clients/server.
 See docs/FEATURE_COMPLETION.md and docs/VALIDATION.md for blockers.
+
+Current consumer stage: follow docs/IN_GAME_TEST_HANDOFF.md. Core source preflight
+passes; full Nightfall startup is BLOCKED by its medical Mod ID mismatch. Optional
+consumer helpers report API presence only. No deployment or runtime test has run.

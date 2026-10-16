@@ -1,6 +1,6 @@
 # B47ANCED Spectrum in-game validation
 
-Begin stage 5 only after powerWorks is reviewed as PASS. Enable only powerWorks
+Begin stage 5 only after B47ANCEDPower is reviewed as PASS. Enable only B47ANCEDPower
 and B47ANCED Spectrum (Mod ID `lightWorks`) on a disposable save.
 
 Run `lightWorksTestStart(true)`, then `lightWorksTestChecks()` and
@@ -12,3 +12,6 @@ stage report automatically.
 Use `lightWorksTestSandbox()` for a guided safe world-light setting change and
 `lightWorksTestReload()` after save/reload. The report is
 `%USERPROFILE%\Zomboid\Lua\theWorks Test Results - lightWorks.txt`.
+
+For the current consumer stage, exact source preflight and known Nightfall loader
+blocker, follow [IN_GAME_TEST_HANDOFF.md](IN_GAME_TEST_HANDOFF.md).

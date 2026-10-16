@@ -1,6 +1,6 @@
 # B47ANCED Spectrum Master Roadmap
 
-Canonical version: 0.26.0.
+Canonical version: 0.27.0.
 
 ## Implemented in source with offline coverage
 
@@ -21,7 +21,7 @@ Canonical version: 0.26.0.
   beam checks; bounded inventory recursion; strict UUID/history/state handling.
 
 All nine 886f97d defects remain covered. See the historical AUDIT_FIXES.md and
-current FEATURE_COMPLETION.md for exact behavior and compatibility limits.
+0.26.0 FEATURE_COMPLETION.md for exact behavior and compatibility limits.
 
 ## External or blocked implementation
 
@@ -29,11 +29,14 @@ current FEATURE_COMPLETION.md for exact behavior and compatibility limits.
   geometry is implemented; do not substitute custom Java.
 - Native blood/material redraw: the existing opt-in prototype needs its FBO/depth
   spike before production. Arbitrary shaders are not exposed by a verified Lua API.
-- Legacy Nightfall bulb identities and conflicting dual records: quarantine until
-  explicit owner aliases/precedence exist. Known unambiguous records can migrate.
-- L9/L10: Nightfall infected effects/migration and Medical/Water/Farming actions are
-  owned by those projects. Spectrum's optical/treatment/provider boundaries are
-  implemented and documented; this iteration does not edit other repositories.
+- The two evidenced Nightfall stored-bulb aliases are now declared by Spectrum.
+  Conflicting dual records, other unknown identities and old standalone script
+  items remain quarantined/unsupported.
+- L9/L10: Spectrum-side aliases, Medical delegation, opt-in UVC Water transaction
+  and Farming optical observations are implemented. Infected effects, complete
+  Medical/Water action content and crop growth remain owned by consumers. Full
+  Nightfall startup is blocked by the old medWorks Mod ID; all consumers remain
+  read-only. See CONSUMER_INTEGRATIONS.md and IN_GAME_TEST_HANDOFF.md.
 - Additional fixture/item content needs exact approved definitions/assets. The
   generic advanced fixture capability is implemented without invented content.
 

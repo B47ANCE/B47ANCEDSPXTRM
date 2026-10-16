@@ -1,6 +1,6 @@
 # Repository onboarding
 
-Project Version: 0.26.0
+Project Version: 0.27.0
 
 Public repository: https://github.com/B47ANCE/B47ANCEDSpectrum
 
@@ -72,3 +72,13 @@ and evidence. The existing game icon and historical packages are preserved.
 `feature/spectrum-roadmap` starts from `fix/offline-audit-defects` and targets that
 branch in a stacked PR. It does not merge the open onboarding/fix PRs. The MINOR
 feature iteration and dependency/save-extension decisions are in FEATURE_COMPLETION.md.
+
+## Consumer integration branch
+
+feature/spectrum-consumers starts from feature/spectrum-roadmap (7fd163b) and
+uses a stacked PR targeting that branch. It is a 0.27.0 MINOR API/settings
+iteration. The user explicitly kept all consumer folders read-only. No consumer
+remote, version adoption, source relocation or repository migration is performed
+by Spectrum. The externally renamed B47ANCEDHealthCare checkout retains its
+medWorks Lua API, while Nightfall still requires the old Mod ID. New preflight
+scripts fingerprint the actual selected source and fail that mismatch explicitly.

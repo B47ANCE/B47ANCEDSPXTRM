@@ -1,6 +1,6 @@
 [h1]⚠ DEVELOPMENT BUILD — NOT YET PLAYABLE ⚠[/h1]
 
-[b]Mod Version: 0.26.0[/b]
+[b]Mod Version: 0.27.0[/b]
 
 [b]This mod is under active development and is not yet considered playable or release-ready.[/b]
 
@@ -141,3 +141,11 @@ Update the required B47ANCEDPower dependency and all clients/server together.
 Numeric aiming angles are not supported by older Spectrum clients. Unknown legacy
 records and unresolved bulb identities remain quarantined. Native presentation,
 save/streaming and dedicated behavior remain NOT TESTED; G7 and stable G8 BLOCKED.
+
+[h2]Optional consumer integration APIs[/h2]
+Spectrum declares two Nightfall stored-bulb aliases, delegates the existing
+Medical sunburn procedure, registers opt-in UVC Water treatment and reports crop
+illumination without changing growth. Water integration defaults off; ordinary
+Nightfall bulbs are UVA. No UVC device or treatment action is supplied.
+Full Nightfall startup is blocked by its legacy medWorks Mod ID requirement versus
+B47ANCEDHealthCare. Source checks do not verify native gameplay or installation.

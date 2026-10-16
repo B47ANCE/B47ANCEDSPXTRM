@@ -1,3 +1,12 @@
+[b]Version 0.27.0[/b]
+Development source iteration: Spectrum-owned Nightfall stored-bulb aliases,
+Medical procedure delegation, disabled-by-default UVC Water treatment API and
+read-only crop lighting. No UVC device, treatment action or crop growth effect.
+Full Nightfall startup is blocked by the old medWorks dependency versus the
+renamed B47ANCEDHealthCare Mod ID. Consumer folders remain read-only.
+MP testing build - dedicated multiplayer NOT TESTED. G7 and stable G8 BLOCKED.
+Source/API checks are offline only. No package or upload performed.
+
 [b]Version 0.26.0[/b]
 Development source iteration: free-angle aiming, laser/fixture presentation,
 sunburn status and clothing protection, conservative legacy migration, maintained

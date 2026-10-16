@@ -6,7 +6,7 @@ local function burnoutAuthority()
     return not(type(isClient)=="function" and isClient()==true)
 end
 
-lightWorks.VERSION = "0.26.0"
+lightWorks.VERSION = "0.27.0"
 lightWorks.MODDATA_KEY = "lightWorks"
 -- UV is a mechanical emission with one canonical visible representation.
 -- Emitter profiles still control strength, reach, cone geometry and falloff.
@@ -113,6 +113,7 @@ function lightWorks.registerBulb(def)
     end
 
     lightWorks.Bulbs[profile.item] = profile
+    if lightWorks.ConsumerIntegrations then lightWorks.ConsumerIntegrations.refreshNightfall() end
     return profile
 end
 

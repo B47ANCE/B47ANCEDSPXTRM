@@ -26,6 +26,10 @@ Sandbox.schema={
     EnableLasers={kind="boolean",default=true},
     LaserRangeMultiplier={kind="double",default=1.0,min=0.1,max=2.0},
     EnableLaserBeams={kind="boolean",default=false},
+    EnableWaterUVIntegration={kind="boolean",default=false},
+    WaterUVMinimumIntensity={kind="double",default=0.5,min=0.001,max=100.0},
+    WaterUVMaximumTurbidity={kind="double",default=0.25,min=0.0,max=1.0},
+    WaterUVBiologicalReduction={kind="double",default=0.90,min=0.0,max=0.99},
 }
 function Sandbox.read(values)
     values=type(values)=="table" and values or {}
