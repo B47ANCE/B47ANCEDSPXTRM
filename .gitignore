@@ -1,0 +1,6 @@
+*.log
+console*.txt
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,127 @@
+[h1]⚠ DEVELOPMENT BUILD — NOT YET PLAYABLE ⚠[/h1]
+
+[b]Mod Version: 0.25.2[/b]
+
+[b]This mod is under active development and is not yet considered playable or release-ready.[/b]
+
+This Workshop page is public [b]for development and collaboration purposes[/b]. The current build may contain unfinished systems, missing content, placeholder assets, bugs, compatibility problems, or changes that make it unsuitable for a normal long-term save.
+
+The development build is intended for people interested in:
+
+[list]
+[*][b]Testing experimental lighting and exposure systems[/b]
+[*][b]Bug hunting and visual debugging[/b]
+[*][b]Compatibility and multiplayer testing[/b]
+[*][b]Artwork, bulb icons, item assets, textures, and sprites[/b]
+[*][b]Technical feedback for lights, optics, UV, and third-party emitters[/b]
+[/list]
+
+[h2]Please do not subscribe expecting a finished gameplay experience.[/h2]
+
+Features may change substantially, be temporarily disabled, or require a fresh save while development continues. A proper release announcement will be made when lightWorks reaches a stable playable state.
+
+[url=https://ibb.co/TByLqTWH][img]https://i.ibb.co/mCp8FBNH/title.png[/img][/url]
+
+[h1]lightWorks[/h1]
+
+Lighting, optics, sunlight, ultraviolet exposure, and serviceable-light infrastructure for theWorks ecosystem.
+
+lightWorks owns bulbs, compatible emitters, rendered light behavior, and reusable lighting semantics for players, Works modules, and compatible third-party mods.
+
+[h2]Current Features[/h2]
+
+[list]
+[*]Replaceable bulbs for registered flashlights, angle-headed lights, weapon lights, and compatible world fixtures
+[*]White, warm incandescent, cool LED, red, green, colored, and extensible emission profiles
+[*]Correct colored portable beams with standardized visible blue UV
+[*]Separate visible color, detection behavior, and non-visible semantic emissions
+[*]Device-specific beam geometry, range, strength, direction, and falloff
+[*]Profiles for penlights, standard and Heavy-Duty flashlights, weapon lights, angle-headed lights, lanterns, and other registered emitters
+[*]Tool requirements, timed servicing, persistent bulb state, and bulb burnout
+[*]Device-owned context menus with bulb icons and installed-bulb status
+[*]Registered bulbs for supported vanilla lamps and bulb-receiving fixtures
+[*]Tactical spawn distributions, including 80% red and 20% white Army angle-headed flashlights
+[*]Realistic belt, webbing, attached, and weapon-mounted light profiles
+[*]Downward belt halos for straight flashlights and side-facing cones for angle-headed lights
+[*]Heavy-Duty flashlight attachment restrictions based on weight and practical use
+[*]Automatic modded-light discovery with a bounded human-verification queue
+[*]Verified compatibility-provider API for third-party flashlight patches
+[*]Public APIs for bulbs, compatible lights, spectra, emitters, sunlight, and UV exposure
+[*]Persistent dropped-light direction with server-authoritative cardinal aiming, visible cone chains, wall occlusion, and matching UV semantics
+[/list]
+
+[h2]Lighting Patterns & Battery Behavior[/h2]
+
+[list]
+[*]Device-owned selectors for steady, strobe, pulse, beacon, SOS, alternating, and emergency patterns
+[*]Persistent server-authoritative pattern changes with stale and unknown request rejection
+[*]Average duty-cycle power accounting through powerWorks
+[*]Deterministic near-empty battery flicker for handheld, attached, and weapon-mounted lights
+[*]Configurable flicker threshold, cadence, and near-empty off-window strength
+[/list]
+
+[h2]Sunlight & Exposure[/h2]
+
+[list]
+[*]Persistent authority-owned natural sunlight dose and sunburn severity
+[*]Bounded sun-protection provider API
+[*]Replay-safe treatment integration for medWorks
+[*]Sandbox controls for enablement, onset, maximum dose, exposure rate, and sheltered recovery
+[*]Bounded player and world-emitter collection with independent contributions from overlapping UV sources
+[/list]
+
+[h2]Ecosystem Integration[/h2]
+
+[list]
+[*]Requires powerWorks for battery size, persistent charge, servicing, consumption, pattern drain, and low-power flicker
+[*]Owns artificial-UV and sunlight semantics consumed by Project Nightfall
+[*]Exposes sunlight and sunburn state to medWorks treatment providers
+[*]Supports compatible vanilla and third-party lights through verified providers
+[*]Does not require Project Nightfall and does not own Nightfall infected damage or behavior
+[/list]
+
+[h2]Lighting Semantics[/h2]
+
+Visible color, detection behavior, and semantic emissions are separate properties. Other mods can use red tactical-light behavior, ultraviolet output, or custom spectra without duplicating flashlight compatibility and rendering rules.
+
+[h2]Upcoming Features[/h2]
+
+[list]
+[*]Additional fixtures, work lights, floodlights, headlights, emergency lights, motion lights, and emitter adapters
+[*]Advanced obstruction, occlusion, indoor transitions, and multiplayer presentation
+[*]Lasers and night-vision infrastructure
+[*]Bounded UV-reactive material support, beginning with blood-rendering feasibility validation
+[*]Optional waterWorks purification, farmWorks grow-light, and additional medWorks integrations
+[*]Complete visual, spawn-distribution, compatibility, hosted, and dedicated-server validation
+[/list]
+
+[h2]Compatibility[/h2]
+
+Unknown modded lights are inspected safely and placed in a review queue; they are not silently treated as verified. Compatibility patches register approved lights once, after which servicing, bulb color, UV semantics, rendering, and powerWorks behavior flow through the canonical registries.
+
+[i]Dedicated-server multiplayer compatibility has not yet been certified.[/i]
+
+[h2]Credits[/h2]
+
+[b]B47ANCE[/b]
+Project Director
+Lead Designer
+Creative Director
+Gameplay and Systems Designer
+Producer
+Art Director
+
+[b]OpenAI Codex[/b]
+Lead Developer
+Software Architect
+Systems Engineer
+API Researcher
+Technical Designer
+Compatibility Engineer
+QA Automation Developer
+Technical Writer and Documentation Maintainer
+
+[h2]Workshop Information[/h2]
+
+[b]Workshop ID:[/b] 3788592008
+[b]Mod ID:[/b] lightWorks

@@ -1,0 +1,5 @@
+name=lightWorks Compatibility - TARGET MOD
+id=lightWorks_TargetMod_Compatibility
+require=lightWorks,TARGET_MOD_ID
+loadModAfter=lightWorks,TARGET_MOD_ID
+description=Verified lightWorks light compatibility for TARGET MOD.

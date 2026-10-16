@@ -1,0 +1,100 @@
+[b]Version 0.25.2[/b]
+
+[h2]Release preparation[/h2]
+• Restricted test kits, staged validation, emitter inspection, review export, and the UV-reaction prototype to explicit debug sessions.
+• Aligned release tests and packages with the authoritative source and added checks against stale or incomplete packages.
+• Added complete Build 42 JSON localization fallback coverage across all 29 supported language folders.
+• Localized bulb servicing, light patterns, and placed-light control labels while preserving third-party profile fallbacks.
+
+[h2]World lighting[/h2]
+
+• Added a timed Aim submenu to directional dropped and placed lights.
+• Added persistent north, east, south, and west orientation shared by visible light and UV semantics.
+• Added bounded, falloff-aware visible source chains for placed flashlight cones with wall occlusion.
+• Added exact server-side item, coordinate, range, emitter-profile, and direction validation.
+• Added explicit client replication; radial lights do not show an irrelevant aiming menu.
+
+[b]Previous 0.24.1 fixes[/b]
+
+• Fixed required-tool detection relying on a Lua global unavailable in Build 42's Kahlua runtime.
+• Added release-runtime regression coverage for registered light servicing.
+
+• Added verified physical thump targeting for active powered dropped lights.
+• Nightfall den defense can now attack the actual world item instead of counterfeiting destruction by switching it off.
+• Turning off, exhausting, picking up, or removing the light withdraws its thump target safely.
+• Server and client lifecycle paths prepare the same backing object; source inspection exposes only verified physical attacks.
+
+• Added timed Turn On and Turn Off interactions for dropped and placed registered lights.
+• Added exact server-side world item, coordinate, distance, bulb, and charged-power validation.
+• Added replay-safe activation operations and explicit synchronized state replication to clients.
+• Empty, bulbless, burned-out, stale, duplicated, malformed, and remote requests fail closed.
+
+• Added authoritative power consumption for active dropped and placed lights.
+• Added elapsed-time catch-up after chunk unload/revisit without scanning unloaded regions.
+• Kept intentional world-active state separate from vanilla's equipped-light deactivation path.
+• Depleted world lights now stop both visible illumination and artificial UV.
+• Verified the implementation against the installed Build 42 world-item and drainable-item lifecycle.
+
+• Fixed Nightfall-facing UV discovery so dropped inventory lights are collected alongside fixtures.
+• Synchronized visible pattern, low-charge flicker, and artificial-UV phases from persistent world time.
+• Preserved placement-facing direction for directional UV exposure after dropping, revisiting, or loading.
+• Separated visible and UV intensity/radius data in the shared emission-source contract.
+• Reduced steady-light overhead to bounded low-frequency reconciliation while timed effects use one scheduler.
+• Added battery type, remaining charge, orientation, and effect phase to world-emitter diagnostics.
+
+• Added real world-position emitters for active registered lights that are dropped or placed.
+• Added idempotent binding, pickup/removal cleanup, bounded nearby discovery, and save/revisit rebinding.
+• Preserved active state across the vanilla drop action and integrated world lights with canonical color, UV semantics, registered patterns, and power state.
+• Added a default-enabled sandbox toggle plus `LWWorldEmitterStatus()` and `LWWorldEmitterRescan()` diagnostics.
+• Added regression coverage for one-emitter-per-object behavior, UV reporting, off/on transitions, and cleanup.
+
+• Changed the canonical UV visual representation to pure blue RGB 0, 0, 255.
+
+• UV render nodes now submit an invariant canonical RGB instead of scaling color channels by device strength.
+• UV device strength and falloff now affect coverage while preserving perceived chroma under ambient light.
+
+• Weapon-mounted light beams now follow the firearm aim/barrel vector.
+• Lowered weapons fall back to character forward direction without changing handheld or wearable-light geometry.
+
+• Fixed the Build 42.20.4 world-fixture menu return path when Lua unpack helpers are unavailable.
+
+[h2]UV Color Consistency[/h2]
+
+• Enforced the canonical UV violet hue again at the final rendering boundary.
+• Prevented late profile mutation and compatibility registrations from producing device-specific UV hues.
+• Preserved device-specific strength, range, cone geometry, and falloff.
+
+[h2]Startup Reliability[/h2]
+
+• Fixed the canonical API module return contract used by emission, sunburn, pattern, and low-power consumers.
+• Added regression coverage ensuring Project Zomboid `require()` consumers receive the lightWorks namespace.
+
+[h2]Lighting & Rendering[/h2]
+
+• Added correct colored portable-light rendering with standardized violet UV across handheld, attached, and weapon-mounted lights.
+• Added device-specific beam range, strength, geometry, and realistic attachment direction.
+• Added registered-bulb support for compatible vanilla lamps and bulb-receiving fixtures.
+• Added deterministic low-battery flicker backed by powerWorks.
+
+[h2]Lighting Patterns[/h2]
+
+• Added a device-owned pattern selector with steady, strobe, pulse, beacon, SOS, alternating, and emergency modes.
+• Added server-authoritative, persistent pattern changes with stale and unknown request rejection.
+• Added average powerWorks duty-cycle drain for patterned lights.
+
+[h2]Sun Exposure[/h2]
+
+• Added persistent, authority-owned natural sunlight dose and sunburn severity.
+• Added a bounded sun-protection provider API and replay-safe medWorks treatment integration.
+• Added sandbox controls for sunburn onset, dose, rate, recovery, and enablement.
+
+[h2]Compatibility[/h2]
+
+• Completed canonical lightWorks naming and public API ownership.
+• Added safe modded-light discovery with a human-verification queue and compatibility providers.
+• Added required powerWorks support for sized batteries, persistent charge, and consumption.
+
+[h2]Roadmap[/h2]
+
+• Complete visual, multiplayer, fixture, attachment, spawn-distribution, and mod-compatibility validation.
+• Expand fixtures, headlights, occlusion, lasers, sun protection, and bounded UV-reactive materials.

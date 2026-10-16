@@ -1,0 +1,38 @@
+module Base
+{
+    model lightWorks_HandTorchBelt
+    {
+        mesh = HandTorch,
+        attachment belt_left { offset = 0.055 0.205 -0.075, rotate = -90 0 145, bone = Bip01_Pelvis, }
+        attachment belt_right { offset = 0.025 0.220 0.055, rotate = -90 0 20, bone = Bip01_Pelvis, }
+    }
+
+    model lightWorks_PenLightBelt
+    {
+        mesh = PenLight_Hand,
+        texture = WorldItems/PenLight,
+        scale = 1.0,
+        attachment belt_left { offset = 0.030 0.190 -0.035, rotate = -90 0 155, bone = Bip01_Pelvis, }
+        attachment belt_right { offset = 0.020 0.205 0.025, rotate = -90 0 25, bone = Bip01_Pelvis, }
+    }
+
+    model lightWorks_AngleHeadBelt
+    {
+        mesh = FlashLight_AngleHead,
+        texture = FlashLight_AngleHead_Black,
+        attachment belt_left { offset = -0.010 0.060 0.040, rotate = 155 13 -169, bone = Bip01_Pelvis, }
+        attachment belt_right { offset = -0.025 0.060 -0.010, rotate = 15 10 -14, bone = Bip01_Pelvis, }
+        attachment webbing_left_walkie { offset = 0 0 0, rotate = 0 -90 0, }
+        attachment webbing_right_walkie { offset = 0 0 0, rotate = 0 -90 0, }
+    }
+
+    model lightWorks_AngleHeadArmyBelt
+    {
+        mesh = FlashLight_AngleHead,
+        texture = FlashLight_AngleHead_Green,
+        attachment belt_left { offset = -0.010 0.060 0.040, rotate = 155 13 -169, bone = Bip01_Pelvis, }
+        attachment belt_right { offset = -0.025 0.060 -0.010, rotate = 15 10 -14, bone = Bip01_Pelvis, }
+        attachment webbing_left_walkie { offset = 0 0 0, rotate = 0 -90 0, }
+        attachment webbing_right_walkie { offset = 0 0 0, rotate = 0 -90 0, }
+    }
+}

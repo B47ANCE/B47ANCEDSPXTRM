@@ -1,0 +1,33 @@
+local exposure=.8
+local lightWorks={Config={EnableSunburn=true,SunburnDoseMultiplier=1,SunburnFirstDegreeDoseHours=.5,
+    SunburnMaximumDoseHours=2,SunburnRecoveryDoseHoursPerHour=.25}}
+package.loaded["lightWorks/lightWorks_API"]=lightWorks
+package.loaded["lightWorks/lightWorks_UV"]={getSunlightExposure=function()return{uv={uvb=exposure,natural=exposure,artificial=99}}end}
+local Sunburn=dofile(arg[1])
+local character={data={},transmits=0}
+function character:getModData()return self.data end
+function character:transmitModData()self.transmits=self.transmits+1 end
+
+assert(Sunburn.update(character,0).severity==0)
+Sunburn.update(character,.25);Sunburn.update(character,.50)
+local burned=Sunburn.update(character,.75)
+assert(burned.severity>0 and burned.lastNaturalUV==.8,"natural UV dose must produce persistent severity")
+assert(character.transmits==3,"canonical changes must transmit")
+
+Sunburn.registerProtectionProvider("test.clothing",function()return .5 end)
+local protection,details=Sunburn.getProtection(character,{})
+assert(protection==.5 and details["test.clothing"]==.5,"protection providers must be inspectable")
+local before=Sunburn.getState(character).dose
+Sunburn.update(character,1.0)
+assert(Sunburn.getState(character).dose-before<.1,"protection must reduce incoming dose")
+
+exposure=0
+local sheltered=Sunburn.update(character,1.25)
+assert(sheltered.dose<Sunburn.getState(character).dose+.1,"shelter must recover dose")
+local treated,after=Sunburn.applyTreatment(character,.2,"treatment-1")
+assert(treated and after.dose<sheltered.dose,"authoritative treatment must reduce dose")
+assert(not Sunburn.applyTreatment(character,.2,"treatment-1"),"treatment operations must reject replay")
+
+isClient=function()return true end
+assert(Sunburn.update(character,2)==nil and not Sunburn.applyTreatment(character,.1,"client"),"clients must not mutate canonical sunburn")
+print("lightWorks persistent authority-owned sunburn checks passed")
