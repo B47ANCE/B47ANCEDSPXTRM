@@ -24,7 +24,13 @@
   discovery used by downstream UV consumers; visible output, physical UV output,
   and RGB remain separate fields.
 - `lightWorks_powerWorks.lua`: required family adapter that exports canonical light power profiles to powerWorks; it owns no batteries or charge state.
-- `lightWorks_Burnout.lua`: bounded processing of player-owned active lights.
+- `lightWorks_BurnoutAuthority.lua`: shared, server/SP-only wear progression,
+  broken-bulb output and native inventory/mounted-part synchronization. The old
+  client `lightWorks_Burnout` require path is a compatibility shim.
+- `lightWorks_WorldDrop.lua`: shared authority hook that initializes world-active
+  state and its billing checkpoint before vanilla drop transmission.
+- `lightWorks_Operations.lua`: opaque UUID-based intent IDs. These IDs never grant
+  permission; existing server identity/distance/ownership validation still applies.
 - `lightWorks_AttachmentProfiles.lua` and `lightWorks_Hotbar.lua`: belt/webbing integration.
 - `lightWorks_SpawnBulbs.lua`: spawn-time bulb selection.
 
@@ -102,3 +108,27 @@ vanilla owns damage and networked removal.
 ## Spectrum branding compatibility
 
 B47ANCED Spectrum is the display name. `lightWorks` remains the technical contract for Mod ID, source layout, Lua globals/requires, persistence, sandbox keys and networking. The rename adds no shared state, gameplay settings, migrations or new network paths. Existing server-authority and sandbox behavior is preserved; dedicated verification remains required. See [NAMING.md](NAMING.md).
+
+
+## Audit fix ownership and persistence
+
+See [AUDIT_FIXES.md](AUDIT_FIXES.md) for the nine fixes and their regressions.
+Existing schema-1 world, pattern and sunburn tables retain their names and saved
+content. World placement preserves durable identity/replay history and starts a
+new world-only billing interval; a future schema is rejected without being reset.
+Failed native placement restores the previous world-state reference and native
+errors remain visible. Successful placement uses vanilla's existing full-item
+transmission; the server hook does not load a client renderer.
+
+World-energy checkpoints commit only after successful consumption. Switching an
+active light first settles its preceding interval; a failed debit rejects the
+transition and leaves its operation retryable. Depletion publishes the existing
+world-emitter state message plus native field synchronization. Integration still
+requires the power provider's failure/charge contract and actual dedicated tests.
+
+Pattern disable forces a full steady duty cycle and rejects changes without
+rewriting the saved selection. Unknown sunlight samples preserve dose/severity,
+advance only the observation checkpoint and apply no retroactive exposure/healing.
+UUID IDs preserve the existing bounded replay history and payload format; old
+counter IDs remain historical entries. All clients must update to stop generating
+old colliding IDs. No schema migration, new setting or custom Java is introduced.

@@ -1,8 +1,8 @@
-local exposure=.8
+local exposure=.8;local complete=true
 local lightWorks={Config={EnableSunburn=true,SunburnDoseMultiplier=1,SunburnFirstDegreeDoseHours=.5,
     SunburnMaximumDoseHours=2,SunburnRecoveryDoseHoursPerHour=.25}}
 package.loaded["lightWorks/lightWorks_API"]=lightWorks
-package.loaded["lightWorks/lightWorks_UV"]={getSunlightExposure=function()return{uv={uvb=exposure,natural=exposure,artificial=99}}end}
+package.loaded["lightWorks/lightWorks_UV"]={getSunlightExposure=function()return{uv={uvb=exposure,natural=exposure,artificial=99,complete=complete}}end}
 local Sunburn=dofile(arg[1])
 local character={data={},transmits=0}
 function character:getModData()return self.data end
@@ -28,6 +28,19 @@ local treated,after=Sunburn.applyTreatment(character,.2,"treatment-1")
 assert(treated and after.dose<sheltered.dose,"authoritative treatment must reduce dose")
 assert(not Sunburn.applyTreatment(character,.2,"treatment-1"),"treatment operations must reject replay")
 
+complete=false;exposure=0
+local beforeUnknown=Sunburn.getState(character);local transmitted=character.transmits
+local unchanged,reason=Sunburn.update(character,1.5)
+assert(unchanged.dose==beforeUnknown.dose and unchanged.severity==beforeUnknown.severity and reason=="exposure incomplete",
+    "unknown exposure cannot apply dose or sheltered recovery")
+assert(character.data.lightWorksSunburn.lastWorldAgeHours==1.5 and character.transmits==transmitted,
+    "unknown intervals must be checkpointed without replaying them as known exposure")
+complete=true;local recovered=Sunburn.update(character,1.75)
+assert(math.abs(unchanged.dose-recovered.dose-.03125)<.000001,"known shelter may recover only the subsequent known interval")
 isClient=function()return true end
 assert(Sunburn.update(character,2)==nil and not Sunburn.applyTreatment(character,.1,"client"),"clients must not mutate canonical sunburn")
+isClient=function()return false end
+local future={schemaVersion=99,dose=.8};character.data.lightWorksSunburn=future
+assert(Sunburn.update(character,3)==nil and character.data.lightWorksSunburn==future,
+    "future sunburn schemas must be rejected without being reset")
 print("lightWorks persistent authority-owned sunburn checks passed")

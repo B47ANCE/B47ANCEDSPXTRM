@@ -3,6 +3,7 @@ require "luautils"
 local Access=require "lightWorks/lightWorks_ItemAccess"
 local WorldPower=require "lightWorks/lightWorks_WorldPower"
 local Manager=require "lightWorks/lightWorks_WorldEmitterManager"
+local Operations=require "lightWorks/lightWorks_Operations"
 
 local function tr(key,fallback,...)
     local args={...}
@@ -20,7 +21,6 @@ local function tr(key,fallback,...)
     return substitute(fallback)
 end
 
-local sequence=0
 local function state(item)
     local data=Access.modData(item);local world=data and data.lightWorksWorldEmitter
     if type(world)=="table"and type(world.active)=="boolean"then return world.active end
@@ -31,8 +31,7 @@ local function coordinates(backing)
     return math.floor(tonumber(x)or-99999),math.floor(tonumber(y)or-99999),math.floor(tonumber(z)or-99999)
 end
 local function operation(item)
-    sequence=sequence+1;local _,id=Access.call(item,"getID")
-    return"LW-WORLD-TOGGLE-"..tostring(id or"unknown").."-"..tostring(sequence)
+    return Operations.new("WORLD")
 end
 
 local Action=ISBaseTimedAction:derive("lightWorks_WorldEmitterToggleAction")
@@ -55,6 +54,7 @@ end
 function OrientationAction:perform()
     if not self:isValid()then ISBaseTimedAction.perform(self);return end
     local x,y,z=coordinates(self.backing);local _,itemId=Access.call(self.item,"getID");local op=operation(self.item)
+    if not op then ISBaseTimedAction.perform(self);return end
     if type(isClient)=="function"and isClient()==true then
         if type(sendClientCommand)=="function"then pcall(sendClientCommand,self.character,"lightWorks","setWorldEmitterOrientation",
             {x=x,y=y,z=z,itemId=itemId,orientation=self.orientation,operationId=op})end
@@ -72,6 +72,7 @@ end
 function Action:perform()
     if not self:isValid()then ISBaseTimedAction.perform(self);return end
     local x,y,z=coordinates(self.backing);local _,itemId=Access.call(self.item,"getID");local op=operation(self.item)
+    if not op then ISBaseTimedAction.perform(self);return end
     if type(isClient)=="function"and isClient()==true then
         if type(sendClientCommand)=="function"then pcall(sendClientCommand,self.character,"lightWorks","setWorldEmitterActive",
             {x=x,y=y,z=z,itemId=itemId,active=self.active,operationId=op})end

@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.25.5] — audit defect fixes
+
+- Fix the nine offline-reproduced defects from the audit of 886f97d: authority-owned burnout and drop initialization, world-power settlement/retry checkpoints, renderer cleanup, replay identity, disabled-pattern demand and incomplete sunburn samples.
+- Keep existing sandbox identifiers, save schemas, Mod ID, Lua API, Workshop item and owner-supplied artwork. No new gameplay setting is introduced.
+- Add targeted offline regression coverage; actual PZ/SP/dedicated behavior remains a runtime gate. G7 and stable-release G8 remain BLOCKED without dedicated evidence.
+
 ## [0.25.4] — owner-supplied Spectrum thumbnail
 
 - Adopted the owner-supplied Spectrum artwork for the project thumbnail and matching Workshop preview; retained the exact full-resolution PNG under `artwork/`.

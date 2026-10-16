@@ -1,6 +1,7 @@
 require "lightWorks/lightWorks_API"
 local Patterns=require "lightWorks/lightWorks_Patterns"
 local Access=require "lightWorks/lightWorks_ItemAccess"
+local Operations=require "lightWorks/lightWorks_Operations"
 
 local function tr(key,fallback)
     local get=rawget(_G,"getText")
@@ -10,7 +11,6 @@ local function tr(key,fallback)
     return fallback
 end
 
-local sequence=0
 local function unwrap(entry)
     local ok,value=pcall(function()return entry and entry.items and entry.items[1] or entry end)
     return ok and value or nil
@@ -20,14 +20,9 @@ local function existingItemMenu(context,itemName)
     local read,subOption=pcall(function()return option.subOption end);if not read or subOption==nil then return nil end
     local found,menu=Access.call(context,"getSubMenu",subOption);return found and menu or nil
 end
-local function operationId(item)
-    sequence=sequence+1
-    local ok,id=Access.call(item,"getID")
-    return "LW-PATTERN-"..tostring(ok and id or "unknown").."-"..tostring(sequence)
-end
 local function setPattern(player,item,id)
     if not player or not item or not Patterns.get(id) then return false end
-    local op=operationId(item)
+    local op=Operations.new("PATTERN");if not op then return false end
     if type(rawget(_G,"isClient"))=="function" and isClient()==true then
         local ok,itemId=Access.call(item,"getID")
         if not ok or type(itemId)~="number" or type(rawget(_G,"sendClientCommand"))~="function" then return false end

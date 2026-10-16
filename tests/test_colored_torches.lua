@@ -167,4 +167,13 @@ assert(sawBarrelAlignedNode,"weapon-light beam must follow aim/barrel vector rat
 assert(item.lightStrength == 0 and weapon.lightStrength == 0,
     "stock handheld and weapon emitters must be suppressed to prevent white washout")
 
-print("lightWorks colored IsoLightSource renderer checks passed")
+local removedBefore=#calls.removed
+lightWorks.Config.EnableColoredLightRenderer=false
+assert(lightWorks.refreshColoredTorches()==false)
+assert(#calls.removed>removedBefore and item.lightStrength==.7 and weapon.lightStrength~=0,
+    "disabling rendering must remove owned lights and restore every suppressed native item, including weapons")
+local cleaned=#calls.removed;lightWorks.refreshColoredTorches()
+assert(#calls.removed==cleaned,"repeat disable must not remove sources twice")
+lightWorks.Config.EnableColoredLightRenderer=true
+assert(lightWorks.refreshColoredTorches()and item.lightStrength==0,"re-enable must bind fresh sources normally")
+print("lightWorks colored IsoLightSource renderer and disable/re-enable checks passed")

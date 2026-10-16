@@ -1,6 +1,6 @@
 # B47ANCED Spectrum Master Roadmap
 
-Canonical version: 0.25.4.
+Canonical version: 0.25.5.
 
 ## Implemented
 
@@ -33,3 +33,7 @@ Canonical version: 0.25.4.
 - Native portable/mounted/world discovery, visual timing, drain-to-zero,
   patterns, streaming, destruction, save/load, late join, hosted, and dedicated
   synchronization. Preserve existing UV geometry, falloff, and exposure semantics.
+
+## Audit defect checkpoint
+
+The nine defects from the 886f97d audit have source fixes and targeted offline regressions; see [AUDIT_FIXES.md](AUDIT_FIXES.md). Dedicated/SP verification remains pending. The additional real-time flicker and remote-player rendering observations remain outside this nine-defect slice.

@@ -21,6 +21,19 @@ assert(sawOn and sawOff,"SOS must contain signal and gap segments")
 Patterns.register{id="test.bad",periodMs=1000,dutyCycle=.5,evaluate=function()error("provider")end}
 assert(Patterns.set(item,"test.bad","pattern-4") and Patterns.evaluate(item,0)==0,"throwing patterns must fail dark without breaking the renderer")
 lightWorks.Config.EnableLightPatterns=false;assert(Patterns.evaluate(item,0)==1,"sandbox disable must force steady output")
+assert(Patterns.getDutyCycle(item)==1,"disabled patterns must use full steady battery demand")
+local saved=item.data.lightWorksPattern.id
+assert(not Patterns.set(item,"beacon","disabled")and item.data.lightWorksPattern.id==saved,"server mutations must honor the disabled sandbox option")
+lightWorks.Config.EnableLightPatterns=true
+assert(Patterns.getPatternId(item)==saved,"re-enable must preserve the selected pattern")
 isClient=function()return true end
 assert(not Patterns.set(item,"steady","client"),"clients must not mutate canonical pattern state")
+isClient=function()return false end
+lightWorks.Config.EnableLightPatterns=true
+for index=1,40 do assert(Patterns.set(item,"steady","history-"..index))end
+local history=table.concat(item.data.lightWorksPattern.processedOperations,"|")
+powerWorks.refreshConsumer=function()return false end
+assert(not Patterns.set(item,"pulse","failed-refresh"))
+assert(table.concat(item.data.lightWorksPattern.processedOperations,"|")==history,
+    "failed demand refresh cannot truncate the existing bounded replay history")
 print("lightWorks persistent lighting-pattern and average-demand checks passed")

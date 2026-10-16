@@ -1,4 +1,4 @@
-# B47ANCED Spectrum 0.25.4 playtester handoff
+# B47ANCED Spectrum 0.25.5 playtester handoff
 
 Begin only after powerWorks is reviewed as PASS. Enable only powerWorks and
 B47ANCED Spectrum (Mod ID `lightWorks`) on a disposable save and run `lightWorksTestStart(true)`.
@@ -14,3 +14,5 @@ B47ANCED Spectrum (Mod ID `lightWorks`) on a disposable save and run `lightWorks
 
 Return the stage report, `console.txt`, and screenshots for visual failures. Do
 not enable Nightfall until this stage is reviewed.
+
+This iteration fixes the nine audit defects in source. Follow `docs/AUDIT_FIXES.md` for dedicated checks; host regressions alone do not establish a stage PASS.

@@ -1,41 +1,7 @@
 require "TimedActions/ISDropWorldItemAction"
 local Manager=require "lightWorks/lightWorks_WorldEmitterManager"
 
-local function call(object,method,...)
-    if not object then return false,nil end
-    local ok,fn=pcall(function()return object[method]end)
-    if not ok or type(fn)~="function" then return false,nil end
-    return pcall(fn,object,...)
-end
-local function isActive(item)
-    for _,method in ipairs({"isActivated","getActivated","isActive"})do local ok,value=call(item,method);if ok then return value==true end end
-    return false
-end
-
-if ISDropWorldItemAction and not ISDropWorldItemAction.lightWorksWrapped then
-    local originalStart=ISDropWorldItemAction.start
-    local originalComplete=ISDropWorldItemAction.complete
-    function ISDropWorldItemAction:start()
-        self.lightWorksPreserveActive=self.item and lightWorks.isRegisteredLight(self.item) and isActive(self.item)
-        local ok,dir=call(self.character,"getDir");self.lightWorksPlacementOrientation=ok and tostring(dir) or nil
-        if self.item and lightWorks.supportsWorldEmission(self.item) then
-            local dataOk,data=call(self.item,"getModData")
-            if dataOk and type(data)=="table" then
-                data.lightWorksWorldEmitter=type(data.lightWorksWorldEmitter)=="table"and data.lightWorksWorldEmitter or{schemaVersion=1}
-                data.lightWorksWorldEmitter.active=self.lightWorksPreserveActive==true
-                data.lightWorksWorldEmitter.orientation=self.lightWorksPlacementOrientation
-            end
-        end
-        return originalStart(self)
-    end
-    function ISDropWorldItemAction:complete()
-        local result=originalComplete(self)
-        local backing=self.item and self.item.getWorldItem and self.item:getWorldItem() or nil
-        if backing then Manager.ensure(backing,self.lightWorksPreserveActive==true,self.lightWorksPlacementOrientation) end
-        return result
-    end
-    ISDropWorldItemAction.lightWorksWrapped=true
-end
+require "lightWorks/lightWorks_WorldDrop"
 
 if Events and Events.OnObjectAboutToBeRemoved then Events.OnObjectAboutToBeRemoved.Add(function(object) Manager.unregister(object) end) end
 if Events and Events.OnObjectAdded then Events.OnObjectAdded.Add(function(object) Manager.ensure(object) end) end

@@ -55,4 +55,12 @@ assert(calls.created==8,"turning it back on must restore exactly one bounded cha
 backing.exists=false;Manager.reconcile()
 assert(Manager.inspect(first.id)==nil and calls.removed==8,"pickup/removal must unregister and clean the source chain")
 
-print("lightWorks idempotent world-emitter lifecycle checks passed")
+backing.exists=true;item.active=true
+local rebound=assert(Manager.ensure(backing,true));assert(rebound.source)
+local removedBefore=calls.removed
+item.modData.lightWorks.hasExplicitBulbState=true;item.modData.lightWorks.installedBulb=nil
+Manager.ensure(backing);Manager.reconcile()
+assert(not rebound.source and calls.removed>removedBefore and Manager.inspect(rebound.id)==nil,
+    "a removed/burned bulb must unregister every prior visible source")
+assert(backing.movedThumpable==false,"bulbless backings cannot remain attackable")
+print("lightWorks idempotent world-emitter lifecycle and bulbless cleanup checks passed")

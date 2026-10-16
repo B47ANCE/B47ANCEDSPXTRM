@@ -8,7 +8,7 @@ developer investigation; mocked execution is not an in-game PASS.
 
 1. Run `LWStartReleaseSuite()`. It performs the API, servicing, UV-semantic, and available powerWorks battery checks, then starts the visual tour.
 2. Inspect each equipped light, enter `PASS` or describe the issue, and continue; every report is written to `console.txt`.
-3. Confirm metadata, version `0.25.4`, B47ANCED Spectrum sandbox page, and error-free load.
+3. Confirm metadata, version `0.25.5`, B47ANCED Spectrum sandbox page, and error-free load.
 4. Right-click supported, unsupported, nested, equipped, attached, and weapon-part lights.
 5. Confirm bulb actions share the light's existing submenu and show correct icons.
 6. Install, remove, and replace every bulb with and without required tools; verify no loss or duplication.
@@ -78,3 +78,12 @@ valid sources. World scans are integer-radius bounded, object/attachment/weapon
 collections are capped, and invalid scan centers return empty results.
 
 Offline commands and current evidence: [VALIDATION.md](VALIDATION.md). The name changed; technical IDs and `LW*`/`lightWorksTest*` commands remain stable.
+
+
+## Nine-defect regression and multiplayer plan
+
+Run `python scripts/validate.py`; the new/extended tests are mapped in
+[AUDIT_FIXES.md](AUDIT_FIXES.md). Host tests simulate authority and inventory;
+they are not PZ runtime evidence. Use that document's dedicated plan to check
+burnout, first/repeated drops, switch-off settlement, failure/retry, reconnect IDs,
+disabled patterns, unknown sunlight, bulb removal and renderer disable/re-enable.

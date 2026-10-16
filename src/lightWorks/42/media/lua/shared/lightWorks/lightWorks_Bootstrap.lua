@@ -9,6 +9,8 @@ require "lightWorks/lightWorks_Patterns"
 -- registry. The bridge also repeats at game/server start for reviewed patches.
 require "lightWorks/lightWorks_powerWorks"
 require "lightWorks/lightWorks_WorldPower"
+require "lightWorks/lightWorks_WorldDrop"
+require "lightWorks/lightWorks_BurnoutAuthority"
 require "lightWorks/lightWorks_LightCatalog"
 require "lightWorks/lightWorks_AttachmentProfiles"
 

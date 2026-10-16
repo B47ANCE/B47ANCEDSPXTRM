@@ -50,9 +50,14 @@ function Patterns.evaluate(item,timestampMs)
     local ok,value=pcall(def.evaluate,phase,item,time);value=ok and finite(value)or 0
     return clamp(value,0,1),id
 end
-function Patterns.getDutyCycle(item)local def=Patterns.registry[Patterns.getPatternId(item)]or Patterns.registry.steady;return def and def.dutyCycle or 1 end
+function Patterns.getDutyCycle(item)
+    if lightWorks.Config.EnableLightPatterns==false then return 1 end
+    local def=Patterns.registry[Patterns.getPatternId(item)]or Patterns.registry.steady
+    return def and def.dutyCycle or 1
+end
 function Patterns.set(item,id,operationId)
     if not authority()then return false,"non-authority"end
+    if lightWorks.Config.EnableLightPatterns==false then return false,"light patterns disabled"end
     if not lightWorks.isRegisteredLight(item)then return false,"registered light required"end
     if not Patterns.registry[id]then return false,"unknown light pattern"end
     if type(operationId)~="string"or operationId==""then return false,"operationId required"end
@@ -62,13 +67,14 @@ function Patterns.set(item,id,operationId)
     state=state or{schemaVersion=1,id="steady",processedOperations={}};data.lightWorksPattern=state
     for _,existing in ipairs(state.processedOperations)do if existing==operationId then return false,"duplicate operation"end end
     local previous,previousEpoch=state.id,state.startedAtWorldAgeMs
-    state.id=id;state.startedAtWorldAgeMs=now();state.processedOperations[#state.processedOperations+1]=operationId
-    while #state.processedOperations>Patterns.MAX_OPERATIONS do table.remove(state.processedOperations,1)end
+    state.id=id;state.startedAtWorldAgeMs=now()
     local Power=rawget(_G,"powerWorks")or lightWorks.powerWorks
     if type(Power)=="table"and type(Power.refreshConsumer)=="function"then
         local ok,refreshed=pcall(Power.refreshConsumer,item)
-        if not ok or refreshed~=true then state.id=previous;state.startedAtWorldAgeMs=previousEpoch;table.remove(state.processedOperations);return false,"power demand refresh failed"end
+        if not ok or refreshed~=true then state.id=previous;state.startedAtWorldAgeMs=previousEpoch;return false,"power demand refresh failed"end
     end
+    state.processedOperations[#state.processedOperations+1]=operationId
+    while #state.processedOperations>Patterns.MAX_OPERATIONS do table.remove(state.processedOperations,1)end
     return true,{id=id,dutyCycle=Patterns.getDutyCycle(item)}
 end
 

@@ -1,8 +1,12 @@
 lightWorks = lightWorks or {}
 local lightWorks = lightWorks
 local Access = require "lightWorks/lightWorks_ItemAccess"
+local function burnoutAuthority()
+    if type(isServer)=="function" and isServer()==true then return true end
+    return not(type(isClient)=="function" and isClient()==true)
+end
 
-lightWorks.VERSION = "0.25.4"
+lightWorks.VERSION = "0.25.5"
 lightWorks.MODDATA_KEY = "lightWorks"
 -- UV is a mechanical emission with one canonical visible representation.
 -- Emitter profiles still control strength, reach, cone geometry and falloff.
@@ -763,6 +767,7 @@ function lightWorks.getBulbBurnMinutes(lightItem)
 end
 
 function lightWorks.setBulbBurnMinutes(lightItem, minutes)
+    if not burnoutAuthority() then return false end
     local state = burnoutState(lightItem)
     if not state then return false end
     state.burnMinutes = math.max(0.0, tonumber(minutes) or 0.0)
@@ -791,6 +796,7 @@ function lightWorks.getBulbLifetimeMinutes(lightItem)
 end
 
 function lightWorks.resetBulbBurnState(lightItem)
+    if not burnoutAuthority() then return false end
     local state = burnoutState(lightItem)
     if not state then return false end
     state.burnMinutes = 0.0
@@ -802,6 +808,7 @@ end
 -- Returns the configured broken-bulb item type for callers that want to give it
 -- to a player/container.
 function lightWorks.burnOutBulb(lightItem)
+    if not burnoutAuthority() then return false,nil,"non-authority" end
     local bulbType = lightWorks.getInstalledBulbType(lightItem)
     if not bulbType then return false, nil, "no_bulb" end
 
@@ -821,6 +828,7 @@ end
 -- Advances burn time only while a bulb is installed AND the light is activated.
 -- Returns true, brokenItemType when burnout occurs.
 function lightWorks.updateBulbBurnout(lightItem, elapsedGameMinutes)
+    if not burnoutAuthority() then return false,nil end
     if not lightWorks.Config.EnableBurnout then return false, nil end
     if not lightWorks.isRegisteredLight(lightItem) then return false, nil end
     if not lightWorks.hasBulb(lightItem) then return false, nil end

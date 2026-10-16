@@ -11,18 +11,43 @@ local function authority()
     if type(isServer)=="function"and isServer()==true then return true end
     return not(type(isClient)=="function"and isClient()==true)
 end
+local function finite(value)
+    value=tonumber(value)
+    return value and value==value and math.abs(value)<math.huge and value or nil
+end
 local function nowHours()
     if type(getGameTime)~="function"then return nil end
     local ok,time=pcall(getGameTime);local read,hours=false,nil
     if ok then read,hours=call(time,"getWorldAgeHours")end
-    hours=read and tonumber(hours)or nil;return hours and hours==hours and hours or nil
+    return read and finite(hours)or nil
+end
+
+function WorldPower.initializePlacement(item,active,orientation)
+    if not authority() or not lightWorks.supportsWorldEmission(item) or type(active)~="boolean" then return false,"unsupported" end
+    local now=nowHours();if not now then return false,"world age unavailable" end
+    local ok,data=call(item,"getModData");if not ok or type(data)~="table" then return false,"world state unavailable" end
+    local previous=data.lightWorksWorldEmitter
+    if previous~=nil and (type(previous)~="table" or previous.schemaVersion~=1
+        or (previous.processedOperations~=nil and type(previous.processedOperations)~="table")) then
+        return false,"unsupported world state"
+    end
+    -- Replace our table so failed native placements can restore the exact old
+    -- reference. Existing replay history and durable identity are preserved.
+    local state={}
+    for key,value in pairs(previous or {}) do state[key]=value end
+    state.schemaVersion=1;state.active=active;state.orientation=orientation
+    state.lastPowerUpdateHours=now
+    state.processedOperations=type(state.processedOperations)=="table" and state.processedOperations or {}
+    data.lightWorksWorldEmitter=state
+    return true,state
 end
 local function itemState(item,create)
     local ok,data=call(item,"getModData");if not ok or type(data)~="table"then return nil end
     local state=data.lightWorksWorldEmitter
     if state==nil and create then state={schemaVersion=1,active=false,processedOperations={}};data.lightWorksWorldEmitter=state end
     if type(state)=="table"and state.schemaVersion==1 then
-        state.processedOperations=type(state.processedOperations)=="table"and state.processedOperations or{}
+        if state.processedOperations==nil then state.processedOperations={}
+        elseif type(state.processedOperations)~="table" then return nil end
     end
     return type(state)=="table"and state.schemaVersion==1 and state or nil
 end
@@ -32,6 +57,11 @@ function WorldPower.setActive(item,value,operationId)
     if type(value)~="boolean"or type(operationId)~="string"or operationId==""or #operationId>128 then return false,"invalid request"end
     local state=itemState(item,true);if not state then return false,"world state unavailable"end
     for _,existing in ipairs(state.processedOperations)do if existing==operationId then return false,"duplicate operation"end end
+    local now=nowHours();if not now then return false,"world age unavailable" end
+    -- Settle the old active interval before changing either activation or its
+    -- checkpoint. Rejected operations remain retryable and cannot erase debt.
+    local settled,reason=WorldPower.updateItem(item,now)
+    if not settled then return false,reason end
     if value then
         if lightWorks.hasBulb and not lightWorks.hasBulb(item)then return false,"bulb required"end
         if lightWorks.isBulbBurnedOut and lightWorks.isBulbBurnedOut(item)then return false,"bulb burned out"end
@@ -40,7 +70,7 @@ function WorldPower.setActive(item,value,operationId)
         local ok,power=pcall(Power.getConsumerPowerState,item)
         if not ok or type(power)~="table"or power.known~=true or power.powered~=true then return false,"charged battery required"end
     end
-    state.active=value;state.lastPowerUpdateHours=nowHours()or state.lastPowerUpdateHours
+    state.active=value
     state.processedOperations[#state.processedOperations+1]=operationId
     while #state.processedOperations>32 do table.remove(state.processedOperations,1)end
     call(item,"setActivated",value);call(item,"syncItemFields")
@@ -62,24 +92,36 @@ end
 
 function WorldPower.updateItem(item,worldAgeHours)
     if not authority()or not item or not lightWorks.supportsWorldEmission(item)then return false,"unsupported"end
-    local state=itemState(item);local now=tonumber(worldAgeHours)or nowHours()
+    local state=itemState(item);local now=finite(worldAgeHours)or nowHours()
     if not state or not now then return false,"world state unavailable"end
-    local previous=tonumber(state.lastPowerUpdateHours);state.lastPowerUpdateHours=now
-    if not previous or now<=previous or state.active~=true then return true,0 end
+    local previous=finite(state.lastPowerUpdateHours)
+    if not previous or state.active~=true then state.lastPowerUpdateHours=now;return true,0 end
+    if now<=previous then return true,0 end
     local Power=rawget(_G,"powerWorks")or lightWorks.powerWorks
     if type(Power)~="table"or type(Power.getConsumerEnergyRatePerHour)~="function"or type(Power.consumeEnergy)~="function"then
         return false,"powerWorks world-consumption API unavailable"
     end
-    local rate=Power.getConsumerEnergyRatePerHour(item)
-    if type(rate)~="number"or rate<0 then return false,"consumption rate unavailable"end
+    local rate=finite(Power.getConsumerEnergyRatePerHour(item))
+    if not rate or rate<0 then return false,"consumption rate unavailable"end
     local elapsed=math.min(now-previous,24*365*10)
     local consumed,remaining=Power.consumeEnergy(item,rate*elapsed)
     if consumed~=true then return false,remaining or"energy consumption failed"end
-    call(item,"syncItemFields")
+    state.lastPowerUpdateHours=now
     local powerOk,powerState=pcall(Power.getConsumerPowerState,item)
     if powerOk and type(powerState)=="table"and powerState.known==true and powerState.powered~=true then
         state.active=false;call(item,"setActivated",false)
+        -- Reuse the existing semantic-state message on depletion. Field sync
+        -- alone does not tell current clients to clear their saved active flag.
+        if type(isServer)=="function" and isServer()==true and type(sendServerCommand)=="function" then
+            local _,backing=call(item,"getWorldItem")
+            local _,x=call(backing,"getX");local _,y=call(backing,"getY");local _,z=call(backing,"getZ")
+            local _,id=call(item,"getID")
+            if finite(x) and finite(y) and finite(z) and finite(id) then
+                sendServerCommand("lightWorks","worldEmitterState",{x=math.floor(x),y=math.floor(y),z=math.floor(z),itemId=id,active=false})
+            end
+        end
     end
+    call(item,"syncItemFields")
     return true,rate*elapsed,remaining
 end
 

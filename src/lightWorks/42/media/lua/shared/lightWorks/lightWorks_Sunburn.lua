@@ -54,7 +54,13 @@ function Sunburn.update(character,worldAgeHours)
     local previous=finite(state.lastWorldAgeHours);state.lastWorldAgeHours=now
     if not previous or now<=previous then return snapshot(state)end
     local elapsed=math.min(Sunburn.MAX_DELTA_HOURS,now-previous)
-    local exposure=UV.getSunlightExposure(character);local natural=clamp(exposure and exposure.uv and exposure.uv.uvb,0,1)
+    local exposure=UV.getSunlightExposure(character)
+    if type(exposure)~="table" or type(exposure.uv)~="table" or exposure.uv.complete~=true then
+        -- The timestamp marks observation, not proof of shelter. Never replay an
+        -- unknown interval later as fully sheltered or fully exposed.
+        return snapshot(state),"exposure incomplete"
+    end
+    local natural=clamp(exposure.uv.uvb,0,1)
     local protection,details=Sunburn.getProtection(character,exposure)
     local effective=natural*(1-protection)
     local first=math.max(.01,finite(lightWorks.Config.SunburnFirstDegreeDoseHours)or.75)

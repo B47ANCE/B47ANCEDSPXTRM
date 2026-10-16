@@ -55,6 +55,15 @@ local function clearSources(state)
     state.sourceSignature=nil
 end
 
+local function restoreState(state)
+    clearSources(state)
+    for item,strength in pairs(state.suppressed or {}) do
+        pcall(function() item:setLightStrength(strength) end)
+    end
+    state.suppressed=nil
+    state.active=false
+end
+
 local function emitterProfileItem(renderItem)
     if lightWorks.isRegisteredLight(renderItem) then return renderItem end
     -- B42.20 adds the HandWeapon itself to getActiveLightItems(), while its
@@ -326,6 +335,10 @@ local function refreshPlayer(player, playerIndex, seen)
                 -- Retain activation discovery through isActivated() after the
                 -- stock emitter is suppressed; isEmittingLight() then becomes
                 -- false by design.
+                state.suppressed=state.suppressed or {}
+                if state.suppressed[item]==nil then
+                    state.suppressed[item]=callValue(item,"getLightStrength",state.strength or 0.7)
+                end
                 pcall(function() item:setLightStrength(0.0) end)
                 local visible=LowPowerFlicker.shouldRender(profileItem)
                 local patternIntensity=Patterns.evaluate(profileItem)
@@ -344,7 +357,12 @@ local function refreshPlayer(player, playerIndex, seen)
 end
 
 function lightWorks.refreshColoredTorches()
-    if lightWorks.Config.EnableColoredLightRenderer==false then return false end
+    if lightWorks.Config.EnableColoredLightRenderer==false then
+        for _,state in pairs(states) do
+            if state.active or state.suppressed then restoreState(state) end
+        end
+        return false
+    end
     if not ArrayList or type(IsoLightSource)~="table" then return false end
     local ok, err = pcall(function()
         local seen = {}
@@ -353,9 +371,7 @@ function lightWorks.refreshColoredTorches()
             if state.active and not seen[item] then
                 -- Never remove an engine-owned native ID here; the engine owns
                 -- its lifecycle. Only clean up lightWorks' fallback record.
-                clearSources(state)
-                pcall(function() item:setLightStrength(state.strength or 0.7) end)
-                state.active = false
+                restoreState(state)
             end
         end
     end)

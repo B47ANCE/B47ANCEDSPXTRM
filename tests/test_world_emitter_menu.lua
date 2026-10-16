@@ -36,3 +36,19 @@ Menu.onServerCommand("lightWorks","worldEmitterOrientation",{x=5,y=6,z=0,itemId=
 assert(item.data.lightWorksWorldEmitter.orientation=="S"and ensured.orientation=="S",
     "replicated orientation must update the exact item and renderer semantics")
 print("lightWorks nil-safe world-emitter menu and replication checks passed")
+local serial=0
+getRandomUUID=function()serial=serial+1;return string.format("00000000-0000-4000-8000-%012d",serial)end
+isClient=function()return true end
+local actor={getX=function()return 5 end,getY=function()return 6 end}
+local requests={};sendClientCommand=function(_,_,command,args)requests[#requests+1]={command=command,args=args}end
+package.loaded["lightWorks/lightWorks_WorldEmitterMenu"]=nil
+local clientA=require "lightWorks/lightWorks_WorldEmitterMenu"
+clientA.Action:new(actor,backing,item,false):perform()
+package.loaded["lightWorks/lightWorks_WorldEmitterMenu"]=nil
+local clientB=require "lightWorks/lightWorks_WorldEmitterMenu"
+clientB.Action:new(actor,backing,item,false):perform()
+clientB.OrientationAction:new(actor,backing,item,"E"):perform()
+assert(#requests==3 and requests[1].args.operationId~=requests[2].args.operationId
+    and requests[2].args.operationId~=requests[3].args.operationId,"world controls must generate distinct IDs across clients and action types")
+getRandomUUID=nil;clientB.Action:new(actor,backing,item,false):perform()
+assert(#requests==3,"UUID failure cannot submit an invalid or colliding world request")

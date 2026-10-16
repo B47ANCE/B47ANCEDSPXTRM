@@ -65,7 +65,8 @@ end
 function Manager.ensure(backing,transitionActive,orientation)
     if lightWorks.Config.EnableWorldEmitters==false then Manager.unregister(backing);return nil,"world emitters disabled" end
     local item=itemOf(backing);if not item then return nil,"not a world inventory item" end
-    local profile=profileFor(item);if not profile then return nil,"unregistered or bulb-less light" end
+    local profile=profileFor(item)
+    if not profile then Manager.unregister(backing);return nil,"unregistered or bulb-less light" end
     local id,state=emitterId(item);if not id then return nil,"item ModData unavailable" end
     if orientation~=nil then state.orientation=tostring(orientation) end
     if type(transitionActive)=="boolean" then state.active=transitionActive end

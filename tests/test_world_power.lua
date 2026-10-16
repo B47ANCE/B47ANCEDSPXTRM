@@ -1,4 +1,5 @@
 Events={EveryTenMinutes={Add=function()end}}
+getGameTime=function()return{getWorldAgeHours=function()return 12 end}end
 isClient=function()return false end
 local consumed=0;local powered=true
 powerWorks={

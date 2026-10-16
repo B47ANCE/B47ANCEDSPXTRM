@@ -1,6 +1,6 @@
 # Repository onboarding
 
-Project Version: 0.25.4
+Project Version: 0.25.5
 
 Public repository: https://github.com/B47ANCE/B47ANCEDSpectrum
 
@@ -61,3 +61,7 @@ The owner-supplied Spectrum artwork replaces the current preview/thumbnail pair.
 The original source/artwork ledger and 0.25.3 validation remain historical; see
 [ARTWORK.md](ARTWORK.md) and [VALIDATION.md](VALIDATION.md) for current provenance
 and evidence. The existing game icon and historical packages are preserved.
+
+## Audit fixes branch
+
+`fix/offline-audit-defects` starts from the thumbnail/setup branch and carries the compatible nine-defect fixes. Its PR targets `chore/b47anced-spectrum-setup` so the fixes can be reviewed separately while the onboarding PR remains open. Neither main merge nor stable release is implied.

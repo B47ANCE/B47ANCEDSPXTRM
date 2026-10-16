@@ -62,6 +62,10 @@
       "path": "dist/current/provenance.json",
       "pattern": "^  \"version\": \"(?P<version>[^\"]+)\"",
       "stage": "release"
+    },
+    {
+      "path": "docs/AUDIT_FIXES.md",
+      "pattern": "^Project Version: (?P<version>\\S+)$"
     }
   ],
   "changelog": {
@@ -115,6 +119,10 @@
     {
       "reference": "docs/validation/0.25.3-rename.md",
       "reason": "Unmodified validation record for 0.25.3. Its protected-original-artwork hash claims describe that iteration, not the new owner-supplied thumbnail."
+    },
+    {
+      "reference": "docs/validation/0.25.4-thumbnail.md",
+      "reason": "Unmodified 0.25.4 artwork validation; not evidence of the subsequent gameplay defect fixes."
     }
   ]
 }
