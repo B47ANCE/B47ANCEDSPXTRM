@@ -111,6 +111,10 @@
     {
       "reference": "docs/ARCHITECTURE.md, docs/ROADMAP.md, WORKSHOP_CHANGE_NOTE.txt, CHANGELOG.md older-version passages",
       "reason": "Previous implementation milestones/change entries retain their observed versions."
+    },
+    {
+      "reference": "docs/validation/0.25.3-rename.md",
+      "reason": "Unmodified validation record for 0.25.3. Its protected-original-artwork hash claims describe that iteration, not the new owner-supplied thumbnail."
     }
   ]
 }

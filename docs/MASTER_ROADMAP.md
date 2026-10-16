@@ -1,6 +1,6 @@
 # B47ANCED Spectrum Master Roadmap
 
-Canonical version: 0.25.3.
+Canonical version: 0.25.4.
 
 ## Implemented
 

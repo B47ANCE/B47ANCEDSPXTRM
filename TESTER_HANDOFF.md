@@ -1,4 +1,4 @@
-# B47ANCED Spectrum 0.25.3 playtester handoff
+# B47ANCED Spectrum 0.25.4 playtester handoff
 
 Begin only after powerWorks is reviewed as PASS. Enable only powerWorks and
 B47ANCED Spectrum (Mod ID `lightWorks`) on a disposable save and run `lightWorksTestStart(true)`.

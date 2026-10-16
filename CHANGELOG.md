@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.25.4] — owner-supplied Spectrum thumbnail
+
+- Adopted the owner-supplied Spectrum artwork for the project thumbnail and matching Workshop preview; retained the exact full-resolution PNG under `artwork/`.
+- Preserved the existing game icon, technical identities, gameplay behavior, legacy packages and previous artwork in Git history.
+- Synced current version mirrors and retained the 0.25.3 validation record without relabeling it.
+- Known gameplay audit findings remain unresolved. No package, deployment or Workshop upload; SP/dedicated validation remains NOT TESTED and G7/stable-release G8 BLOCKED.
+
 ## [0.25.3] — B47ANCED Spectrum
 
 - Renamed the display name, localized sandbox page and current documentation.

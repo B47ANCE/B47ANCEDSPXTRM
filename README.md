@@ -2,7 +2,7 @@
 
 B47ANCED Spectrum is a Lua-only lighting and optical-effects framework for Project Zomboid Build 42.
 
-- Version: `0.25.3`
+- Version: `0.25.4`
 - Mod ID: `lightWorks`
 - Author: B47ANCE
 - Minimum game version: `42.20.3`
@@ -56,7 +56,7 @@ The display name is B47ANCED Spectrum. The technical Mod ID, Lua API/require nam
 Public source: https://github.com/B47ANCE/B47ANCEDSpectrum
 
 `VERSION` is the sole project-version authority. This iteration is a compatible
-PATCH rename and repository onboarding; it does not change gameplay or claim a
+PATCH artwork update following the rename and repository onboarding; it does not change gameplay or claim a
 stable release. See [Repository setup](docs/REPOSITORY_SETUP.md),
 [Versioning](docs/VERSIONING.md), [Changelog](CHANGELOG.md), and
 [Current validation](docs/VALIDATION.md).
@@ -77,3 +77,5 @@ legacy `Contents` copy and archives. No package was built for this rename.
 Dedicated multiplayer G7 is **BLOCKED / NOT TESTED**. Stable-release G8 is
 **BLOCKED**. Original source/API audits are historical evidence; neither those
 records nor host tests establish current PZ runtime behavior.
+
+Current thumbnail: owner-supplied Spectrum artwork; see [Artwork provenance](docs/ARTWORK.md). The game icon and historical packages are preserved.

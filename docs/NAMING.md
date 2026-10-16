@@ -21,5 +21,5 @@ is needed for a display-name change. Existing internal limits remain internal.
 
 Current docs use the Spectrum display name; source filenames, API examples and
 dated evidence retain their exact technical/historical names. Manually supplied
-icon, thumbnail and preview bytes are preserved. Local deployment and the live
+game icon remains unchanged. The owner-supplied Spectrum image now fills the current thumbnail/preview pair; see [ARTWORK.md](ARTWORK.md). Historical artwork remains in Git. Local deployment and the live
 Workshop title remain unchanged until separately authorized.

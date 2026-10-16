@@ -1,4 +1,11 @@
-[b]Version 0.25.3[/b]
+[b]Version 0.25.4[/b]
+
+[h2]Spectrum thumbnail[/h2]
+- Adopted the owner-supplied B47ANCED Spectrum thumbnail and matching Workshop preview.
+- Preserved the existing game icon and gameplay behavior. Known gameplay issues remain unresolved.
+- Dedicated multiplayer NOT TESTED; G7 and stable-release G8 remain BLOCKED.
+
+[b]Previous 0.25.3 changes[/b]
 
 [h2]B47ANCED Spectrum naming and repository setup[/h2]
 - Renamed the display name and sandbox page to B47ANCED Spectrum.

@@ -2,7 +2,7 @@ lightWorks = lightWorks or {}
 local lightWorks = lightWorks
 local Access = require "lightWorks/lightWorks_ItemAccess"
 
-lightWorks.VERSION = "0.25.3"
+lightWorks.VERSION = "0.25.4"
 lightWorks.MODDATA_KEY = "lightWorks"
 -- UV is a mechanical emission with one canonical visible representation.
 -- Emitter profiles still control strength, reach, cone geometry and falloff.
