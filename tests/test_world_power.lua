@@ -1,4 +1,5 @@
 Events={EveryTenMinutes={Add=function()end}}
+getGameTime=function()return{getWorldAgeHours=function()return 12 end}end
 isClient=function()return false end
 local consumed=0;local powered=true
 powerWorks={
@@ -33,3 +34,19 @@ assert(WorldPower.prepareBacking(backing,item)and backing.moved==true,"server mu
 powered=false
 assert(WorldPower.prepareBacking(backing,item)and backing.moved==false,"unpowered lights must withdraw physical defense targeting")
 print("lightWorks authoritative elapsed world-power checks passed")
+
+lightWorks.hasBulb=function()return false end
+local target={setMovedThumpable=function(self,v)self.attackable=v end}
+assert(WorldPower.prepareBacking(target,item) and target.attackable==false,"server cannot expose a bulbless physical target")
+lightWorks.hasBulb=function()return true end;powered=true
+item.data.lightWorksWorldEmitter.active=true
+assert(WorldPower.prepareBacking(target,item) and target.attackable==true)
+target.getThumpCondition=function()return 0 end
+assert(WorldPower.prepareBacking(target,item) and target.attackable==false,"destroyed backings must be withdrawn")
+
+lightWorks.Config={EnableWorldEmitters=false}
+local beforeDisable=consumed
+assert(WorldPower.updateItem(item,15) and consumed==beforeDisable and item.data.lightWorksWorldEmitter.lastPowerUpdateHours==15)
+assert(not WorldPower.setActive(item,true,"disabled-on"))
+assert(WorldPower.prepareBacking(target,item) and target.attackable==false)
+assert(WorldPower.updateItem(item,14) and item.data.lightWorksWorldEmitter.lastPowerUpdateHours==15,"disabled time cannot rewind checkpoints")

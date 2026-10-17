@@ -1,0 +1,27 @@
+{
+  "profile": "core",
+  "sourcePreflight": "PASS",
+  "issues": [],
+  "sources": {
+    "spectrum": {
+      "id": "lightWorks",
+      "declaredVersion": "0.28.0",
+      "sourceSHA256": "5567d7572c5a7bce45da9598f74e0baaa97b6aed52ca462232b480ada053f038",
+      "sourceFiles": 110,
+      "head": "79775cdfa2577df7f90c77dc03ccc63323fe46f5",
+      "dirty": true
+    },
+    "power": {
+      "id": "B47ANCEDPower",
+      "declaredVersion": "0.17.0-dev.1",
+      "sourceSHA256": "91ab63b8bde17d77b6f311e25c9e03652226c5a72ed503c5fe16cf0052f041ce",
+      "sourceFiles": 113,
+      "head": "40ff9ebfe247d56d7dd2e308e7b7eabfb61a7ce0",
+      "dirty": false
+    }
+  },
+  "SP": "NOT TESTED",
+  "G7": "BLOCKED / NOT TESTED",
+  "stableG8": "BLOCKED",
+  "deployment": "NOT PERFORMED"
+}

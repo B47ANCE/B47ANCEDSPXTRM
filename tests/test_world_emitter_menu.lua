@@ -25,7 +25,7 @@ local Menu=require "lightWorks/lightWorks_WorldEmitterMenu"
 assert(fillHandler and serverHandler,"world menu and replication handlers must register")
 Menu.addMenu(0,context,{backing},false)
 assert(#options==2 and options[1].label=="Turn On Test Lamp"and not options[1].notAvailable,"charged inactive lights must offer Turn On")
-assert(options[2].label=="Aim Test Lamp"and options[2].sub and #options[2].sub.options==4,"directional world lights must expose four deliberate aim choices")
+assert(options[2].label=="Aim Test Lamp"and options[2].sub and #options[2].sub.options==5,"directional world lights must expose four deliberate aim choices")
 Menu.onServerCommand("lightWorks","worldEmitterState",{x=5,y=6,z=0,itemId=42,active=true})
 assert(item.data.lightWorksWorldEmitter.active==false,"missing game cell must make remote state fail closed")
 getCell=function()return{getGridSquare=function()return{getWorldObjects=function()return{size=function()return 1 end,get=function()return backing end}end}end}end
@@ -36,3 +36,19 @@ Menu.onServerCommand("lightWorks","worldEmitterOrientation",{x=5,y=6,z=0,itemId=
 assert(item.data.lightWorksWorldEmitter.orientation=="S"and ensured.orientation=="S",
     "replicated orientation must update the exact item and renderer semantics")
 print("lightWorks nil-safe world-emitter menu and replication checks passed")
+local serial=0
+getRandomUUID=function()serial=serial+1;return string.format("00000000-0000-4000-8000-%012d",serial)end
+isClient=function()return true end
+local actor={getX=function()return 5 end,getY=function()return 6 end,getZ=function()return 0 end}
+local requests={};sendClientCommand=function(_,_,command,args)requests[#requests+1]={command=command,args=args}end
+package.loaded["lightWorks/lightWorks_WorldEmitterMenu"]=nil
+local clientA=require "lightWorks/lightWorks_WorldEmitterMenu"
+clientA.Action:new(actor,backing,item,false):perform()
+package.loaded["lightWorks/lightWorks_WorldEmitterMenu"]=nil
+local clientB=require "lightWorks/lightWorks_WorldEmitterMenu"
+clientB.Action:new(actor,backing,item,false):perform()
+clientB.OrientationAction:new(actor,backing,item,"E"):perform()
+assert(#requests==3 and requests[1].args.operationId~=requests[2].args.operationId
+    and requests[2].args.operationId~=requests[3].args.operationId,"world controls must generate distinct IDs across clients and action types")
+getRandomUUID=nil;clientB.Action:new(actor,backing,item,false):perform()
+assert(#requests==3,"UUID failure cannot submit an invalid or colliding world request")

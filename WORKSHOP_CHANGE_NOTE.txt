@@ -1,4 +1,65 @@
-[b]Version 0.25.2[/b]
+[b]Version 0.30.0[/b]
+B47ANCED SPXTRM - MP testing build - dedicated multiplayer NOT TESTED
+Mod ID B47ANCEDSPXTRM replaces lightWorks. Enable the new Mod ID on all clients/server; existing Lua/save/item/sandbox/network identifiers remain compatible. Added specialist devices, UVC action, calibrated model adapter and optical-material contracts. Workshop 3788592008 unchanged. No upload performed.
+
+[b]Version 0.29.0[/b]
+Add bounded advisory consumer notifications after committed changes, read-only
+Sunburn access, and a debug/SP-only native model-rotation probe with restore checks.
+Native alignment, blood/FBO rendering and gameplay-consumer runtime remain gated.
+MP testing build - dedicated multiplayer NOT TESTED. G7 and stable G8 BLOCKED.
+No package, deployment, game/server launch or upload performed.
+
+[b]Version 0.28.0[/b]
+Add bounded one-scan batch exposure and read-only crop lighting queries.
+Freeze fixture definitions, close the missing-debug-API prototype path and reject
+overflowing laser vectors. No crop growth effect or consumer-file changes.
+MP testing build - dedicated multiplayer NOT TESTED. G7 and stable G8 BLOCKED.
+No package, deployment or upload performed.
+
+[b]Version 0.27.0[/b]
+Development source iteration: Spectrum-owned Nightfall stored-bulb aliases,
+Medical procedure delegation, disabled-by-default UVC Water treatment API and
+read-only crop lighting. No UVC device, treatment action or crop growth effect.
+Full Nightfall startup is blocked by the old medWorks dependency versus the
+renamed B47ANCEDHealthCare Mod ID. Consumer folders remain read-only.
+MP testing build - dedicated multiplayer NOT TESTED. G7 and stable G8 BLOCKED.
+Source/API checks are offline only. No package or upload performed.
+
+[b]Version 0.26.0[/b]
+Development source iteration: free-angle aiming, laser/fixture presentation,
+sunburn status and clothing protection, conservative legacy migration, maintained
+B47ANCEDPower integration, remote lights and timing/performance/replay improvements.
+Update all clients/server and enable B47ANCEDPower. Older clients cannot interpret
+numeric aiming angles. See GitHub for limitations and validation.
+MP testing build - dedicated multiplayer NOT TESTED. G7 and stable G8 BLOCKED.
+No package or Workshop upload is performed by this source iteration.
+
+[b]Version 0.25.5[/b]
+
+[h2]Audit defect fixes[/h2]
+- Moved bulb burnout and dropped-light initialization to server/SP authority.
+- Settled world-light energy before switching and retained failed billing intervals for retry.
+- Cleaned up lights after bulb removal and colored-renderer disable.
+- Replaced restart-prone operation counters with vanilla-generated UUIDs while retaining replay rejection.
+- Enforced disabled-pattern steady demand and protected sunburn state from incomplete exposure readings.
+- Added offline regressions. Actual dedicated multiplayer remains NOT TESTED; G7 and stable-release G8 remain BLOCKED.
+
+[b]Previous 0.25.4 changes[/b]
+
+[h2]Spectrum thumbnail[/h2]
+- Adopted the owner-supplied B47ANCED Spectrum thumbnail and matching Workshop preview.
+- Preserved the existing game icon and gameplay behavior. Known gameplay issues remain unresolved.
+- Dedicated multiplayer NOT TESTED; G7 and stable-release G8 remain BLOCKED.
+
+[b]Previous 0.25.3 changes[/b]
+
+[h2]B47ANCED Spectrum naming and repository setup[/h2]
+- Renamed the display name and sandbox page to B47ANCED Spectrum.
+- Preserved the lightWorks Mod ID, Lua API, saves, sandbox keys, network identifiers, powerWorks dependency, Workshop ID, and existing artwork.
+- Established canonical version tracking, public source history, explicit packaging tooling, and offline CI.
+- Gameplay is unchanged. Dedicated multiplayer NOT TESTED; G7 and stable-release G8 remain BLOCKED.
+
+[b]Previous 0.25.2 changes[/b]
 
 [h2]Release preparation[/h2]
 • Restricted test kits, staged validation, emitter inspection, review export, and the UV-reaction prototype to explicit debug sessions.

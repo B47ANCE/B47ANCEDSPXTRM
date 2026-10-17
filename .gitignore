@@ -4,3 +4,25 @@ console*.txt
 Thumbs.db
 .idea/
 .vscode/
+
+# Shared local configuration and diagnostic/upload state are never source.
+.agents/
+.codex/
+.test-deps/
+.env
+.env.*
+local.settings*
+*.pem
+*.key
+*.pfx
+*.vdf
+server-console*
+.steamcmd-last-upload.sha256
+
+# Preserved legacy packaging and generated outputs; do not delete on build.
+/Contents/
+/dist/
+/SHA256SUMS.txt
+*.zip
+__pycache__/
+*.pyc

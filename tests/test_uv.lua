@@ -12,7 +12,7 @@ powerWorks={isRegisteredConsumer=function(item) return item.powerConsumer==true 
 require=function() return lightWorks end
 getClimateManager=function() return {getDayLightStrength=function() return 0.8 end} end
 
-dofile("src/lightWorks/42/media/lua/shared/lightWorks/lightWorks_UV.lua")
+dofile("src/B47ANCEDSPXTRM/42/media/lua/shared/lightWorks/lightWorks_UV.lua")
 
 local outside={isOutside=function() return true end}
 local inside={isOutside=function() return false end}

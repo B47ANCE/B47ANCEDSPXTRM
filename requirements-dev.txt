@@ -1,0 +1,2 @@
+# Offline development dependency only; never ship with the Lua runtime mod.
+lupa==2.6

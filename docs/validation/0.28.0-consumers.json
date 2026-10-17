@@ -1,0 +1,73 @@
+{
+  "result": "PASS",
+  "environment": "host Lua 5.4; native object stubs; API slices only",
+  "sources": {
+    "spectrum": {
+      "id": "lightWorks",
+      "declaredVersion": "0.28.0",
+      "sourceSHA256": "5567d7572c5a7bce45da9598f74e0baaa97b6aed52ca462232b480ada053f038",
+      "sourceFiles": 110,
+      "head": "79775cdfa2577df7f90c77dc03ccc63323fe46f5",
+      "dirty": true
+    },
+    "power": {
+      "id": "B47ANCEDPower",
+      "declaredVersion": "0.17.0-dev.1",
+      "sourceSHA256": "91ab63b8bde17d77b6f311e25c9e03652226c5a72ed503c5fe16cf0052f041ce",
+      "sourceFiles": 113,
+      "head": "40ff9ebfe247d56d7dd2e308e7b7eabfb61a7ce0",
+      "dirty": false
+    },
+    "nightfall": {
+      "id": "ProjectNightfall",
+      "declaredVersion": "0.29.0",
+      "sourceSHA256": "ca5ddcbd8922aba66a3b7fc3464311d5152021d4c62b20ba6a96183508154208",
+      "sourceFiles": 152,
+      "head": "b09aa532e60ede9c9641bcf49c49f8c32ed99421",
+      "dirty": true
+    },
+    "mortis": {
+      "id": "ProjectMORTIS",
+      "declaredVersion": "0.25.0-dev.3",
+      "sourceSHA256": "ed2a9a2ac27ecd8b8061dc55e19855c5ed1fae62b3ad28b2048db947e45c7f03",
+      "sourceFiles": 187,
+      "head": "b3cd73f43526d1399bb6c4810b461cb3b774ef84",
+      "dirty": true
+    },
+    "knowledge": {
+      "id": "B47ANCEDKnowledgeAndWisdom",
+      "declaredVersion": "0.15.0",
+      "sourceSHA256": "33899f2d9fda4b7969f0e8b0ba173844cbc307cd7ca5820adf5d31d88d4aa495",
+      "sourceFiles": 115,
+      "head": "ca5b724c63d49ab224f96b2daea3e17ad7498e44",
+      "dirty": false
+    },
+    "medical": {
+      "id": "B47ANCEDHealthCare",
+      "declaredVersion": "0.10.0",
+      "sourceSHA256": "b3aed10d914e26b32ece903fb778d841cfb49dbb4d45be57a4d22f331c845da7",
+      "sourceFiles": 113,
+      "head": "0c7fd8defe24d859db69d585c7a3f0b5f9649c76",
+      "dirty": false
+    },
+    "water": {
+      "id": "waterWorks",
+      "declaredVersion": "0.33.1",
+      "sourceSHA256": "87d63fd34d3ff185042311e539a764a3ebe4bf4489a823470bb5511a10f91ecb",
+      "sourceFiles": 50,
+      "head": null,
+      "versionStatus": "legacy metadata only; no canonical version adopted by Spectrum"
+    },
+    "farming": {
+      "id": "farmWorks",
+      "declaredVersion": "0.8.0",
+      "sourceSHA256": "b991e2e867aab78a1d1b5fced3a5ebbcc90c6e93af62fa7c4e617da9d23eb9a1",
+      "sourceFiles": 11,
+      "head": null,
+      "versionStatus": "legacy metadata only; no canonical version adopted by Spectrum"
+    }
+  },
+  "fullModLoad": "NOT TESTED",
+  "SP": "NOT TESTED",
+  "dedicated": "NOT TESTED"
+}

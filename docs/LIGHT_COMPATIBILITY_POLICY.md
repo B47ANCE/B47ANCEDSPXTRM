@@ -1,4 +1,4 @@
-# lightWorks Light Compatibility Policy
+# B47ANCED Spectrum Light Compatibility Policy
 
 ## Authority levels
 
