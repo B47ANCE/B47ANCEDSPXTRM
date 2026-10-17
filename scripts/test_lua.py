@@ -7,7 +7,7 @@ from lupa.lua51 import LuaRuntime as Lua51
 from lupa.lua54 import LuaRuntime as Lua54
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = "src/lightWorks/42/media/lua/"
+BASE = "src/B47ANCEDSPXTRM/42/media/lua/"
 
 
 def source(side, name):

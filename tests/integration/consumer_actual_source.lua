@@ -1,5 +1,7 @@
 -- The runner supplies actual dependency search paths. No compatibility globals
 -- or package.loaded shims replace first-party APIs; only native objects are fake.
+isClient=function()return false end
+isServer=function()return false end
 local API=require "lightWorks/lightWorks_API"
 require "lightWorks/lightWorks_Vanilla"
 local C=require "lightWorks/lightWorks_ConsumerIntegrations"

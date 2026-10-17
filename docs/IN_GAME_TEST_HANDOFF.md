@@ -1,6 +1,6 @@
-# Spectrum development test handoff
+# SPXTRM development test handoff
 
-Project Version: 0.28.0
+Project Version: 0.30.0
 
 Core Spectrum + B47ANCEDPower, Nightfall and optional-consumer source preflights
 pass against the recorded current checkouts. The earlier medWorks loader mismatch
@@ -8,7 +8,7 @@ is corrected in Nightfall 0.29.0 metadata, which now requires B47ANCEDHealthCare
 No source preflight proves actual native loading, installation or runtime behavior.
 Some dependencies are dirty; review and pin matching copies before any explicitly
 authorized deployment. No package, deployment, game/server launch or upload was
-performed by this iteration. All consumer folders remain read-only to this task.
+performed by this iteration. Health Care self-care uses its isolated 0.11.0 checkout; Nightfall 0.30.0 has the matching SPXTRM requirement. Water/Farming sources remain unchanged.
 
 ## Before installing
 
@@ -32,14 +32,14 @@ must fail, not silently fall back to stale Contents. The Water/Farming Contents
 roots are their evidenced authoritative sources; Spectrum's Contents is stale.
 The current consumer-only profile can pass without Nightfall, using
 B47ANCEDHealthCare, ProjectMORTIS, B47ANCEDKnowledgeAndWisdom, B47ANCEDPower,
-lightWorks, waterWorks and farmWorks. Dirty dependency worktrees require owner
+B47ANCEDSPXTRM, waterWorks and farmWorks. Dirty dependency worktrees require owner
 review and pinned matching installation before testing. Source PASS is not a
 release, package-integrity, installation or native loader PASS.
 
 ## Single-player core stage
 
 1. After deployment is separately authorized and verified, enable B47ANCEDPower
-   and lightWorks only on a fresh disposable save. Inspect errors before starting.
+   and B47ANCEDSPXTRM only on a fresh disposable save. Inspect errors before starting.
 2. Run lightWorksTestStart(true), lightWorksTestChecks(), lightWorksTestTour(),
    lightWorksTestSandbox(), then lightWorksTestReport(). Record visible behavior
    honestly; the helpers cannot certify their own visual expectations.
@@ -82,6 +82,23 @@ release, package-integrity, installation or native loader PASS.
   water/growth/health must stay unchanged. These helpers report
   normalized observations only; there is no growth effect or new farming UI.
 
+## Remaining audit acceptance
+
+Follow CONSUMER_NOTIFICATIONS.md for subscription IDs/tokens and exact producer
+scope. Test successful state, duplicates, rollback, callback failures, late attach,
+teardown and separate client/server Lua VMs. Requery on attach/restart; never use
+notifications as an authority or reward trigger. Status must expose failures/drops.
+
+Follow NATIVE_PRESENTATION_GATES.md for manual debug/SP world-model previews and
+restoration. Use a disposable placed light, record original/native/logical angles,
+verify rollback/removal and save backup. Native setter readback is not a visible
+alignment PASS. The blood spike still needs actual FBO/depth evidence; no Java
+fallback or production native redraw is introduced. Helpers that spawn or mutate
+fixtures are SP-only; use authorized server-admin tools to prepare MP fixtures.
+
+The closure matrix AUDIT_CLOSURE.md retains all unobserved runtime gates. No
+other-mod writes or new domain gameplay content were authorized by this iteration.
+
 ## Dedicated authority stage
 
 Use two clients with the same explicitly selected source set. Only the server may
@@ -96,3 +113,7 @@ Return the stage report, versioned source/deployment inventory, console errors,
 reproduction steps, and screenshots for visual failures. Keep private logs and
 player data out of public Git. G7 BLOCKED / NOT TESTED and stable G8 BLOCKED until
 observed dedicated evidence is reviewed. No stable tag or release is implied.
+
+Current 0.30.0 activation ID is B47ANCEDSPXTRM (old Lua/save namespace retained). Enable it with matching Nightfall metadata. Follow docs/FEATURE_PASS_0_30_0.md for specialist devices, UVC timed action, Health Care self-care, native model calibration and remaining blood/growth gates. Previous pinned version probes are historical. No install/game/server launch is automatic.
+
+For the new cold-pack action, select the reviewed Health Care 0.11.0 checkout explicitly with --medical-root (this session: ../.worktrees/healthcare-spectrum-treatment). The ordinary sibling artwork checkout is separate; do not overwrite it or treat its older API probe as self-care implementation evidence.

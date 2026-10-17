@@ -7,7 +7,7 @@ import re
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "src/lightWorks/42"
+SOURCE = ROOT / "src/B47ANCEDSPXTRM/42"
 SENSITIVE = {
     "private key": r"-----BEGIN (?:RSA |OPENSSH |EC |DSA )?PRIVATE KEY-----",
     "GitHub credential": r"\b(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,})",
@@ -62,7 +62,7 @@ def credentials(staged=False):
 def source_checks():
     errors = []
     info = dict(line.split("=", 1) for line in (SOURCE / "mod.info").read_text().splitlines() if "=" in line)
-    expected = {"name": "B47ANCED Spectrum", "id": "lightWorks", "require": "B47ANCEDPower", "versionMin": "42.20.3"}
+    expected = {"name": "B47ANCED SPXTRM", "id": "B47ANCEDSPXTRM", "require": "B47ANCEDPower", "versionMin": "42.20.3"}
     for key, value in expected.items():
         if info.get(key) != value:
             errors.append("Unexpected mod identity/dependency field: " + key)
@@ -79,7 +79,7 @@ def source_checks():
     modules = {p.relative_to(lua_root / side).with_suffix("").as_posix() for side in ["shared", "client", "server"] for p in (lua_root / side).rglob("*.lua")}
     for path in lua_root.rglob("*.lua"):
         for name in re.findall(r'''\brequire\s*\(?\s*["']([^"']+)["']''', path.read_text(encoding="utf-8")):
-            if name.lower().startswith("lightworks/") and name not in modules:
+            if name.lower().startswith(("lightworks/", "b47ancedspxtrm/")) and name not in modules:
                 errors.append(f"Missing/case-incorrect owned require {name} in {path.name}")
 
     translation_root = lua_root / "shared/Translate"
@@ -95,7 +95,7 @@ def source_checks():
             data = json.loads((translation_root / language / filename).read_text(), object_pairs_hook=unique_json)
             if set(data) != set(english) or any(not isinstance(v, str) or not v.strip() for v in data.values()):
                 errors.append(f"Translation keys/values incomplete: {language}/{filename}")
-            if filename == "Sandbox.json" and data.get("Sandbox_lightWorks") != "B47ANCED Spectrum":
+            if filename == "Sandbox.json" and data.get("Sandbox_lightWorks") != "B47ANCED SPXTRM":
                 errors.append("Stale sandbox display name: " + language)
     for path in lua_root.rglob("*.lua"):
         used = set(re.findall(r'''["']((?:ContextMenu|Sandbox)_lightWorks(?:_[A-Za-z0-9]+)*)["']''', path.read_text()))
@@ -127,11 +127,11 @@ def source_checks():
     rendered = "\n".join(line[len("description="):] for line in workshop_lines if line.startswith("description=")) + "\n"
     if descriptions[0] != descriptions[1] or rendered != descriptions[0]:
         errors.append("Workshop description mirrors differ")
-    if "title=B47ANCED Spectrum" not in workshop_lines:
+    if "title=B47ANCED SPXTRM" not in workshop_lines:
         errors.append("Workshop title was not renamed")
-    if "[b]Mod ID:[/b] lightWorks" not in descriptions[0] or "[b]Workshop ID:[/b] 3788592008" not in descriptions[0]:
+    if "[b]Mod ID:[/b] B47ANCEDSPXTRM" not in descriptions[0] or "[b]Workshop ID:[/b] 3788592008" not in descriptions[0]:
         errors.append("Workshop identity contract changed")
-    if "https://github.com/B47ANCE/B47ANCEDSpectrum" not in descriptions[0]:
+    if "https://github.com/B47ANCE/B47ANCEDSPXTRM" not in descriptions[0]:
         errors.append("Workshop source link missing")
     if "\\n" in descriptions[0] or "\\n" in (ROOT / "WORKSHOP_CHANGE_NOTE.txt").read_text():
         errors.append("Workshop text contains serialized paragraph escapes")
