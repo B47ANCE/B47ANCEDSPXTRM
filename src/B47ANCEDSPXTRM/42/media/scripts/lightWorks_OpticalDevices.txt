@@ -1,0 +1,102 @@
+module lightWorks
+{
+    item UVAInspectionLamp
+    {
+        DisplayName = UVA Inspection Lamp,
+        DisplayCategory = LightSource,
+        ItemType = base:drainable,
+        Weight = 0.8,
+        Icon = Flashlight2,
+        ActivatedItem = true,
+        DisappearOnUse = false,
+        KeepOnDeplete = true,
+        LightDistance = 10,
+        LightStrength = 1.0,
+        TorchCone = true,
+        TorchDot = 0.5,
+        UseDelta = 0.006,
+        cantBeConsolided = true,
+        primaryAnimMask = HoldingTorchRight,
+        secondaryAnimMask = HoldingTorchLeft,
+        StaticModel = Base.HandTorch,
+        WorldStaticModel = Base.HandTorchGround,
+        Tags = base:flashlight;base:flashlightpillar,
+        SoundMap = Activate FlashlightOn,
+        SoundMap = Deactivate FlashlightOff,
+    }
+    item UVABulb
+    {
+        DisplayName = UVA Inspection Lamp Bulb,
+        DisplayCategory = Electronics,
+        ItemType = base:normal,
+        Weight = 0.1,
+        Icon = LightBulb,
+        WorldStaticModel = Base.LightBulb,
+    }
+    item UVCServiceLamp
+    {
+        DisplayName = UVC Service Lamp,
+        DisplayCategory = LightSource,
+        ItemType = base:drainable,
+        Weight = 0.8,
+        Icon = Flashlight2,
+        ActivatedItem = true,
+        DisappearOnUse = false,
+        KeepOnDeplete = true,
+        LightDistance = 10,
+        LightStrength = 1.0,
+        TorchCone = true,
+        TorchDot = 0.5,
+        UseDelta = 0.006,
+        cantBeConsolided = true,
+        primaryAnimMask = HoldingTorchRight,
+        secondaryAnimMask = HoldingTorchLeft,
+        StaticModel = Base.HandTorch,
+        WorldStaticModel = Base.HandTorchGround,
+        Tags = base:flashlight;base:flashlightpillar,
+        SoundMap = Activate FlashlightOn,
+        SoundMap = Deactivate FlashlightOff,
+    }
+    item UVCBulb
+    {
+        DisplayName = UVC Service Lamp Bulb,
+        DisplayCategory = Electronics,
+        ItemType = base:normal,
+        Weight = 0.1,
+        Icon = LightBulb,
+        WorldStaticModel = Base.LightBulb,
+    }
+    item GrowLamp
+    {
+        DisplayName = Portable Grow Lamp,
+        DisplayCategory = LightSource,
+        ItemType = base:drainable,
+        Weight = 0.8,
+        Icon = Flashlight2,
+        ActivatedItem = true,
+        DisappearOnUse = false,
+        KeepOnDeplete = true,
+        LightDistance = 10,
+        LightStrength = 1.0,
+        TorchCone = true,
+        TorchDot = 0.5,
+        UseDelta = 0.006,
+        cantBeConsolided = true,
+        primaryAnimMask = HoldingTorchRight,
+        secondaryAnimMask = HoldingTorchLeft,
+        StaticModel = Base.HandTorch,
+        WorldStaticModel = Base.HandTorchGround,
+        Tags = base:flashlight;base:flashlightpillar,
+        SoundMap = Activate FlashlightOn,
+        SoundMap = Deactivate FlashlightOff,
+    }
+    item GrowBulb
+    {
+        DisplayName = Portable Grow Lamp Bulb,
+        DisplayCategory = Electronics,
+        ItemType = base:normal,
+        Weight = 0.1,
+        Icon = LightBulb,
+        WorldStaticModel = Base.LightBulb,
+    }
+}

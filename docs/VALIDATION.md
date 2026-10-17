@@ -1,52 +1,71 @@
-# Spectrum thumbnail validation
+# SPXTRM feature-pass validation
 
-Project Version: 0.25.4
+Project Version: 0.30.0
 
-Date: 2026-10-16 (America/Phoenix)
+2026-10-16 (America/Phoenix). Base 5daab92e901c2f703c238f593d46c1dc3ef8907f (0.29.0).
+Branch feature/spectrum-feature-completion, stacked on feature/spectrum-notifications.
+Explicit pre-1.0 MINOR activation-ID transition plus additive features. Existing
+Lua/save/item/sandbox/protocol identifiers remain stable; enabled-mod lists must
+change to B47ANCEDSPXTRM. Prior validation is exact in validation/0.29.0-audit.md.
 
-Scope: owner-supplied thumbnail/preview replacement and synchronized version
-metadata. No gameplay fix is included. The audit findings against 886f97d remain
-unresolved; no previous runtime evidence is upgraded by this artwork change.
+[TESTED, offline Windows / host Lua 5.4] 54 regression files and 59 Lua 5.1
+source/template syntax files PASS. Canonical versions, identity, owned require
+case, Lua-only payload, 29-language fallback/schema sets, disposable Python
+preflight and credential/path checks PASS. New coverage tests calibrated model
+registration/copies/readback/rollback/sync recovery; material completeness/bands;
+three specialist devices/replacement restrictions/loot idempotence; timed UVC
+authority/reach/power loss/repeated callbacks; canonical import identity and
+bounded read-only treatment receipts. These use native object stubs, not PZ.
 
-## Current evidence
+[TESTED, offline] Actual Power API probe includes specialist profiles and PASS.
+Actual consumer API slices PASS for Nightfall aliases, Medical treatment/replay,
+Water quality gates/commit/rollback and Farming unchanged observations/batches.
+Health Care isolated 0.11.0 tests cover actual Spectrum interrupted-commit
+receipt recovery. Exact selected source hashes, HEAD/dirty state and preflight
+are recorded in validation/0.30.0-*.json. Dirty/concurrently changing dependency
+snapshots are not pinned clean pairings. Full native mod bootstraps are NOT TESTED.
 
-- [TESTED, offline Windows] Original PNG structurally verified: 1254 x 1254, RGB,
-  1,559,539 bytes. All three current copies have identical SHA-256
-  `44e03c1e64fd9bdcbbf767b81ec3f08850c00dcb4e3709e9f374046e34eea119`.
-- [VERIFIED, visual] The supplied artwork shows the Spectrum title, three lights
-  and spare bulbs. It is used unchanged, with no resize, crop or regeneration.
-- [TESTED, offline Windows] Existing game icon remains byte-identical at SHA-256
-  `ee7351b8932db9969c20344c7328de4281292c5b9896ae3ee3ea32906b8159ef`.
-- [TESTED, offline Windows] Version inventory passed at 0.25.3 before the update.
-  Current version/repository checks PASS at 0.25.4 (165 selected files; zero
-  credential/path findings). The staged audit and whitespace checks also PASS.
-- [VERIFIED, history] The previous validation file is preserved unchanged at
-  [0.25.3-rename.md](validation/0.25.3-rename.md). Its original-artwork and test
-  claims apply to that historical iteration only.
+[VERIFIED, installed source] Steam build 25485521; full engine SemVer UNKNOWN.
+Prior vanilla yaw getter/setter evidence remains current by source hash. New
+device fields/native asset references were checked against generated item/model
+definitions; cold-pack consumption/native complete follows ISApplyBandage and
+the existing Health Care native recovery contract. SuburbsDistributions registers
+OnPreDistributionMerge; MedicalStorageTools/GardenStoreTools are actual lists.
+Source inspection does not prove native parsing, timing, rendering or transport.
+No game source/assets/classes are copied or executed.
 
-## Commands
+[VERIFIED, history] Owner thumbnail/icon bytes remain unchanged after the authoring
+root move. Spectrum lettering in supplied artwork is retained. Historical Contents,
+packages, upload state, validation/changenotes and Water/Farming source are unchanged.
+GitHub repository ID 1421935901 remains public, now B47ANCE/B47ANCEDSPXTRM. Four
+developer workspace path references were updated; installed managed settings and
+credentials were untouched. Health Care artwork checkout was not edited. Nightfall
+reconciled to public main containing effigy and audit/CI before the dependency change.
 
-```sh
-python scripts/check_versions.py --root .
-python scripts/check_repository.py
+Commands (bundled Python 3.12 and requirements-dev.txt):
+
+```text
+python scripts/check_versions.py
+python scripts/validate.py
+python scripts/check_power_integration.py --dependency-root ../B47ANCEDPower
+python scripts/check_consumer_integrations.py --dependencies .. --medical-root ../.worktrees/healthcare-spectrum-treatment
+python scripts/check_test_readiness.py --dependencies .. --profile core
+python scripts/check_test_readiness.py --dependencies .. --profile nightfall --medical-root ../.worktrees/healthcare-spectrum-treatment
+python scripts/check_test_readiness.py --dependencies .. --profile consumers --medical-root ../.worktrees/healthcare-spectrum-treatment
 python scripts/check_repository.py --staged
 git diff --check
 git diff --cached --check
 ```
 
-On this machine, `python` is invoked through the bundled executable at
-`C:/Users/willi/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe`.
-The artwork check uses Pillow to verify PNG structure, dimensions and RGB mode;
-SHA-256 compares the authoritative source and both current thumbnail slots.
-CI's existing offline suite also runs Lua syntax/regressions; none is a PZ
-runtime test or evidence that the known gameplay defects have been repaired.
+Startup/precommit: Test-PZRepositoryFreshness.ps1 against each explicit repository.
+Exact commit/push/CI results belong to the iteration report, not this precommit record.
 
-## Gates and limits
+[RUNTIME GATE] Native built-in model calibration, blood/FBO/depth and additional
+overlay assets remain incomplete. Crop growth is deferred while Farming stays
+unchanged. Native shared-action timing/reference serialization, real items/fluids,
+renderer/depth, controllers, save/reload, joins/restarts and dedicated acceptance
+are NOT TESTED. G7 BLOCKED / NOT TESTED; stable G8 BLOCKED. Current Knowledge source
+also reports an upstream dedicated-storage blocker; source-contract PASS does not
+override it. No packaging, deployment, game/server launch or Workshop upload.
 
-SP and dedicated multiplayer: NOT TESTED for this iteration. G7 remains
-BLOCKED / NOT TESTED; stable-release G8 remains BLOCKED. The existing authority,
-world-light accounting/cleanup, replay, pattern and sunburn defects remain open.
-No game/server launch, package, local deployment or Workshop upload occurred.
-The full-size supplied PNG is retained exactly; Workshop upload acceptance and
-in-game thumbnail display have not been tested. Historical packages and their
-artwork remain unchanged.
+Final review: the native UVC action validity callback checks only configuration, actor/target placement and reach. It performs no optical/world scan; explicit menu preview and the authoritative Water commit sample exposure. A regression invokes validity 1,000 times with zero exposure scans. No native timing or performance claim is inferred from this host test.

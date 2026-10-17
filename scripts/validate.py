@@ -7,7 +7,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 
 if __name__ == "__main__":
-    for script in ["check_versions.py", "check_repository.py", "test_lua.py"]:
+    for script in ["check_versions.py", "check_repository.py", "test_lua.py", "test_readiness.py"]:
         print("RUN python scripts/" + script, flush=True)
         result = subprocess.run([sys.executable, str(ROOT / "scripts" / script)], cwd=ROOT)
         if result.returncode:

@@ -11,7 +11,7 @@ a compatible branding change, not a new mod or a persistence migration.
 | Lua global and require namespace | `lightWorks` |
 | Item ModData, sandbox keys, network command module | Existing `lightWorks` identifiers |
 | Developer commands and report filename | Existing `LW*`, `lightWorksTest*`, and legacy report path |
-| Required dependency | `powerWorks` |
+| Required dependency | `B47ANCEDPower` (migrated in 0.26.0) |
 | Existing Workshop item | `3788592008` |
 
 Consumers such as Project Nightfall and medWorks continue to call the same API.
@@ -23,3 +23,6 @@ Current docs use the Spectrum display name; source filenames, API examples and
 dated evidence retain their exact technical/historical names. Manually supplied
 game icon remains unchanged. The owner-supplied Spectrum image now fills the current thumbnail/preview pair; see [ARTWORK.md](ARTWORK.md). Historical artwork remains in Git. Local deployment and the live
 Workshop title remain unchanged until separately authorized.
+
+The display-name-only guarantees above describe the original rename. Current
+feature/dependency and save-extension changes are documented in FEATURE_COMPLETION.md.

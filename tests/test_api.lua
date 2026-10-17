@@ -1,7 +1,7 @@
 -- Lightweight host-Lua regression checks for API boundaries that do not depend
 -- on the Project Zomboid runtime.
 next=nil -- Build 42 Kahlua release compatibility.
-local loadedModule=dofile("src/lightWorks/42/media/lua/shared/lightWorks/lightWorks_API.lua")
+local loadedModule=dofile("src/B47ANCEDSPXTRM/42/media/lua/shared/lightWorks/lightWorks_API.lua")
 
 local lightWorks = lightWorks
 assert(loadedModule==lightWorks,"API module must return its canonical namespace for require consumers")

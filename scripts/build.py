@@ -21,7 +21,7 @@ def main():
     if output.exists() and any(output.iterdir()):
         raise SystemExit("dist/current is not empty. Preserve/classify existing outputs before another build; no files were deleted.")
     entries = {}
-    for path in sorted((ROOT / "src/lightWorks").rglob("*")):
+    for path in sorted((ROOT / "src/B47ANCEDSPXTRM").rglob("*")):
         if path.is_file():
             entries["Contents/mods/" + path.relative_to(ROOT / "src").as_posix()] = path.read_bytes()
     for name in ["workshop.txt", "preview.png"]:
@@ -33,7 +33,7 @@ def main():
             raise SystemExit("Unsafe/duplicate/case-colliding archive path: " + name)
         folded.add(name.casefold())
     output.mkdir(parents=True, exist_ok=True)
-    archive = output / f"B47ANCEDSpectrum-{version}.zip"
+    archive = output / f"B47ANCEDSPXTRM-{version}.zip"
     with zipfile.ZipFile(archive, "x", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as package:
         for name, data in sorted(entries.items()):
             info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
@@ -48,8 +48,8 @@ def main():
                 raise SystemExit("Package content differs from source: " + name)
     provenance = {
         "version": version,
-        "display_name": "B47ANCED Spectrum",
-        "mod_id": "lightWorks",
+        "display_name": "B47ANCED SPXTRM",
+        "mod_id": "B47ANCEDSPXTRM",
         "workshop_id": "3788592008",
         "minimum_game_version": "42.20.3",
         "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),

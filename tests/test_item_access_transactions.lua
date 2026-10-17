@@ -58,3 +58,21 @@ assert(Access.syncServiceState(player,new,weapon) and sent.weapon and not sent.m
 syncHandWeaponFields=function() error("network") end
 assert(not Access.syncServiceState(player,new,weapon))
 print("lightWorks inventory no-op/throw-after/ownership transaction checks passed")
+
+local child={};local root={}
+local bag={getInventory=function()return child end}
+local bulb={getFullType=function()return "Test.Nested"end}
+root.getItems=function()return {size=function()return 1 end,get=function()return bag end}end
+child.getItems=function()return {size=function()return 2 end,get=function(_,i)return i==0 and bulb or bag end}end
+root.getAllEvalRecurse=function()error("unbounded native recursive traversal is forbidden")end
+local actor={getInventory=function()return root end}
+local nested=Access.inventoryItems(actor)
+assert(#nested==2 and nested[2]==bulb,"bounded nested discovery must deduplicate cycles")
+local count=0
+root.getItems=function()return {size=function()return 999999 end,get=function()count=count+1;return {}end}end
+assert(#Access.inventoryItems(actor)==Access.MAX_ITEMS and count==Access.MAX_ITEMS,"oversized inventory must stop at the read budget")
+
+count=0
+root.getItems=function()return {iterator=function()return {hasNext=function()return true end,
+    next=function()count=count+1;return nil end}end}end
+assert(#Access.inventoryItems(actor)==0 and count==Access.MAX_ITEMS,"an invalid iterator must not evade the read budget")

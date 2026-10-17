@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "records": [
+    {
+      "api_library": "Project Zomboid vanilla Lua/exposed engine APIs",
+      "symbol": "OnPreDistributionMerge",
+      "receiver_type": "Events.OnPreDistributionMerge",
+      "signature_scope": "observed_vanilla_call",
+      "signature": "Events.OnPreDistributionMerge.Add(preDistributionMerge)",
+      "game_version": "UNKNOWN",
+      "steam_build": "25485521",
+      "side": "server",
+      "returns": "UNKNOWN from observed caller",
+      "mutation": "Registered callbacks may update server loot definitions; this does not mutate existing inventories.",
+      "status": "VERIFIED",
+      "runtime_status": "NOT_TESTED",
+      "verified_on": "2026-10-16",
+      "notes": "Source call forms only; no native engine execution, game source copy or authority/serialization guarantee.",
+      "evidence": [
+        {
+          "kind": "vanilla_lua",
+          "path": "media/lua/server/Items/SuburbsDistributions.lua",
+          "lines": [
+            208,
+            209
+          ],
+          "sha256": "25a15471f95fb56ebe7ac405c4a85705d18b3ee12a2bd7fe379e2c71e3bc36b1",
+          "statement": "Installed vanilla Lua registers distribution merge callbacks. Native event execution order is not runtime tested."
+        }
+      ]
+    },
+    {
+      "api_library": "Project Zomboid vanilla Lua/exposed engine APIs",
+      "symbol": "Remove",
+      "receiver_type": "ItemContainer",
+      "signature_scope": "observed_vanilla_call",
+      "signature": "self.character:getInventory():Remove(self.item)",
+      "game_version": "UNKNOWN",
+      "steam_build": "25485521",
+      "side": "shared",
+      "returns": "UNKNOWN from observed caller",
+      "mutation": "Exact inventory supply is removed; subsequent sendRemoveItemFromContainer is used on server. Throw-after-write behavior, persistence and recovery require validation.",
+      "status": "VERIFIED",
+      "runtime_status": "NOT_TESTED",
+      "verified_on": "2026-10-16",
+      "notes": "Source call forms only; no native engine execution, game source copy or authority/serialization guarantee.",
+      "evidence": [
+        {
+          "kind": "vanilla_lua",
+          "path": "media/lua/shared/TimedActions/ISApplyBandage.lua",
+          "lines": [
+            120,
+            123
+          ],
+          "sha256": "f1038ba360d9e9b56370a7e0d3714e4009be98e8fd839c49a674af3319a382c9",
+          "statement": "Vanilla completion removes the exact inventory supply and requests server-side removal synchronization. Native timing and transport are not certified by this inspection."
+        }
+      ]
+    }
+  ]
+}

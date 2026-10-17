@@ -2,7 +2,7 @@
 
 > Consolidated status: [MASTER_ROADMAP.md](MASTER_ROADMAP.md).
 
-lightWorks owns lighting, optical effects, UV, sunlight exposure, and sunburn. Bulbs remain a core subsystem. powerWorks owns electricity; consumer mods own domain-specific consequences.
+lightWorks owns lighting, optical effects, UV, sunlight exposure, and sunburn. Bulbs remain a core subsystem. B47ANCEDPower owns electricity; consumer mods own domain-specific consequences. Historical milestones below retain their original dependency names.
 
 1. **L0 — Rename and architecture:** clean namespace, modules, metadata, dependencies, documentation, and tests.
 2. **L1 — Light-source core:** generic emitters, intensity, range, direction, falloff, source adapters, and bounded registries.
@@ -16,15 +16,15 @@ lightWorks owns lighting, optical effects, UV, sunlight exposure, and sunburn. B
 10. **L9 — Nightfall migration:** lightWorks exposure with Nightfall-owned infected damage and behavior.
 11. **L10 — Optional integrations:** waterWorks UV treatment, farmWorks grow-light output, and medWorks sunburn treatment.
 
-Current implementation includes the renamed bulb/portable-light framework, the
-natural/artificial UV exposure API, and an initial persistent authority-owned
-sunburn vertical slice. Portable emitters also use deterministic powerWorks-backed
-low-battery flicker. Registered dropped/placed lights now bind real vanilla
-world sources, persist semantic identity/orientation, share effect phase with
-UV queries, and cleanly rebind or unregister across lifecycle transitions.
-Destructible placement proxies, advanced directional
-world cones, lasers, advanced fixtures/occlusion, and live
-multiplayer validation remain planned and must not be claimed complete.
+Current source includes L0-L5/L7 optical and bulb foundations, an L6 mounted-laser
+presentation slice, explicit advanced fixture adapters, arbitrary-angle world-light
+geometry, clothing protection/status and conservative known-record migration.
+Current L8 includes one-scan exposure batches, paged crop-light observations and
+bounded process-local post-commit notifications with lifecycle/teardown rules.
+See MASTER_ROADMAP.md, CONSUMER_INTEGRATIONS.md and AUDIT_0_28_0.md for current
+completion/gate status; FEATURE_COMPLETION.md retains the 0.26.0 milestone.
+Native model rotation/blood redraw, live calibration, dedicated verification and
+consumer-owned L9/L10 work remain gated; no Java fallback is authorized.
 
 Version 0.25 adds deliberate cardinal aiming for directional dropped lights and
 a bounded falloff-aware visible source chain that stops at verified wall
@@ -102,3 +102,16 @@ contain legacy item state, so compatibility is required, but implementation is
 blocked: obsolete Nightfall bulb identities lack an explicit alias and no single
 authority-owned bounded migration/synchronization path currently covers carried
 and streamed-world items. Legacy data remains untouched until both gates close.
+
+
+## Migration implementation follow-up
+
+The dated Phase B conclusion above is historical. Current authority callers and
+receipt/quarantine handling are implemented in LegacyMigration; known registered
+records can convert. The two evidenced Nightfall stored-field IDs now have explicit Spectrum-owned
+aliases (0.27.0). Conflicting records and other unknown identities remain
+quarantined. See CONSUMER_INTEGRATIONS.md; FEATURE_COMPLETION.md is historical.
+
+Current source closure and blockers: AUDIT_CLOSURE.md. Native model-yaw setters
+are now evidenced in vanilla Lua; production mapping and blood/FBO remain runtime
+gates, with a guarded SP probe and concrete acceptance rather than a Java fallback.

@@ -2,7 +2,7 @@ local calls={created=0,added=0,removed=0}
 local cell={
     addLamppost=function(_,source)calls.added=calls.added+1 end,
     removeLamppost=function(_,source)calls.removed=calls.removed+1 end,
-    getGridSquare=function(_,x,y,z)return{x=x,y=y,z=z,CalculateVisionBlocked=function()return false end}end,
+    getGridSquare=function(_,x,y,z)return{x=x,y=y,z=z,testVisionAdjacent=function()return "Clear" end}end,
 }
 getCell=function()return cell end
 IsoLightSource={new=function(x,y,z,r,g,b,radius)
@@ -55,4 +55,18 @@ assert(calls.created==8,"turning it back on must restore exactly one bounded cha
 backing.exists=false;Manager.reconcile()
 assert(Manager.inspect(first.id)==nil and calls.removed==8,"pickup/removal must unregister and clean the source chain")
 
-print("lightWorks idempotent world-emitter lifecycle checks passed")
+backing.exists=true;item.active=true
+local rebound=assert(Manager.ensure(backing,true));assert(rebound.source)
+local removedBefore=calls.removed
+item.modData.lightWorks.hasExplicitBulbState=true;item.modData.lightWorks.installedBulb=nil
+Manager.ensure(backing);Manager.reconcile()
+assert(not rebound.source and calls.removed>removedBefore and Manager.inspect(rebound.id)==nil,
+    "a removed/burned bulb must unregister every prior visible source")
+assert(backing.movedThumpable==false,"bulbless backings cannot remain attackable")
+print("lightWorks idempotent world-emitter lifecycle and bulbless cleanup checks passed")
+
+item.modData.lightWorks.hasExplicitBulbState=false;item.modData.lightWorks.installedBulb="Test.WorldUVBulb"
+local rebound=assert(Manager.ensure(backing,true));assert(rebound.source)
+backing.getThumpCondition=function()return 0 end
+Manager.ensure(backing)
+assert(not rebound.source and backing.movedThumpable==false,"native destruction must clean visible binding and physical targeting")

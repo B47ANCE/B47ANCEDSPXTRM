@@ -24,7 +24,13 @@
   discovery used by downstream UV consumers; visible output, physical UV output,
   and RGB remain separate fields.
 - `lightWorks_powerWorks.lua`: required family adapter that exports canonical light power profiles to powerWorks; it owns no batteries or charge state.
-- `lightWorks_Burnout.lua`: bounded processing of player-owned active lights.
+- `lightWorks_BurnoutAuthority.lua`: shared, server/SP-only wear progression,
+  broken-bulb output and native inventory/mounted-part synchronization. The old
+  client `lightWorks_Burnout` require path is a compatibility shim.
+- `lightWorks_WorldDrop.lua`: shared authority hook that initializes world-active
+  state and its billing checkpoint before vanilla drop transmission.
+- `lightWorks_Operations.lua`: opaque UUID-based intent IDs. These IDs never grant
+  permission; existing server identity/distance/ownership validation still applies.
 - `lightWorks_AttachmentProfiles.lua` and `lightWorks_Hotbar.lua`: belt/webbing integration.
 - `lightWorks_SpawnBulbs.lua`: spawn-time bulb selection.
 
@@ -32,7 +38,7 @@
 
 The registry is the only compatibility authority. Discovery never enables servicing. Verified core definitions or exact compatibility patches register serviceable lights. Bulb providers are independent, so a verified mod light accepts Nightfall UV bulbs automatically unless its provider restricts them.
 
-powerWorks is required. Every registered light's declarative `power` profile is registered as a powerWorks consumer, including verified third-party lights and lights carrying Nightfall UV bulbs.
+B47ANCEDPower is required. Every registered light's declarative `power` profile is registered as a B47ANCEDPower consumer, including verified third-party lights and lights carrying Nightfall UV bulbs.
 
 Callbacks fail closed on nil or unusual modded items. Servicing must preserve both bulbs if an inventory mutation fails. Background work stays bounded to local player inventories and cached catalog data; it never scans the world each frame.
 
@@ -102,3 +108,98 @@ vanilla owns damage and networked removal.
 ## Spectrum branding compatibility
 
 B47ANCED Spectrum is the display name. `lightWorks` remains the technical contract for Mod ID, source layout, Lua globals/requires, persistence, sandbox keys and networking. The rename adds no shared state, gameplay settings, migrations or new network paths. Existing server-authority and sandbox behavior is preserved; dedicated verification remains required. See [NAMING.md](NAMING.md).
+
+
+## Audit fix ownership and persistence
+
+See [AUDIT_FIXES.md](AUDIT_FIXES.md) for the nine fixes and their regressions.
+Existing schema-1 world, pattern and sunburn tables retain their names and saved
+content. World placement preserves durable identity/replay history and starts a
+new world-only billing interval; a future schema is rejected without being reset.
+Failed native placement restores the previous world-state reference and native
+errors remain visible. Successful placement uses vanilla's existing full-item
+transmission; the server hook does not load a client renderer.
+
+World-energy checkpoints commit only after successful consumption. Switching an
+active light first settles its preceding interval; a failed debit rejects the
+transition and leaves its operation retryable. Depletion publishes the existing
+world-emitter state message plus native field synchronization. Integration still
+requires the power provider's failure/charge contract and actual dedicated tests.
+
+Pattern disable forces a full steady duty cycle and rejects changes without
+rewriting the saved selection. Unknown sunlight samples preserve dose/severity,
+advance only the observation checkpoint and apply no retroactive exposure/healing.
+UUID IDs preserve the existing bounded replay history and payload format; old
+counter IDs remain historical entries. All clients must update to stop generating
+old colliding IDs. No schema migration, new setting or custom Java is introduced.
+
+
+## Current feature ownership
+
+The maintained dependency uses `B47ANCEDPower/Definitions` and `_G.B47ANCEDPower`.
+The existing `lightWorks_powerWorks` module and `lightWorks.powerWorks` reference
+remain public adapter paths; no power state/global alias is introduced. Historical
+versioned milestones above retain their original dependency names.
+
+`Direction` and `WorldOrientation` share angle validation and server/SP replay-safe
+mutation across world UI and source semantics. Both portable and world source
+chains check every intervening native vision boundary. `Players` enumerates bounded
+local/nearby remote presentation candidates, without requiring local slots on a
+headless authority. Colored rendering reads mounted/native-active items without
+recursive inventory scans per frame.
+
+`Lasers` owns bounded geometry and exact profiles; `LaserRenderer` samples rays
+and draws cached UI overlays. `Fixtures` validates provider facts;
+`FixtureRenderer` owns only explicitly opted-in client presentation. Neither owns
+provider persistence, energy, damage or consumer-specific effects.
+
+`ClothingProtection` supplies deduplicated native covered-region/hole facts to
+Sunburn. Unknown protection preserves dose/severity. `SunburnMenu` reads replicated
+state. `LegacyMigration` is called only by existing authority inventory/world/drop
+lifecycles and retains original records plus bounded migration receipts.
+
+See FEATURE_COMPLETION.md for full contracts, settings, budgets and runtime gates.
+
+## Spectrum-owned consumer adapters
+
+ConsumerIntegrations declares contract-1 Nightfall stored-field aliases only when
+both canonical bulbs exist; it delegates Medical transactions, registers the
+opt-in Water UVC treatment and returns detached Farming light observations.
+ConsumerExposure reuses Sources, Fixtures, UV and native occlusion at canonical
+world coordinates with bounded scans. No client-supplied exposure or new gameplay
+RPC exists. Water's transaction owns quality persistence/rollback; Medical owns
+procedure locks; Spectrum owns sunburn dose and migration receipts; Farming state
+is read only. No obsolete Mod ID, Power or experience global aliases are installed.
+Full contracts, limits and settings: CONSUMER_INTEGRATIONS.md. Runtime acceptance
+and the external Nightfall loader blocker: IN_GAME_TEST_HANDOFF.md.
+
+## Bounded batch query ownership
+
+ConsumerExposure.sampleMany captures sources once per immediate clustered request,
+filters each target to its own 16-tile scope, and evaluates native occlusion and
+sunlight independently. Results and query metadata are detached; no retained
+cross-tick cache exists. ConsumerIntegrations.cropLightingBatch inspects at most
+32 supplied crops per page and reports each original input index and failure.
+Both are read-only on clients/server. Water's authoritative entry continues to
+make its own fresh sample; callers cannot inject a previously returned observation.
+Fixture registration captures its callback/presentation opt-in, while the owning
+callback still supplies live power/activation/geometry state. Definition changes
+require unregister/register. Native blood prototype registration requires explicit
+debug capability and manual persistent sample placement refuses MP clients.
+
+## Advisory notification boundary
+
+Notifications is independent of API initialization and exposes only subscribe,
+unsubscribe and status to consumers. Producers publish scalar snapshots after
+canonical owner commits: services/rollback settlement, patterns, world activation/
+depletion/drop, logical orientation, sunburn, migration and supported registries.
+Callbacks cannot cancel state; failures are isolated and diagnosed. Reentrant
+publications use bounded FIFO delivery, never recursive notification dispatch.
+No listener gets native object/ModData references and no event is networked or
+persisted. Joining/reloading consumers query current state; the bus has no replay.
+Existing native/custom sync remains the gameplay convergence owner.
+
+Native model rotation has only a manual debug/SP preview/restore adapter. It
+changes no logical aiming, X/Y tilt, power or ModData, and never installs a default
+model mapping. Production native blood remains guarded and unverified. See
+CONSUMER_NOTIFICATIONS.md and NATIVE_PRESENTATION_GATES.md for exact boundaries.

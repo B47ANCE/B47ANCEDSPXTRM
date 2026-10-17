@@ -11,3 +11,7 @@ assert(API.Patterns.getPatternId(item)=="beacon")
 Server.onCommand("lightWorks","setPattern",player,{itemId=999,patternId="pulse",operationId="server-2"});assert(API.Patterns.getPatternId(item)=="beacon")
 Server.onCommand("lightWorks","setPattern",player,{itemId=9,patternId="missing",operationId="server-3"});assert(API.Patterns.getPatternId(item)=="beacon")
 print("lightWorks authoritative owned-item pattern command checks passed")
+API.Config.EnableLightPatterns=false
+Server.onCommand("lightWorks","setPattern",player,{itemId=9,patternId="strobe",operationId="disabled-request"})
+assert(API.Patterns.getPatternId(item)=="beacon"and API.Patterns.getDutyCycle(item)==1,
+    "a direct client request cannot override disabled server patterns or reduce battery demand")
