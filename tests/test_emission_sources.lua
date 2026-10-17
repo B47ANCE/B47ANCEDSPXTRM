@@ -42,3 +42,14 @@ assert(directional and directional.intensity==1 and directional.directionX==1,
 Sources.registerProvider{id="broken",priority=200,inspect=function()error("bad provider")end}
 assert(Sources.inspect(lamp),"one broken provider must not suppress later providers")
 print("lightWorks active emission-source contract checks passed")
+
+isClient=function()return true end
+assert(not Sources.requestPhysicalAttack(droppedSource,{}),"client physical damage calls must be rejected")
+isClient=function()return false end
+dropped.getThumpCondition=function()return 0 end
+assert(not Sources.inspect(dropped),"destroyed native backings cannot remain semantic sources")
+
+dropped.getThumpCondition=function()return 1 end
+lightWorks.Config.EnableWorldEmitters=false
+assert(not Sources.inspect(dropped),"server sandbox disable must suppress dropped semantic UV too")
+assert(Sources.inspect(lamp),"native fixture facts must not be disabled with dropped lights")

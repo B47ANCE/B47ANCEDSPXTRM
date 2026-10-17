@@ -1,39 +1,71 @@
-# B47ANCED Spectrum Master Roadmap
+# B47ANCED SPXTRM Master Roadmap
 
-Canonical version: 0.25.5.
+Canonical version: 0.30.0.
 
-## Implemented
+## Implemented in source with offline coverage
 
-- Generic visible/UV emitter profiles, intensity/range/direction/falloff,
-  bounded registries, source eligibility, obstruction rays, and exposure totals.
-- Modular bulbs, replacement/lifetime/burnout state, portable/attached/weapon
-  lights, physical cell profiles, and powerWorks charge/demand integration.
-- Natural/artificial UV attribution and persistent natural-only player sunburn
-  with protection, recovery, treatment API, persistence, and sandbox controls.
-- Steady/strobe/pulse/beacon/SOS/alternating/emergency patterns and deterministic
-  low-charge flicker.
-- Dropped/placed emitter identity, binding, orientation, switching, elapsed drain,
-  replication requests, cardinal aiming, visible chains, and thump adapter.
-- Non-finite/budget hardening and extensive host/in-game test harnesses.
+- L0-L3: identity/tooling, generic light/bulb registries, servicing, lifetime,
+  server-owned burnout, portable/attached/weapon rendering, cell profiles and
+  maintained B47ANCEDPower integration. Existing lightWorks save/API identity stays.
+- L4-L5: attributed natural/artificial UV, strict complete-sample/occlusion APIs,
+  persistent server-owned sunburn, clothing coverage/holes, protection/treatment
+  contracts, sandbox controls and read-only player status.
+- L6: registered mounted aiming lasers, bounded obstruction/range queries and
+  cached local/nearby-remote UI dot/optional beam presentation. No combat changes.
+- L7-L8: protected pattern registry, server-owned replay-safe selection, demand,
+  exact fixture-provider contracts, bounded discovery and retained consumer APIs.
+  L8 now includes immediate one-scan clustered exposure and paged crop observations
+  (maximum 32 targets), with explicit completeness/failure instead of per-crop scans.
+  L8 source contract now includes bounded post-commit advisory notifications,
+  explicit subscription teardown and diagnostics; no network/replay authority.
+- World lights: durable state, native backing, activation, elapsed drain,
+  arbitrary-angle/cardinal aiming, shared visible/UV geometry, explicit replication,
+  physical-thump adapter, cleanup and conservative known-record migration.
+- Audit improvements: real-ms flicker; nearby remote-light rendering; every-boundary
+  beam checks; bounded inventory recursion; strict UUID/history/state handling.
 
-## Still to add
+All nine 886f97d defects remain covered. See the historical AUDIT_FIXES.md and
+0.26.0 FEATURE_COMPLETION.md for exact behavior and compatibility limits.
 
-- Free-angle/native presentation for directional world lights where feasible.
-- Complete zombie destruction presentation and lifecycle.
-- Lasers, advanced fixtures, advanced directional cones, and further verified
-  occlusion/presentation adapters.
-- Sunburn presentation, production clothing-protection providers, calibrated
-  timing, and medWorks treatment consumer.
-- One-way Bulbworks migration after obsolete aliases and one bounded carried/
-  world authority path are specified.
-- Optional waterWorks UV treatment and farmWorks grow-light integrations.
+## External or blocked implementation
 
-## Validation and release gates
+- Native world-model yaw: vanilla Lua setter/getter route is now verified.
+  The debug/SP readback/restore probe is implemented; production adapter now accepts measured per-model calibration; built-in calibration
+  and live serialization/rendering remain gated. See NATIVE_PRESENTATION_GATES.md.
+- Native blood/material redraw: the existing opt-in prototype needs its FBO/depth
+  spike before production. Arbitrary shaders are not exposed by a verified Lua API.
+- The two evidenced Nightfall stored-bulb aliases are now declared by Spectrum.
+  Conflicting dual records, other unknown identities and old standalone script
+  items remain quarantined/unsupported.
+- L9/L10: Spectrum-side aliases, Medical delegation, opt-in UVC Water transaction
+  and Farming optical observations are implemented. Infected effects, complete
+  Medical/Water action content and crop growth remain owned by consumers. Refreshed
+  Nightfall metadata now matches B47ANCEDHealthCare; its source profile passes.
+  Health Care self-care and Nightfall activation metadata are now authorized; Water/Farming remain unchanged. See CONSUMER_INTEGRATIONS.md and IN_GAME_TEST_HANDOFF.md.
+- First-party UVA/UVC service and visible grow-light devices now have explicit definitions, replacement bulbs and configurable contextual loot. Further fixture/overlay assets remain undefined.
 
-- Native portable/mounted/world discovery, visual timing, drain-to-zero,
-  patterns, streaming, destruction, save/load, late join, hosted, and dedicated
-  synchronization. Preserve existing UV geometry, falloff, and exposure semantics.
+## Runtime gates and release status
 
-## Audit defect checkpoint
+Portable/mounted/world discovery, native colors/cones, laser UI projection/depth,
+controllers/split-screen, native zombie animation/destruction/removal, drain,
+clothing coverage, save/reload, streaming, late join, reconnect and restarts need
+observed PZ evidence. Sunburn timing remains configurable and provisional.
 
-The nine defects from the 886f97d audit have source fixes and targeted offline regressions; see [AUDIT_FIXES.md](AUDIT_FIXES.md). Dedicated/SP verification remains pending. The additional real-time flicker and remote-player rendering observations remain outside this nine-defect slice.
+Offline checks and the source-integration probe are not SP or dedicated evidence.
+G7 BLOCKED / NOT TESTED; stable-release G8 BLOCKED. Packaging, deployment, game/server
+launch and Workshop upload were not requested or performed. See TESTING.md and
+VALIDATION.md for exact commands and acceptance scenarios.
+
+Historical 0.28.0 findings: [AUDIT_0_28_0.md](AUDIT_0_28_0.md).
+Current closure and remaining gates: [AUDIT_CLOSURE.md](AUDIT_CLOSURE.md).
+
+## Next bounded work
+
+- L8 queries and versioned notification source contracts are implemented with
+  offline coverage. Validate their actual VM/startup/reconnect behavior in PZ.
+- Validate the current source in disposable SP and dedicated sessions, including
+  batch parity and unchanged crops. No deployment or launch is automatic.
+- Native blood/FBO presentation needs Lua/depth evidence; model yaw needs calibration;
+  consumer-owned treatment/device/growth content stays outside Spectrum-only writes.
+
+Current 0.30.0 implementation and explicit remaining gates: [feature pass](FEATURE_PASS_0_30_0.md). Nightfall already implements infected UV consequences; this iteration preserves that owner and changes its required activation ID only.

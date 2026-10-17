@@ -13,3 +13,10 @@ local second=assert(reloaded.new("PATTERN"))
 assert(first~=second and #first<=128 and #second<=128,"module reload must not reset operation identity")
 assert(Operations.new(string.rep("A",17))==nil,"internal prefixes must stay bounded")
 print("lightWorks opaque operation identity and unavailable-generator checks passed")
+
+local history={"old-1","old-2"}
+assert(Operations.validHistory(history))
+assert(not Operations.validHistory({[1]="a",[3]="b"}))
+assert(not Operations.validHistory({"same","same"}))
+getRandomUUID=function()return string.rep("-",36)end
+assert(not Operations.new("WORLD"),"UUID shape must not accept a string of separators")

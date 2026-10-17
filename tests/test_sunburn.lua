@@ -44,3 +44,10 @@ local future={schemaVersion=99,dose=.8};character.data.lightWorksSunburn=future
 assert(Sunburn.update(character,3)==nil and character.data.lightWorksSunburn==future,
     "future sunburn schemas must be rejected without being reset")
 print("lightWorks persistent authority-owned sunburn checks passed")
+
+character.data.lightWorksSunburn={schemaVersion=1,dose=.5,severity=.2,lastWorldAgeHours=5,processedOperations={}}
+Sunburn.update(character,4)
+assert(character.data.lightWorksSunburn.lastWorldAgeHours==5,"backward time must not rewind the checkpoint")
+local corrupt={schemaVersion=1,dose=.5,severity=.2,processedOperations="corrupt"};character.data.lightWorksSunburn=corrupt
+assert(not Sunburn.applyTreatment(character,.1,"bad-history") and character.data.lightWorksSunburn==corrupt
+    and corrupt.processedOperations=="corrupt","malformed replay history must be retained")

@@ -1,0 +1,46 @@
+{
+  "evidence": "native metadata only; not Lua/runtime proof",
+  "methodScope": "declared methods only; inherited members are omitted",
+  "classes": {
+    "zombie/inventory/InventoryItem.class": {
+      "sha256": "48f01be16d1ef1b76e37638fac6e25ca4eb285ad38ab2f462caa5597318c7f9d",
+      "methods": [
+        {
+          "name": "setWorldZRotation",
+          "descriptor": "(F)V",
+          "public": true
+        },
+        {
+          "name": "getWorldZRotation",
+          "descriptor": "()F",
+          "public": true
+        }
+      ]
+    },
+    "zombie/iso/objects/IsoWorldInventoryObject.class": {
+      "sha256": "7be6f2d54525fa587908ce8efa7da5d26cfd3d19bd1cc02911ee12f7649857b3",
+      "methods": [
+        {
+          "name": "getItem",
+          "descriptor": "()Lzombie/inventory/InventoryItem;",
+          "public": true
+        },
+        {
+          "name": "syncExtendedPlacement",
+          "descriptor": "()V",
+          "public": true
+        }
+      ]
+    },
+    "zombie/iso/sprite/IsoSprite.class": {
+      "sha256": "68c01e6b1c914f662621743e09c8dd8a62c0258392ce1a75654a713e1034067f",
+      "methods": [
+        {
+          "name": "renderBloodSplat",
+          "descriptor": "(FFFLzombie/core/textures/ColorInfo;)V",
+          "public": true
+        }
+      ]
+    }
+  }
+}

@@ -1,58 +1,71 @@
-# Nine-defect fix validation
+# SPXTRM feature-pass validation
 
-Project Version: 0.25.5
+Project Version: 0.30.0
 
-Date: 2026-10-16 (America/Phoenix)
+2026-10-16 (America/Phoenix). Base 5daab92e901c2f703c238f593d46c1dc3ef8907f (0.29.0).
+Branch feature/spectrum-feature-completion, stacked on feature/spectrum-notifications.
+Explicit pre-1.0 MINOR activation-ID transition plus additive features. Existing
+Lua/save/item/sandbox/protocol identifiers remain stable; enabled-mod lists must
+change to B47ANCEDSPXTRM. Prior validation is exact in validation/0.29.0-audit.md.
 
-Scope: fixes for the nine defects audited at 886f97d, implemented on the clean
-0.25.4 source aecc9db. See [AUDIT_FIXES.md](AUDIT_FIXES.md) for the root causes,
-ownership/persistence decisions, regression map and dedicated test plan.
+[TESTED, offline Windows / host Lua 5.4] 54 regression files and 59 Lua 5.1
+source/template syntax files PASS. Canonical versions, identity, owned require
+case, Lua-only payload, 29-language fallback/schema sets, disposable Python
+preflight and credential/path checks PASS. New coverage tests calibrated model
+registration/copies/readback/rollback/sync recovery; material completeness/bands;
+three specialist devices/replacement restrictions/loot idempotence; timed UVC
+authority/reach/power loss/repeated callbacks; canonical import identity and
+bounded read-only treatment receipts. These use native object stubs, not PZ.
 
-## Evidence
+[TESTED, offline] Actual Power API probe includes specialist profiles and PASS.
+Actual consumer API slices PASS for Nightfall aliases, Medical treatment/replay,
+Water quality gates/commit/rollback and Farming unchanged observations/batches.
+Health Care isolated 0.11.0 tests cover actual Spectrum interrupted-commit
+receipt recovery. Exact selected source hashes, HEAD/dirty state and preflight
+are recorded in validation/0.30.0-*.json. Dirty/concurrently changing dependency
+snapshots are not pinned clean pairings. Full native mod bootstraps are NOT TESTED.
 
-- [TESTED, offline Windows] All nine original audit probes reproduced before fixes.
-- [TESTED, offline Windows] Eight regression files failed before implementation;
-  the world-power settlement file exercises two defects. The resulting suite
-  passes all 29 host Lua 5.4 regression files and 35 Lua 5.1 source/template syntax
-  checks. Lua host execution is not PZ Kahlua or multiplayer runtime evidence.
-- [TESTED, offline Windows] Version/repository checks PASS (174 selected files).
-  The targeted staged credential/path scan inspected 44 changed files with zero
-  findings; unstaged/staged whitespace checks PASS. Freshness REVIEW was solely
-  the intended audited changes: no upstream/default-branch commits were missing.
-- [TESTED, offline Windows] Installed vanilla drop Lua from Steam build 25485521
-  was executed in memory with engine stubs and the actual shared hook. State was
-  initialized before transmission; no client renderer loaded. Full game version
-  remains UNKNOWN. No raw game source is redistributed.
-- [VERIFIED, source] Existing sandbox and schema-1 identifiers remain. No new
-  gameplay setting is needed; internal caps/UUID bounds are implementation limits.
-- [TESTED, offline Windows] All current artwork bytes match aecc9db, including the
-  user-supplied full-resolution source, preview/thumbnail pair and existing icon.
-- [VERIFIED, history] [0.25.4 validation](validation/0.25.4-thumbnail.md) is preserved
-  byte-for-byte. Earlier validation remains tied to its actual iteration.
+[VERIFIED, installed source] Steam build 25485521; full engine SemVer UNKNOWN.
+Prior vanilla yaw getter/setter evidence remains current by source hash. New
+device fields/native asset references were checked against generated item/model
+definitions; cold-pack consumption/native complete follows ISApplyBandage and
+the existing Health Care native recovery contract. SuburbsDistributions registers
+OnPreDistributionMerge; MedicalStorageTools/GardenStoreTools are actual lists.
+Source inspection does not prove native parsing, timing, rendering or transport.
+No game source/assets/classes are copied or executed.
 
-## Commands
+[VERIFIED, history] Owner thumbnail/icon bytes remain unchanged after the authoring
+root move. Spectrum lettering in supplied artwork is retained. Historical Contents,
+packages, upload state, validation/changenotes and Water/Farming source are unchanged.
+GitHub repository ID 1421935901 remains public, now B47ANCE/B47ANCEDSPXTRM. Four
+developer workspace path references were updated; installed managed settings and
+credentials were untouched. Health Care artwork checkout was not edited. Nightfall
+reconciled to public main containing effigy and audit/CI before the dependency change.
 
-```sh
-python scripts/check_versions.py --root .
+Commands (bundled Python 3.12 and requirements-dev.txt):
+
+```text
+python scripts/check_versions.py
 python scripts/validate.py
+python scripts/check_power_integration.py --dependency-root ../B47ANCEDPower
+python scripts/check_consumer_integrations.py --dependencies .. --medical-root ../.worktrees/healthcare-spectrum-treatment
+python scripts/check_test_readiness.py --dependencies .. --profile core
+python scripts/check_test_readiness.py --dependencies .. --profile nightfall --medical-root ../.worktrees/healthcare-spectrum-treatment
+python scripts/check_test_readiness.py --dependencies .. --profile consumers --medical-root ../.worktrees/healthcare-spectrum-treatment
 python scripts/check_repository.py --staged
 git diff --check
 git diff --cached --check
 ```
 
-Locally, use the bundled executable instead of this machine's Windows Store
-`python` alias:
-`C:/Users/willi/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe`.
-The installed-source-only probe is retained outside Git at
-`C:/Users/willi/.codex/tmp/b47anced-spectrum-fix-20261016/native_drop_probe.py`;
-invoke it with the repository and installed-game-root paths as its two arguments.
-It reads local vanilla Lua in memory and uses stubs; it never starts PZ.
+Startup/precommit: Test-PZRepositoryFreshness.ps1 against each explicit repository.
+Exact commit/push/CI results belong to the iteration report, not this precommit record.
 
-## Runtime gates
+[RUNTIME GATE] Native built-in model calibration, blood/FBO/depth and additional
+overlay assets remain incomplete. Crop growth is deferred while Farming stays
+unchanged. Native shared-action timing/reference serialization, real items/fluids,
+renderer/depth, controllers, save/reload, joins/restarts and dedicated acceptance
+are NOT TESTED. G7 BLOCKED / NOT TESTED; stable G8 BLOCKED. Current Knowledge source
+also reports an upstream dedicated-storage blocker; source-contract PASS does not
+override it. No packaging, deployment, game/server launch or Workshop upload.
 
-SP and dedicated multiplayer are NOT TESTED. G7 is BLOCKED / NOT TESTED and
-stable-release G8 BLOCKED. No package, deploy, Workshop upload or game/server
-launch was performed. The existing `powerWorks` dependency contract is retained;
-the local migrated B47ANCEDPower checkout is not a validated replacement. The
-two additional timing/remote-render observations remain outside this nine-fix
-scope. See the dedicated plan and dependency notes in AUDIT_FIXES.md.
+Final review: the native UVC action validity callback checks only configuration, actor/target placement and reach. It performs no optical/world scan; explicit menu preview and the authoritative Water commit sample exposure. A regression invokes validity 1,000 times with zero exposure scans. No native timing or performance claim is inferred from this host test.
