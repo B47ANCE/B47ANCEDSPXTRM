@@ -6,9 +6,9 @@
     "spectrum": {
       "id": "B47ANCEDSPXTRM",
       "declaredVersion": "0.30.0",
-      "sourceSHA256": "9b4e455a6fe78e47feddbee79912a2960c774abfbcaaf6a5b910cd38a8a72d23",
+      "sourceSHA256": "1c5263de70e961837756fbd72f26d3034583dffd3a00ff1f8c803416e2911b44",
       "sourceFiles": 150,
-      "head": "5daab92e901c2f703c238f593d46c1dc3ef8907f",
+      "head": "06c3072698af27710eef545996605b07738a704e",
       "dirty": true
     },
     "power": {

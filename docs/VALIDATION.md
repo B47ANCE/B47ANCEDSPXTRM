@@ -67,3 +67,5 @@ renderer/depth, controllers, save/reload, joins/restarts and dedicated acceptanc
 are NOT TESTED. G7 BLOCKED / NOT TESTED; stable G8 BLOCKED. Current Knowledge source
 also reports an upstream dedicated-storage blocker; source-contract PASS does not
 override it. No packaging, deployment, game/server launch or Workshop upload.
+
+Final review: the native UVC action validity callback checks only configuration, actor/target placement and reach. It performs no optical/world scan; explicit menu preview and the authoritative Water commit sample exposure. A regression invokes validity 1,000 times with zero exposure scans. No native timing or performance claim is inferred from this host test.

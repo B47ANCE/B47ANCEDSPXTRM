@@ -6,15 +6,19 @@ end
 local API=require "lightWorks/lightWorks_API"
 local C=require "lightWorks/lightWorks_ConsumerIntegrations"
 local E=require "lightWorks/lightWorks_ConsumerExposure"
-local complete,calls=true,0
-C.inspectWaterTreatment=function()return complete end
-C.treatWater=function(_,op)assert(op:find("LW-WATER-",1,true)==1);calls=calls+1;return true end
+local complete,calls,scans=true,0,0
+API.Config.EnableWaterUVIntegration=true
+C.inspectWaterTreatment=function()scans=scans+1;return complete end
+C.treatWater=function(_,op)assert(op:find("LW-WATER-",1,true)==1);if not complete then return false end;calls=calls+1;return true end
 getRandomUUID=function()return "12345678-1234-1234-1234-123456789abc" end
 local W=require "lightWorks/lightWorks_WaterTreatmentAction"
 local actor={isDead=function()return false end,getX=function()return 1 end,getY=function()return 1 end,getZ=function()return 0 end}
 local owner={getSquare=function()return {} end,getObjectIndex=function()return 1 end}
 E.position=function()return {x=1,y=2,z=0}end
 local a=W.Action:new(actor,owner);assert(a:getDuration()==1500 and a:isValid())
+for _=1,1000 do assert(a:isValid()) end
+assert(scans==0,"native action validity must never scan the lighting field")
+assert(W.preview(actor,owner) and scans==1,"explicit menu preview may sample once")
 isClient=function()return true end;assert(not a:complete() and calls==0 and not a.completed)
 isClient=function()return false end;assert(a:complete() and calls==1)
 assert(not a:complete() and calls==1)

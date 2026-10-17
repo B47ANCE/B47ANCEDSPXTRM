@@ -7,6 +7,7 @@ local Operations=require "lightWorks/lightWorks_Operations"
 local Water={}
 local function finite(v)return type(v)=="number" and v==v and math.abs(v)<math.huge end
 function Water.validate(actor,owner)
+    if API.Config.EnableWaterUVIntegration~=true then return false end
     local alive,dead=Access.call(actor,"isDead");if not alive or dead~=false then return false end
     local object=owner
     local got,backing=Access.call(owner,"getWorldItem")
@@ -21,7 +22,12 @@ function Water.validate(actor,owner)
     local _,x=Access.call(actor,"getX");local _,y=Access.call(actor,"getY");local _,z=Access.call(actor,"getZ")
     if not point or not finite(x) or not finite(y) or not finite(z)
         or math.floor(z)~=math.floor(point.z) or (x-point.x)^2+(y-point.y)^2>9 then return false end
-    return Consumers.inspectWaterTreatment(owner)==true
+    -- Native timed actions may call isValid every update. Keep this path free
+    -- of optical/world scans; the owner transaction samples at commit time.
+    return true
+end
+function Water.preview(actor,owner)
+    return Water.validate(actor,owner) and Consumers.inspectWaterTreatment(owner)==true
 end
 local Action=ISBaseTimedAction:derive("lightWorks_WaterTreatmentAction")
 -- Global identity is required by native Build 42 shared-action dispatch.

@@ -9,7 +9,7 @@ function Menu.add(playerNum,context,objects,test)
     for index,object in ipairs(objects) do
         if index>64 then break end
         local got,item=Access.call(object,"getItem");local owner=got and item or object
-        if Water.validate(actor,owner) then
+        if Water.preview(actor,owner) then
             context:addOption(getText("ContextMenu_lightWorks_TreatWaterUVC"),actor,function(player,target)
                 if Water.validate(player,target) then ISTimedActionQueue.add(Water.Action:new(player,target)) end
             end,owner)

@@ -6,9 +6,9 @@
     "spectrum": {
       "id": "B47ANCEDSPXTRM",
       "declaredVersion": "0.30.0",
-      "sourceSHA256": "9b4e455a6fe78e47feddbee79912a2960c774abfbcaaf6a5b910cd38a8a72d23",
+      "sourceSHA256": "1c5263de70e961837756fbd72f26d3034583dffd3a00ff1f8c803416e2911b44",
       "sourceFiles": 150,
-      "head": "5daab92e901c2f703c238f593d46c1dc3ef8907f",
+      "head": "06c3072698af27710eef545996605b07738a704e",
       "dirty": true
     },
     "power": {
@@ -40,8 +40,8 @@
       "declaredVersion": "0.11.0",
       "sourceSHA256": "29e6207c948544d83b7ea458d7b0a38f5eb39f2bea048c857ddb8721e7ff54c5",
       "sourceFiles": 116,
-      "head": "0c7fd8defe24d859db69d585c7a3f0b5f9649c76",
-      "dirty": true
+      "head": "158389ff5bde9f8e09bb9e6c546d512f33178344",
+      "dirty": false
     },
     "water": {
       "id": "waterWorks",
