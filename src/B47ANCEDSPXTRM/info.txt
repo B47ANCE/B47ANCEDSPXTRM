@@ -39,7 +39,7 @@ Version: 0.30.0
 0.30.0
 
 Internal Mod ID:
-lightWorks
+B47ANCEDSPXTRM
 
 Versioning:
 MAJOR.MINOR.PATCH; game compatibility is declared separately.

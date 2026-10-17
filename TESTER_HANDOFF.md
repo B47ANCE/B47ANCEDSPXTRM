@@ -1,7 +1,7 @@
 # B47ANCED SPXTRM 0.30.0 playtester handoff
 
 Begin only after B47ANCEDPower is reviewed as PASS. Enable only B47ANCEDPower and
-B47ANCED SPXTRM (Mod ID `lightWorks`) on a disposable save and run `lightWorksTestStart(true)`.
+B47ANCED SPXTRM (Mod ID `B47ANCEDSPXTRM`) on a disposable save and run `lightWorksTestStart(true)`.
 
 1. Run `lightWorksTestChecks()` to prepare the kit and verify core behavior.
 2. Run `lightWorksTestTour()`. Move and turn with each named light. Enter PASS only when the described beam, halo, color, and attachment behavior is visible.

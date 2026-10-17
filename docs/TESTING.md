@@ -78,7 +78,7 @@ intensity and invalid spectra. They must contribute nothing without suppressing
 valid sources. World scans are integer-radius bounded, object/attachment/weapon
 collections are capped, and invalid scan centers return empty results.
 
-Offline commands and current evidence: [VALIDATION.md](VALIDATION.md). The name changed; technical IDs and `LW*`/`lightWorksTest*` commands remain stable.
+Offline commands and current evidence: [VALIDATION.md](VALIDATION.md). Activation Mod ID is B47ANCEDSPXTRM; Lua/save/protocol identifiers and `LW*`/`lightWorksTest*` commands remain stable.
 
 
 ## Nine-defect regression and multiplayer plan
