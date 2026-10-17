@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.30.0] - 2026-10-16
+
+- Pre-1.0 MINOR compatibility transition: activation ID becomes B47ANCEDSPXTRM; existing Lua/save/item/sandbox/protocol identifiers remain stable. Public repository/source folder renamed with original history/Workshop item retained.
+- Add first-party UVA inspection, UVC service and grow-light content, calibrated native model alignment and optical-material response contracts. Existing identifiers/schemas remain compatible.
+- Development work: native presentation and dedicated multiplayer remain NOT TESTED; no package/deploy/publication.
+
 ## [0.29.0] - Consumer notifications and remaining audit closure
 
 - Add bounded post-commit advisory notifications with isolated listeners and copied payloads.

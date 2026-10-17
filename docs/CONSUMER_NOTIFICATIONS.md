@@ -1,6 +1,6 @@
 # Spectrum consumer notification contract
 
-Project Version: 0.29.0
+Project Version: 0.30.0
 Contract Version: 1
 
 Notifications are bounded, synchronous, process-local advisory invalidations.

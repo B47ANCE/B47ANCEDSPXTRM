@@ -1,8 +1,8 @@
 # Repository onboarding
 
-Project Version: 0.29.0
+Project Version: 0.30.0
 
-Public repository: https://github.com/B47ANCE/B47ANCEDSpectrum
+Public repository: https://github.com/B47ANCE/B47ANCEDSPXTRM
 
 The owner authorized a public repository, adoption of the evidenced `0.25.2`
 legacy version and the compatible `0.25.3` rename/setup iteration. The original
@@ -14,7 +14,7 @@ this onboarding; the workflow itself does not enforce a protected-main policy.
 
 ## Source and preservation
 
-`src/lightWorks` is authoritative, as established by the original README. It
+`src/B47ANCEDSPXTRM` is authoritative, as established by the original README. It
 contains 95 files. `Contents/mods/lightWorks` is an older 38-file packaging copy:
 57 source files are absent and 13 same-path files differ. Its `modversion` is
 `0.25.0`. It is preserved unchanged, ignored by Git and never used to build the
