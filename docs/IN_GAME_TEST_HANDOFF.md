@@ -1,6 +1,6 @@
 # Spectrum development test handoff
 
-Project Version: 0.29.0
+Project Version: 0.30.0
 
 Core Spectrum + B47ANCEDPower, Nightfall and optional-consumer source preflights
 pass against the recorded current checkouts. The earlier medWorks loader mismatch
@@ -113,3 +113,5 @@ Return the stage report, versioned source/deployment inventory, console errors,
 reproduction steps, and screenshots for visual failures. Keep private logs and
 player data out of public Git. G7 BLOCKED / NOT TESTED and stable G8 BLOCKED until
 observed dedicated evidence is reviewed. No stable tag or release is implied.
+
+Current 0.30.0 activation ID is B47ANCEDSPXTRM (old Lua/save namespace retained). Enable it with matching Nightfall metadata. Follow docs/FEATURE_PASS_0_30_0.md for specialist devices, UVC timed action, Health Care self-care, native model calibration and remaining blood/growth gates. Previous pinned version probes are historical. No install/game/server launch is automatic.

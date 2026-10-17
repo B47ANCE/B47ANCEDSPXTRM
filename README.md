@@ -1,9 +1,9 @@
-# B47ANCED Spectrum
+# B47ANCED SPXTRM
 
-B47ANCED Spectrum is a Lua-only lighting and optical-effects framework for Project Zomboid Build 42.
+B47ANCED SPXTRM is a Lua-only lighting and optical-effects framework for Project Zomboid Build 42.
 
-- Version: `0.29.0`
-- Mod ID: `lightWorks`
+- Version: `0.30.0`
+- Mod ID: `B47ANCEDSPXTRM`
 - Author: B47ANCE
 - Minimum game version: `42.20.3`
 - Required Mod ID: `B47ANCEDPower`
@@ -30,8 +30,8 @@ B47ANCED Spectrum is a Lua-only lighting and optical-effects framework for Proje
 - Active powered world lights expose their real inventory backing through the
   vanilla thump contract so Nightfall can order physical—not simulated—destruction.
 
-Project Nightfall registers UV bulbs through this API and consumes B47ANCED Spectrum exposure data for infected-specific consequences. B47ANCED Spectrum never implements Nightfall zombie behavior.
-B47ANCEDPower behavior reaches registered third-party lights and Nightfall UV lights through B47ANCED Spectrum's canonical light registry.
+Project Nightfall registers UV bulbs through this API and consumes B47ANCED SPXTRM exposure data for infected-specific consequences. B47ANCED SPXTRM never implements Nightfall zombie behavior.
+B47ANCEDPower behavior reaches registered third-party lights and Nightfall UV lights through B47ANCED SPXTRM's canonical light registry.
 
 Heavy-Duty Flashlights are intentionally not attachable. Straight Flashlights and Penlights may hang from belts; angle-headed lights may use belts or webbing.
 
@@ -47,17 +47,16 @@ Debug builds expose `LWStartReleaseSuite()` for automated stack checks followed
 by a guided flashlight-by-flashlight visual tour. Each prompt accepts `PASS` or
 an issue report and writes the result to `console.txt`.
 
-The authoritative mod source is `src/lightWorks/42/`. `Contents/mods` is a preserved packaging copy. Versions use `MAJOR.MINOR.PATCH`; game compatibility is declared separately through `versionMin`.
+The authoritative mod source is `src/B47ANCEDSPXTRM/42/`. `Contents/mods` is a preserved packaging copy. Versions use `MAJOR.MINOR.PATCH`; game compatibility is declared separately through `versionMin`.
 
-The display name is B47ANCED Spectrum. The technical Mod ID, Lua API/require namespace, save fields, sandbox option identifiers and network command module remain `lightWorks` to preserve existing integrations. The required dependency is now `B47ANCEDPower`; the Workshop item remains `3788592008`. Update the dependency and all clients/server together. Older clients cannot interpret saved numeric aiming angles.
+The display name and activation Mod ID are now B47ANCED SPXTRM / `B47ANCEDSPXTRM`. Enable the new Mod ID on all clients and the server; update Nightfall to the matching dependency iteration. Existing `lightWorks` Lua imports/global, item types, saved fields, sandbox options and network protocol remain compatible. `require "B47ANCEDSPXTRM/API"` and the new global expose the same API table. Workshop item `3788592008` and dependency `B47ANCEDPower` are unchanged. Older builds cannot interpret saved numeric aiming angles. See [identity migration](docs/SPXTRM_MIGRATION.md).
 
 ## Development repository
 
-Public source: https://github.com/B47ANCE/B47ANCEDSpectrum
+Public source: https://github.com/B47ANCE/B47ANCEDSPXTRM
 
 `VERSION` is the sole project-version authority. This iteration is a
-MINOR notification iteration with post-commit consumer invalidations,
-read-only observation hardening and a manual native model-rotation probe. It remains a development build. See [Repository setup](docs/REPOSITORY_SETUP.md),
+pre-1.0 MINOR activation-ID transition with specialist devices, timed UVC treatment, calibrated model alignment and optical-material contracts. The retained notification API and manual rotation probe remain available. It remains a development build. See [Repository setup](docs/REPOSITORY_SETUP.md),
 [Versioning](docs/VERSIONING.md), [Changelog](CHANGELOG.md), and
 [Current validation](docs/VALIDATION.md).
 
@@ -104,11 +103,7 @@ Source completion and offline tests do not establish PZ runtime correctness.
 
 ## Consumer integrations and test preparation
 
-Spectrum owns two explicit Nightfall stored-bulb aliases, delegates the existing
-Medical procedure, registers an optional UVC-only Water quality treatment, and
-reports read-only Farming illumination. No consumer files are edited. Water's
-sandbox opt-in defaults off; Nightfall bulbs use UVA and cannot trigger it. No
-UVC device, treatment action or crop growth effect is invented.
+SPXTRM retains two Nightfall stored-bulb aliases and Medical delegation. The matching Health Care 0.11.0 branch adds native timed cold-pack self-care. SPXTRM adds a native timed UVC Water action and purpose-built UVA/UVC/grow-light items with replacement bulbs and configurable contextual loot. Water integration still defaults off and recomputes known powered UVC on the authority. Farming reports optical observations only: crop growth remains unchanged under the user's current scope. All quantities/timing are provisional gameplay values.
 
 See [Consumer contracts/settings](docs/CONSUMER_INTEGRATIONS.md) and
 [Current in-game handoff](docs/IN_GAME_TEST_HANDOFF.md). Core Spectrum + Power
@@ -140,3 +135,12 @@ remaining engine evidence and consumer-owned content. [Native presentation gates
 record the verified rotation setter/getter route and the guarded SP-only probe.
 Default model alignment and production blood redraw remain unverified. Debug
 fixture helpers require confirmed debug mode and refuse multiplayer mutations.
+
+## Feature pass 0.30.0
+
+- First-party UVA inspection lamp, UVC service lamp and visible grow lamp; matching bulbs, vanilla housing/icon references, sized-cell profiles and medical/garden loot. No third-party assets imported.
+- Timed selected-container UVC treatment rechecks reach, placement, quality and exposure at completion through Water's existing transaction. It changes only biological quality; no claim that the water is safe to drink.
+- Opt-in native world-model adapter uses explicit per-item measured north-yaw/sign profiles, verified readback, native complete-item sync and durable recovery. No model has a guessed built-in calibration.
+- Bounded material-response registry supplies absorption/fluorescence/reflectance semantics. Native blood redraw remains a debug-only engine gate, not production fluorescence.
+
+[Current feature ledger](docs/FEATURE_PASS_0_30_0.md) records the exact implemented behavior and remaining scope/runtime gates. No package, installation, game/server launch or Workshop upload.

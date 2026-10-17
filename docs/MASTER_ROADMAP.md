@@ -1,6 +1,6 @@
-# B47ANCED Spectrum Master Roadmap
+# B47ANCED SPXTRM Master Roadmap
 
-Canonical version: 0.29.0.
+Canonical version: 0.30.0.
 
 ## Implemented in source with offline coverage
 
@@ -30,7 +30,7 @@ All nine 886f97d defects remain covered. See the historical AUDIT_FIXES.md and
 ## External or blocked implementation
 
 - Native world-model yaw: vanilla Lua setter/getter route is now verified.
-  The debug/SP readback/restore probe is implemented; default per-model alignment
+  The debug/SP readback/restore probe is implemented; production adapter now accepts measured per-model calibration; built-in calibration
   and live serialization/rendering remain gated. See NATIVE_PRESENTATION_GATES.md.
 - Native blood/material redraw: the existing opt-in prototype needs its FBO/depth
   spike before production. Arbitrary shaders are not exposed by a verified Lua API.
@@ -41,9 +41,8 @@ All nine 886f97d defects remain covered. See the historical AUDIT_FIXES.md and
   and Farming optical observations are implemented. Infected effects, complete
   Medical/Water action content and crop growth remain owned by consumers. Refreshed
   Nightfall metadata now matches B47ANCEDHealthCare; its source profile passes.
-  All consumers remain read-only. See CONSUMER_INTEGRATIONS.md and IN_GAME_TEST_HANDOFF.md.
-- Additional fixture/item content needs exact approved definitions/assets. The
-  generic advanced fixture capability is implemented without invented content.
+  Health Care self-care and Nightfall activation metadata are now authorized; Water/Farming remain unchanged. See CONSUMER_INTEGRATIONS.md and IN_GAME_TEST_HANDOFF.md.
+- First-party UVA/UVC service and visible grow-light devices now have explicit definitions, replacement bulbs and configurable contextual loot. Further fixture/overlay assets remain undefined.
 
 ## Runtime gates and release status
 
@@ -68,3 +67,5 @@ Current closure and remaining gates: [AUDIT_CLOSURE.md](AUDIT_CLOSURE.md).
   batch parity and unchanged crops. No deployment or launch is automatic.
 - Native blood/FBO presentation needs Lua/depth evidence; model yaw needs calibration;
   consumer-owned treatment/device/growth content stays outside Spectrum-only writes.
+
+Current 0.30.0 implementation and explicit remaining gates: [feature pass](FEATURE_PASS_0_30_0.md). Nightfall already implements infected UV consequences; this iteration preserves that owner and changes its required activation ID only.

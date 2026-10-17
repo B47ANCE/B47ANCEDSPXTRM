@@ -1,6 +1,6 @@
 # Native presentation evidence and runtime gates
 
-Project Version: 0.29.0
+Project Version: 0.30.0
 Steam build: 25485521. Full engine version: UNKNOWN.
 
 ## World-model yaw: source route verified, alignment untested
@@ -86,3 +86,7 @@ in the unmanaged local library; installed managed catalogs were not modified.
 
 No custom Java/JAR/bridge code, deployment, game/server launch or publication.
 SP NOT TESTED; dedicated G7 BLOCKED / NOT TESTED; stable G8 BLOCKED.
+
+## 0.30.0 calibrated production adapter
+
+ModelAlignment now supplies optional authority-owned application/readback/sync/recovery for explicitly calibrated items. Register exact measured northYaw/sign and evidenceId; EnableNativeModelAlignment defaults false. No model mapping is guessed. Failed/unproved restore retains lightWorksNativeModelRecovery until explicit verified restore. This implements the adapter, not its missing model calibration or runtime certification. ReactiveMaterials supplies the optical response semantics; native blood remains debug-only and blocked as above.

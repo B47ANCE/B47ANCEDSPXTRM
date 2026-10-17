@@ -5,7 +5,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 LAYOUTS = {
-    "spectrum": (None, "src/lightWorks/42"),
+    "spectrum": (None, "src/B47ANCEDSPXTRM/42"),
     "power": ("B47ANCEDPower", "src/B47ANCEDPower/42"),
     "nightfall": ("Project Nightfall", "src/ProjectNightfall/42"),
     "mortis": ("Project MORTIS", "src/ProjectMORTIS/42"),

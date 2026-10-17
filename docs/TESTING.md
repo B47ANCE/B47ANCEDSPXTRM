@@ -1,4 +1,4 @@
-# B47ANCED Spectrum Testing
+# B47ANCED SPXTRM Testing
 
 Record the exact installed Build 42 version (minimum declared: 42.20.3) and
 inspect `console.txt` afterward. The full current engine version is UNKNOWN.
@@ -9,7 +9,7 @@ developer investigation; mocked execution is not an in-game PASS.
 
 1. Run `LWStartReleaseSuite()`. It performs the API, servicing, UV-semantic, and available B47ANCEDPower battery checks, then starts the visual tour.
 2. Inspect each equipped light, enter `PASS` or describe the issue, and continue; every report is written to `console.txt`.
-3. Confirm metadata, version `0.29.0`, B47ANCED Spectrum sandbox page, and error-free load.
+3. Confirm metadata, version `0.30.0`, B47ANCED SPXTRM sandbox page, and error-free load.
 4. Right-click supported, unsupported, nested, equipped, attached, and weapon-part lights.
 5. Confirm bulb actions share the light's existing submenu and show correct icons.
 6. Install, remove, and replace every bulb with and without required tools; verify no loss or duplication.

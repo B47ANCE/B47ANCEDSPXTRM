@@ -1,6 +1,6 @@
-[h1]⚠ DEVELOPMENT BUILD — NOT YET PLAYABLE ⚠[/h1]
+[h1]âš  DEVELOPMENT BUILD — NOT YET PLAYABLE âš [/h1]
 
-[b]Mod Version: 0.29.0[/b]
+[b]Mod Version: 0.30.0[/b]
 
 [b]This mod is under active development and is not yet considered playable or release-ready.[/b]
 
@@ -18,15 +18,15 @@ The development build is intended for people interested in:
 
 [h2]Please do not subscribe expecting a finished gameplay experience.[/h2]
 
-Features may change substantially, be temporarily disabled, or require a fresh save while development continues. A proper release announcement will be made when B47ANCED Spectrum reaches a stable playable state.
+Features may change substantially, be temporarily disabled, or require a fresh save while development continues. A proper release announcement will be made when B47ANCED SPXTRM reaches a stable playable state.
 
 [url=https://ibb.co/TByLqTWH][img]https://i.ibb.co/mCp8FBNH/title.png[/img][/url]
 
-[h1]B47ANCED Spectrum[/h1]
+[h1]B47ANCED SPXTRM[/h1]
 
 Lighting, optics, sunlight, ultraviolet exposure, and serviceable-light infrastructure for theWorks ecosystem.
 
-B47ANCED Spectrum owns bulbs, compatible emitters, rendered light behavior, and reusable lighting semantics for players, Works modules, and compatible third-party mods.
+B47ANCED SPXTRM owns bulbs, compatible emitters, rendered light behavior, and reusable lighting semantics for players, Works modules, and compatible third-party mods.
 
 [h2]Current Features[/h2]
 
@@ -123,14 +123,14 @@ Technical Writer and Documentation Maintainer
 
 [h2]Source Code & Development[/h2]
 
-[url=https://github.com/B47ANCE/B47ANCEDSpectrum]B47ANCED Spectrum on GitHub[/url]
+[url=https://github.com/B47ANCE/B47ANCEDSPXTRM]B47ANCED SPXTRM on GitHub[/url]
 
 Formerly lightWorks. Technical Mod ID remains lightWorks for existing saves and dependent mods.
 
 [h2]Workshop Information[/h2]
 
 [b]Workshop ID:[/b] 3788592008
-[b]Mod ID:[/b] lightWorks
+[b]Mod ID:[/b] B47ANCEDSPXTRM
 
 
 [h2]Development feature additions[/h2]

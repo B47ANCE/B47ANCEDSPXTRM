@@ -1,0 +1,27 @@
+{
+  "profile": "core",
+  "sourcePreflight": "PASS",
+  "issues": [],
+  "sources": {
+    "spectrum": {
+      "id": "B47ANCEDSPXTRM",
+      "declaredVersion": "0.30.0",
+      "sourceSHA256": "9b4e455a6fe78e47feddbee79912a2960c774abfbcaaf6a5b910cd38a8a72d23",
+      "sourceFiles": 150,
+      "head": "5daab92e901c2f703c238f593d46c1dc3ef8907f",
+      "dirty": true
+    },
+    "power": {
+      "id": "B47ANCEDPower",
+      "declaredVersion": "0.17.0-dev.1",
+      "sourceSHA256": "91ab63b8bde17d77b6f311e25c9e03652226c5a72ed503c5fe16cf0052f041ce",
+      "sourceFiles": 113,
+      "head": "40ff9ebfe247d56d7dd2e308e7b7eabfb61a7ce0",
+      "dirty": false
+    }
+  },
+  "SP": "NOT TESTED",
+  "G7": "BLOCKED / NOT TESTED",
+  "stableG8": "BLOCKED",
+  "deployment": "NOT PERFORMED"
+}

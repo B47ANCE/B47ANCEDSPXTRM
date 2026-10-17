@@ -1,3 +1,7 @@
+[b]Version 0.30.0[/b]
+B47ANCED SPXTRM - MP testing build - dedicated multiplayer NOT TESTED
+Mod ID B47ANCEDSPXTRM replaces lightWorks. Enable the new Mod ID on all clients/server; existing Lua/save/item/sandbox/network identifiers remain compatible. Added specialist devices, UVC action, calibrated model adapter and optical-material contracts. Workshop 3788592008 unchanged. No upload performed.
+
 [b]Version 0.29.0[/b]
 Add bounded advisory consumer notifications after committed changes, read-only
 Sunburn access, and a debug/SP-only native model-rotation probe with restore checks.

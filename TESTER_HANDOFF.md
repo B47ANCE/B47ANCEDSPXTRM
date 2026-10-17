@@ -1,7 +1,7 @@
-# B47ANCED Spectrum 0.29.0 playtester handoff
+# B47ANCED SPXTRM 0.30.0 playtester handoff
 
 Begin only after B47ANCEDPower is reviewed as PASS. Enable only B47ANCEDPower and
-B47ANCED Spectrum (Mod ID `lightWorks`) on a disposable save and run `lightWorksTestStart(true)`.
+B47ANCED SPXTRM (Mod ID `lightWorks`) on a disposable save and run `lightWorksTestStart(true)`.
 
 1. Run `lightWorksTestChecks()` to prepare the kit and verify core behavior.
 2. Run `lightWorksTestTour()`. Move and turn with each named light. Enter PASS only when the described beam, halo, color, and attachment behavior is visible.
@@ -38,3 +38,5 @@ Use docs/AUDIT_0_28_0.md for the three defect reproductions and acceptance.
 operations and separate client/server buses. Follow docs/NATIVE_PRESENTATION_GATES.md
 for explicit disposable SP yaw previews and restoration; no default mapping or
 production blood redraw is enabled. Mutating local fixture helpers are SP-only.
+
+Current 0.30.0 activation ID is B47ANCEDSPXTRM (old Lua/save namespace retained). Enable it with matching Nightfall metadata. Follow docs/FEATURE_PASS_0_30_0.md for specialist devices, UVC timed action, Health Care self-care, native model calibration and remaining blood/growth gates. Previous pinned version probes are historical. No install/game/server launch is automatic.
