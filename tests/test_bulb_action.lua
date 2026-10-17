@@ -26,6 +26,12 @@ returnItem=function() available=true; return true end}
 package.loaded["lightWorks/lightWorks_ItemAccess"]=Access
 local Action=require "lightWorks/lightWorks_ChangeBulbAction"
 Action=lightWorks.ChangeBulbAction
+local notifications=require "lightWorks/lightWorks_Notifications"
+local committed=0
+notifications.subscribe("bulb","service-test",function(e)
+    assert(e.action=="serviced" and data.lightWorksServiceRecovery==nil)
+    committed=committed+1
+end)
 assert(_G[Action.Type]==Action)
 local action=Action:new(character,light,"install","violet")
 action:perform(); assert(writes==0)
@@ -69,4 +75,5 @@ Access.addItem=function() return nil end
 Access.returnItem=function() return false end
 assert(not Action:new(character,light,"install","violet"):complete())
 assert(data.lightWorksServiceRecovery.status=="inspection_required","failed item recovery stays locked")
+assert(committed==3,"only three committed services emit; failed/uncertain/rolled-back paths stay silent")
 print("lightWorks authoritative bulb action and completion revalidation checks passed")

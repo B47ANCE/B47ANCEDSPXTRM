@@ -1,4 +1,5 @@
 local sourcePath=assert(arg[1],"prototype source path required")
+isDebugEnabled=function()return true end
 local renderCalls=0
 local sprite={renderBloodSplat=function(_,x,y,z,color)
     renderCalls=renderCalls+1
@@ -32,5 +33,7 @@ assert(renderCalls==1,"nearby native splat should be redrawn once")
 local status=LWUVBloodTest("status")
 assert(status.lastDetected==1 and status.lastRendered==1 and status.lastMissingSprite==0)
 assert(LWUVBloodTestPlace(200) and placed==40,"sample placement must clamp its persistent change")
+isClient=function()return true end
+assert(not LWUVBloodTestPlace(1) and placed==40,"MP clients cannot create persistent diagnostic fixtures")
 assert(LWUVBloodTest("off") and not status.active)
 print("lightWorks UV-reaction prototype checks passed")

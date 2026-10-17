@@ -1,4 +1,4 @@
-# B47ANCED Spectrum Testing
+# B47ANCED SPXTRM Testing
 
 Record the exact installed Build 42 version (minimum declared: 42.20.3) and
 inspect `console.txt` afterward. The full current engine version is UNKNOWN.
@@ -9,7 +9,7 @@ developer investigation; mocked execution is not an in-game PASS.
 
 1. Run `LWStartReleaseSuite()`. It performs the API, servicing, UV-semantic, and available B47ANCEDPower battery checks, then starts the visual tour.
 2. Inspect each equipped light, enter `PASS` or describe the issue, and continue; every report is written to `console.txt`.
-3. Confirm metadata, version `0.27.0`, B47ANCED Spectrum sandbox page, and error-free load.
+3. Confirm metadata, version `0.30.0`, B47ANCED SPXTRM sandbox page, and error-free load.
 4. Right-click supported, unsupported, nested, equipped, attached, and weapon-part lights.
 5. Confirm bulb actions share the light's existing submenu and show correct icons.
 6. Install, remove, and replace every bulb with and without required tools; verify no loss or duplication.
@@ -78,7 +78,7 @@ intensity and invalid spectra. They must contribute nothing without suppressing
 valid sources. World scans are integer-radius bounded, object/attachment/weapon
 collections are capped, and invalid scan centers return empty results.
 
-Offline commands and current evidence: [VALIDATION.md](VALIDATION.md). The name changed; technical IDs and `LW*`/`lightWorksTest*` commands remain stable.
+Offline commands and current evidence: [VALIDATION.md](VALIDATION.md). Activation Mod ID is B47ANCEDSPXTRM; Lua/save/protocol identifiers and `LW*`/`lightWorksTest*` commands remain stable.
 
 
 ## Nine-defect regression and multiplayer plan
@@ -127,3 +127,40 @@ preflight, disabled-by-default UVC tests, both bulb aliases, Medical procedure
 replay, crop immutability and two-client/restart acceptance. Debug status is not
 a runtime PASS. New regressions: test_consumer_aliases.lua, test_consumer_bridges.lua,
 test_consumer_exposure.lua, test_integration_harness.lua and test_readiness.py.
+
+## Batch queries and audit regressions
+
+Run python scripts/validate.py. New tests test_batched_exposure.lua and
+test_crop_batches.lua cover one-scan parity, independent walls, dynamic on/off,
+output isolation, bounded paging and partial/invalid input. test_debug_guard.lua,
+test_fixtures.lua and test_lasers.lua reproduce the three audited defects; the
+prototype test also verifies SP-only diagnostic sample placement.
+
+In PZ debug mode, provide a small array of actual native crops to
+LWIntegrationCropLightingBatch(crops, {cursor=0,limit=16}). Compare every successful
+observation with LWIntegrationCropLighting(crop), then alter power/cone/obstruction.
+Check ok and observation.complete separately. Continue through nextCursor; invalid
+or overly wide pages must report failures, never fabricate known darkness. Test
+streamed/unloaded squares and 32-target/source-budget cases; confirm crop growth,
+health and water never change. No automatic growth or treatment action is added.
+
+## Notifications and native-presentation gates
+
+Run python scripts/validate.py. New notification tests cover independent payloads,
+subscription teardown/replacement tokens, callback errors/unprintable errors,
+64-listener/128-event limits, nested dispatch and post-commit publication. Service
+rollback/uncertainty stays silent; depletion requests existing native/semantic sync
+before notification. Native tests use stubs, not game rendering.
+
+In an actual SP and dedicated pairing, subscribe with a namespaced ID, query the
+initial owner state, perform validated UI actions and compare each notification
+with committed state. Reject/replay/rollback operations must not emit normal
+success. Teardown with its token, reconnect/restart, reattach/query again; no past
+event or native object reference may replay. Confirm the client has a separate bus
+and receives state through existing synchronization. No listener may award items
+or apply effects from an event alone. Inspect status for failure/drop counts.
+
+Use NATIVE_PRESENTATION_GATES.md for the SP-only yaw readback/restore and native
+blood FBO scenarios. All kit/API/tour fixture mutations are now SP-only; MP tests
+use authorized server-admin fixture preparation and normal validated gameplay
+actions, not the mutating local kit helpers. No deployment or launch is automatic.

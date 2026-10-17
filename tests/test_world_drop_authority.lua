@@ -21,7 +21,7 @@ ISDropWorldItemAction={complete=function(self)
 end}
 package.loaded["TimedActions/ISDropWorldItemAction"]=true
 -- Permit the pre-fix baseline to reach the behavioral assertion, not fail on a missing new file.
-local file=io.open("src/lightWorks/42/media/lua/shared/lightWorks/lightWorks_WorldDrop.lua","r")
+local file=io.open("src/B47ANCEDSPXTRM/42/media/lua/shared/lightWorks/lightWorks_WorldDrop.lua","r")
 if file then file:close();require "lightWorks/lightWorks_WorldDrop"end
 local action=setmetatable({item=item,character={getDir=function()return "E"end}},{__index=ISDropWorldItemAction})
 assert(action:complete())

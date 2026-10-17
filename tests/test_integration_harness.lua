@@ -14,4 +14,5 @@ assert(not H.kit(),"failed base-kit preparation cannot report success")
 package.loaded["lightWorks/lightWorks_TestHarness"].giveKit=function()return true,{missing={"Base.Torch"}} end
 assert(not H.kit(),"incomplete base kits must be reported")
 assert(H.status().contractVersion==1)
+assert(H.cropBatch({}).sampled==0 and LWIntegrationCropLightingBatch==H.cropBatch)
 print("debug helpers inert outside debug mode and guarded against client mutations")

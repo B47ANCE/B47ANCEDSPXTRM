@@ -1,8 +1,8 @@
 # Repository onboarding
 
-Project Version: 0.27.0
+Project Version: 0.30.0
 
-Public repository: https://github.com/B47ANCE/B47ANCEDSpectrum
+Public repository: https://github.com/B47ANCE/B47ANCEDSPXTRM
 
 The owner authorized a public repository, adoption of the evidenced `0.25.2`
 legacy version and the compatible `0.25.3` rename/setup iteration. The original
@@ -14,7 +14,7 @@ this onboarding; the workflow itself does not enforce a protected-main policy.
 
 ## Source and preservation
 
-`src/lightWorks` is authoritative, as established by the original README. It
+`src/B47ANCEDSPXTRM` is authoritative, as established by the original README. It
 contains 95 files. `Contents/mods/lightWorks` is an older 38-file packaging copy:
 57 source files are absent and 13 same-path files differ. Its `modversion` is
 `0.25.0`. It is preserved unchanged, ignored by Git and never used to build the
@@ -79,6 +79,21 @@ feature/spectrum-consumers starts from feature/spectrum-roadmap (7fd163b) and
 uses a stacked PR targeting that branch. It is a 0.27.0 MINOR API/settings
 iteration. The user explicitly kept all consumer folders read-only. No consumer
 remote, version adoption, source relocation or repository migration is performed
-by Spectrum. The externally renamed B47ANCEDHealthCare checkout retains its
-medWorks Lua API, while Nightfall still requires the old Mod ID. New preflight
-scripts fingerprint the actual selected source and fail that mismatch explicitly.
+by Spectrum. That iteration observed an external medical Mod ID mismatch, retained in its
+validation record. The refreshed pairing now matches; current source preflights
+record exact selected source independently from those historical observations.
+
+## Audit and batch-query branch
+
+feature/spectrum-batched-queries starts from feature/spectrum-consumers (79775cd)
+and targets that branch with a stacked PR. Version 0.28.0 is a MINOR API addition
+plus targeted bug fixes. No open predecessor PR is merged. Historical validation
+and supplied artwork stay intact. No deployment, packaging or upload is implied.
+
+## Notification and remaining-audit branch
+
+feature/spectrum-notifications starts from a2a0183 on
+feature/spectrum-batched-queries and uses a stacked PR targeting that branch.
+0.29.0 is a MINOR observer API addition plus observation/debug hardening. Previous
+validation/audit bytes remain historical. Native API findings are portable metadata
+and original descriptions only; no game classes/assets/source bodies are bundled.

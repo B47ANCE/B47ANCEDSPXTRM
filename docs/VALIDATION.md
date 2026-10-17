@@ -1,93 +1,71 @@
-# Consumer integration iteration validation
+# SPXTRM feature-pass validation
 
-Project Version: 0.27.0
+Project Version: 0.30.0
 
-Date: 2026-10-16 (America/Phoenix)
-Base: 7fd163b5a43b4d46d9ed760d52fba8f0300ce5a9 (0.26.0).
-Branch: feature/spectrum-consumers; stacked PR base: feature/spectrum-roadmap.
-Compatibility: MINOR, optional consumer APIs and sandbox configuration.
+2026-10-16 (America/Phoenix). Base 5daab92e901c2f703c238f593d46c1dc3ef8907f (0.29.0).
+Branch feature/spectrum-feature-completion, stacked on feature/spectrum-notifications.
+Explicit pre-1.0 MINOR activation-ID transition plus additive features. Existing
+Lua/save/item/sandbox/protocol identifiers remain stable; enabled-mod lists must
+change to B47ANCEDSPXTRM. Prior validation is exact in validation/0.29.0-audit.md.
 
-## Current evidence
+[TESTED, offline Windows / host Lua 5.4] 54 regression files and 59 Lua 5.1
+source/template syntax files PASS. Canonical versions, identity, owned require
+case, Lua-only payload, 29-language fallback/schema sets, disposable Python
+preflight and credential/path checks PASS. New coverage tests calibrated model
+registration/copies/readback/rollback/sync recovery; material completeness/bands;
+three specialist devices/replacement restrictions/loot idempotence; timed UVC
+authority/reach/power loss/repeated callbacks; canonical import identity and
+bounded read-only treatment receipts. These use native object stubs, not PZ.
 
-- [TESTED, offline Windows] python scripts/validate.py PASS: 41 host Lua 5.4
-  regression files; 49 Lua 5.1 source/template syntax files; disposable Python
-  preflight test; version, identity, Lua-only, owned require case, 29 language
-  fallback/schema checks and credential/path audit (216 selected files, 0 findings).
-  The historical nine defects remain covered. Host Lua is not PZ/Kahlua.
-- [TESTED, offline Windows] Actual-source consumer API probe PASS: both Nightfall
-  bulb registrations and stored-field migration with wear, actual Medical procedure
-  reduction/replay, actual Water refusal/transaction/rollback, read-only native
-  crop-provider observation and client mutation refusal. No first-party API is
-  replaced by a compatibility shim. Native objects are stubs. Full mod bootstraps,
-  native inventory/fluids, loader and dedicated availability are NOT TESTED.
-- [TESTED, offline Windows] Actual-source B47ANCEDPower probe PASS: profiles,
-  canonical binding, pattern/disabled-pattern demand, world debit and failed-debit
-  checkpoint retention. Clean dependency HEAD 40ff9ebfe247d56d7dd2e308e7b7eabfb61a7ce0;
-  shared Lua tree hash a165c3f3262733afc1ea94a8e0ff223df004d5a753db5daecf1c93221073b4c5.
-- [TESTED, offline Windows] Source preflight: core PASS, consumers PASS,
-  nightfall BLOCKED with expected exit 1: required Mod ID medWorks is absent.
-  The current medical source declares B47ANCEDHealthCare but preserves medWorks
-  Lua APIs. No namespace/metadata aliases were invented. This is the current
-  blocker; retired experienceWorks imports in the earlier medWorks snapshot are
-  historical and no longer attributed to the renamed medical source.
-- [VERIFIED, source snapshots] Exact API-probe and profile inventories are
-  validation/0.27.0-consumers.json and validation/0.27.0-*-preflight.json. They
-  fingerprint selected files/paths and record dependency HEAD/dirty state.
-  Snapshot fingerprints were stable during each check. External Medical and
-  Knowledge edits were observed during the task; dirty source is not a verified
-  deployable pairing. Repeat source selection and fingerprints before installing.
-  Water/Farming remain legacy non-Git sources; Spectrum adopts no canonical
-  versions or remotes for them. All external checkouts were read-only to this task.
-- [TESTED, offline Windows] Exact staged credential/path audit: 72 intended files,
-  zero findings. Working/staged whitespace checks PASS.
-- [VERIFIED, history/artwork] Supplied thumbnail/preview, icon, 0.25.5 audit records,
-  0.26.0 feature ledger and previous change-note bytes match base history exactly.
-  The original 0.26.0 validation is retained as validation/0.26.0-features.md.
-- [VERIFIED, installed-source history] Steam build 25485521 was inspected for
-  the prior feature iteration; full engine version remains UNKNOWN. No new
-  native API guarantee or runtime result is inferred from that history.
+[TESTED, offline] Actual Power API probe includes specialist profiles and PASS.
+Actual consumer API slices PASS for Nightfall aliases, Medical treatment/replay,
+Water quality gates/commit/rollback and Farming unchanged observations/batches.
+Health Care isolated 0.11.0 tests cover actual Spectrum interrupted-commit
+receipt recovery. Exact selected source hashes, HEAD/dirty state and preflight
+are recorded in validation/0.30.0-*.json. Dirty/concurrently changing dependency
+snapshots are not pinned clean pairings. Full native mod bootstraps are NOT TESTED.
 
-## Exact commands and freshness
+[VERIFIED, installed source] Steam build 25485521; full engine SemVer UNKNOWN.
+Prior vanilla yaw getter/setter evidence remains current by source hash. New
+device fields/native asset references were checked against generated item/model
+definitions; cold-pack consumption/native complete follows ISApplyBandage and
+the existing Health Care native recovery contract. SuburbsDistributions registers
+OnPreDistributionMerge; MedicalStorageTools/GardenStoreTools are actual lists.
+Source inspection does not prove native parsing, timing, rendering or transport.
+No game source/assets/classes are copied or executed.
 
-Python used: C:/Users/willi/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe.
-Development dependencies are in requirements-dev.txt.
+[VERIFIED, history] Owner thumbnail/icon bytes remain unchanged after the authoring
+root move. Spectrum lettering in supplied artwork is retained. Historical Contents,
+packages, upload state, validation/changenotes and Water/Farming source are unchanged.
+GitHub repository ID 1421935901 remains public, now B47ANCE/B47ANCEDSPXTRM. Four
+developer workspace path references were updated; installed managed settings and
+credentials were untouched. Health Care artwork checkout was not edited. Nightfall
+reconciled to public main containing effigy and audit/CI before the dependency change.
 
-```sh
-python scripts/check_versions.py --root .
+Commands (bundled Python 3.12 and requirements-dev.txt):
+
+```text
+python scripts/check_versions.py
 python scripts/validate.py
-python scripts/check_consumer_integrations.py --dependencies ..
 python scripts/check_power_integration.py --dependency-root ../B47ANCEDPower
+python scripts/check_consumer_integrations.py --dependencies .. --medical-root ../.worktrees/healthcare-spectrum-treatment
 python scripts/check_test_readiness.py --dependencies .. --profile core
-python scripts/check_test_readiness.py --dependencies .. --profile consumers
-python scripts/check_test_readiness.py --dependencies .. --profile nightfall
+python scripts/check_test_readiness.py --dependencies .. --profile nightfall --medical-root ../.worktrees/healthcare-spectrum-treatment
+python scripts/check_test_readiness.py --dependencies .. --profile consumers --medical-root ../.worktrees/healthcare-spectrum-treatment
 python scripts/check_repository.py --staged
 git diff --check
 git diff --cached --check
 ```
 
-The nightfall command intentionally returns 1 while its external Mod ID mismatch
-exists. A blocked startup profile is not ignored or converted into PASS by the
-API probe. CI runs only repository-local offline tests; it does not have the
-private machine's sibling checkouts. Current package integrity/version --release
-checks are deferred because no package was requested or generated.
+Startup/precommit: Test-PZRepositoryFreshness.ps1 against each explicit repository.
+Exact commit/push/CI results belong to the iteration report, not this precommit record.
 
-Shared freshness command:
-`Test-PZRepositoryFreshness.ps1 -Repository <explicit Spectrum repository>`.
-Entry clean HEAD/upstream 7fd163b: 0/0, main ahead 4/behind 0, no unfinished operation.
-Precommit REVIEW: the same ancestry, dirty only with this intended iteration.
-The new branch temporarily tracks its verified base branch until first push;
-no source reconciliation/reset is performed. Review includes the staged diff,
-tracked files, ignored outputs and exact staged credential/path audit before push.
-The PR records resulting commit, verified remote SHA and CI status.
+[RUNTIME GATE] Native built-in model calibration, blood/FBO/depth and additional
+overlay assets remain incomplete. Crop growth is deferred while Farming stays
+unchanged. Native shared-action timing/reference serialization, real items/fluids,
+renderer/depth, controllers, save/reload, joins/restarts and dedicated acceptance
+are NOT TESTED. G7 BLOCKED / NOT TESTED; stable G8 BLOCKED. Current Knowledge source
+also reports an upstream dedicated-storage blocker; source-contract PASS does not
+override it. No packaging, deployment, game/server launch or Workshop upload.
 
-## Runtime gates and test scope
-
-See CONSUMER_INTEGRATIONS.md for contracts, settings, limits and ownership;
-IN_GAME_TEST_HANDOFF.md for staged acceptance and the external loader blocker.
-Core source preparation is complete. Full Nightfall startup remains blocked under
-Spectrum-only write scope. Native laser/fixture rendering, crop sample placement,
-clothing, migration, authority, treatment costs/consent in owning actions, fluid
-synchronization, source streaming, late join/reconnect and restart need actual
-engine evidence. No real save, external mod source or installed game was modified.
-SP NOT TESTED; G7 BLOCKED / NOT TESTED; stable-release G8 BLOCKED.
-No package, deploy, game/server launch, Workshop upload, stable tag or merge.
+Final review: the native UVC action validity callback checks only configuration, actor/target placement and reach. It performs no optical/world scan; explicit menu preview and the authoritative Water commit sample exposure. A regression invokes validity 1,000 times with zero exposure scans. No native timing or performance claim is inferred from this host test.

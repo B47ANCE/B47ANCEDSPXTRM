@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "display_name": "B47ANCED Spectrum",
+  "display_name": "B47ANCED SPXTRM",
   "canonical_version": "VERSION",
   "authoritative_source_roots": [
-    "src/lightWorks"
+    "src/B47ANCEDSPXTRM"
   ],
   "generated_roots": [
     "dist/current"
@@ -15,7 +15,7 @@
     "dist/staging-backups"
   ],
   "mod_ids": [
-    "lightWorks"
+    "B47ANCEDSPXTRM"
   ],
   "workshop_id": "3788592008",
   "required_mod_ids": [
@@ -64,7 +64,7 @@
       "authoritative_source": "artwork/spectrum-thumbnail.png",
       "mirrors": [
         "preview.png",
-        "src/lightWorks/thumbnail.png"
+        "src/B47ANCEDSPXTRM/thumbnail.png"
       ],
       "sha256": "44e03c1e64fd9bdcbbf767b81ec3f08850c00dcb4e3709e9f374046e34eea119",
       "width": 1254,
@@ -72,7 +72,7 @@
       "provenance": "Owner-supplied image explicitly selected in chat on 2026-10-16; copied byte-for-byte without resizing or regeneration."
     },
     "icon": {
-      "path": "src/lightWorks/42/icon.png",
+      "path": "src/B47ANCEDSPXTRM/42/icon.png",
       "sha256": "ee7351b8932db9969c20344c7328de4281292c5b9896ae3ee3ea32906b8159ef",
       "status": "unchanged"
     }

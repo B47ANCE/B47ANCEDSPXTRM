@@ -172,3 +172,34 @@ procedure locks; Spectrum owns sunburn dose and migration receipts; Farming stat
 is read only. No obsolete Mod ID, Power or experience global aliases are installed.
 Full contracts, limits and settings: CONSUMER_INTEGRATIONS.md. Runtime acceptance
 and the external Nightfall loader blocker: IN_GAME_TEST_HANDOFF.md.
+
+## Bounded batch query ownership
+
+ConsumerExposure.sampleMany captures sources once per immediate clustered request,
+filters each target to its own 16-tile scope, and evaluates native occlusion and
+sunlight independently. Results and query metadata are detached; no retained
+cross-tick cache exists. ConsumerIntegrations.cropLightingBatch inspects at most
+32 supplied crops per page and reports each original input index and failure.
+Both are read-only on clients/server. Water's authoritative entry continues to
+make its own fresh sample; callers cannot inject a previously returned observation.
+Fixture registration captures its callback/presentation opt-in, while the owning
+callback still supplies live power/activation/geometry state. Definition changes
+require unregister/register. Native blood prototype registration requires explicit
+debug capability and manual persistent sample placement refuses MP clients.
+
+## Advisory notification boundary
+
+Notifications is independent of API initialization and exposes only subscribe,
+unsubscribe and status to consumers. Producers publish scalar snapshots after
+canonical owner commits: services/rollback settlement, patterns, world activation/
+depletion/drop, logical orientation, sunburn, migration and supported registries.
+Callbacks cannot cancel state; failures are isolated and diagnosed. Reentrant
+publications use bounded FIFO delivery, never recursive notification dispatch.
+No listener gets native object/ModData references and no event is networked or
+persisted. Joining/reloading consumers query current state; the bus has no replay.
+Existing native/custom sync remains the gameplay convergence owner.
+
+Native model rotation has only a manual debug/SP preview/restore adapter. It
+changes no logical aiming, X/Y tilt, power or ModData, and never installs a default
+model mapping. Production native blood remains guarded and unverified. See
+CONSUMER_NOTIFICATIONS.md and NATIVE_PRESENTATION_GATES.md for exact boundaries.
