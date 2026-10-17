@@ -1,6 +1,6 @@
 # Spectrum development test handoff
 
-Project Version: 0.28.0
+Project Version: 0.29.0
 
 Core Spectrum + B47ANCEDPower, Nightfall and optional-consumer source preflights
 pass against the recorded current checkouts. The earlier medWorks loader mismatch
@@ -81,6 +81,23 @@ release, package-integrity, installation or native loader PASS.
   page uses one source capture, with no retained cross-call cache. Crop
   water/growth/health must stay unchanged. These helpers report
   normalized observations only; there is no growth effect or new farming UI.
+
+## Remaining audit acceptance
+
+Follow CONSUMER_NOTIFICATIONS.md for subscription IDs/tokens and exact producer
+scope. Test successful state, duplicates, rollback, callback failures, late attach,
+teardown and separate client/server Lua VMs. Requery on attach/restart; never use
+notifications as an authority or reward trigger. Status must expose failures/drops.
+
+Follow NATIVE_PRESENTATION_GATES.md for manual debug/SP world-model previews and
+restoration. Use a disposable placed light, record original/native/logical angles,
+verify rollback/removal and save backup. Native setter readback is not a visible
+alignment PASS. The blood spike still needs actual FBO/depth evidence; no Java
+fallback or production native redraw is introduced. Helpers that spawn or mutate
+fixtures are SP-only; use authorized server-admin tools to prepare MP fixtures.
+
+The closure matrix AUDIT_CLOSURE.md retains all unobserved runtime gates. No
+other-mod writes or new domain gameplay content were authorized by this iteration.
 
 ## Dedicated authority stage
 

@@ -142,6 +142,8 @@ function lightWorks.ChangeBulbAction:complete()
         pcall(print,"[lightWorks] Bulb completion failed; inspect state before retry")
         return false
     end
+    local Notices=require "lightWorks/lightWorks_Notifications"
+    Notices.publish("bulb","serviced",Notices.item(self.lightItem),{mode=self.mode})
     return true
 end
 

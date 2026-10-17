@@ -8,7 +8,7 @@ if Events and Events.OnObjectAdded then Events.OnObjectAdded.Add(function(object
 if Events and Events.OnTick then Events.OnTick.Add(Manager.onTick) end
 if Events and Events.OnCreatePlayer then Events.OnCreatePlayer.Add(function(_,player) Manager.discoverNear(player) end) end
 
-if type(isDebugEnabled)~="function" or isDebugEnabled()==true then
+if type(isDebugEnabled)=="function" and isDebugEnabled()==true then
     function LWWorldEmitterInspect(id)
         local report=Manager.inspect(id)
         if not report then print("[lightWorks][WorldEmitter] not found: "..tostring(id));return nil end

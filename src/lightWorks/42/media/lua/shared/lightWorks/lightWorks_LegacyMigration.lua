@@ -2,6 +2,7 @@
 -- The legacy record is retained byte-for-byte; no legacy implementation loads.
 local API=require "lightWorks/lightWorks_API"
 local Access=require "lightWorks/lightWorks_ItemAccess"
+local Notices=require "lightWorks/lightWorks_Notifications"
 local Migration={SCHEMA_VERSION=1,aliases={},MAX_ALIASES=64}
 local KEY="lightWorksLegacyMigration"
 local function finite(v) return type(v)=="number" and v==v and math.abs(v)<math.huge end
@@ -95,6 +96,7 @@ function Migration.process(item,player,parentWeapon)
     -- Existing native item/weapon transport remains the serialization owner.
     if player then Access.syncServiceState(player,item,parentWeapon)
     else Access.call(item,"transmitModData");Access.call(item,"syncItemFields") end
+    Notices.publish("migration",status,Notices.item(item),reason and {reason=reason} or {})
     return not reason,reason or "migrated"
 end
 function Migration.isBlocked(item)

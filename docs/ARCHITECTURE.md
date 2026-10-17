@@ -186,3 +186,20 @@ Fixture registration captures its callback/presentation opt-in, while the owning
 callback still supplies live power/activation/geometry state. Definition changes
 require unregister/register. Native blood prototype registration requires explicit
 debug capability and manual persistent sample placement refuses MP clients.
+
+## Advisory notification boundary
+
+Notifications is independent of API initialization and exposes only subscribe,
+unsubscribe and status to consumers. Producers publish scalar snapshots after
+canonical owner commits: services/rollback settlement, patterns, world activation/
+depletion/drop, logical orientation, sunburn, migration and supported registries.
+Callbacks cannot cancel state; failures are isolated and diagnosed. Reentrant
+publications use bounded FIFO delivery, never recursive notification dispatch.
+No listener gets native object/ModData references and no event is networked or
+persisted. Joining/reloading consumers query current state; the bus has no replay.
+Existing native/custom sync remains the gameplay convergence owner.
+
+Native model rotation has only a manual debug/SP preview/restore adapter. It
+changes no logical aiming, X/Y tilt, power or ModData, and never installs a default
+model mapping. Production native blood remains guarded and unverified. See
+CONSUMER_NOTIFICATIONS.md and NATIVE_PRESENTATION_GATES.md for exact boundaries.

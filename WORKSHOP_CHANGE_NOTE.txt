@@ -1,3 +1,10 @@
+[b]Version 0.29.0[/b]
+Add bounded advisory consumer notifications after committed changes, read-only
+Sunburn access, and a debug/SP-only native model-rotation probe with restore checks.
+Native alignment, blood/FBO rendering and gameplay-consumer runtime remain gated.
+MP testing build - dedicated multiplayer NOT TESTED. G7 and stable G8 BLOCKED.
+No package, deployment, game/server launch or upload performed.
+
 [b]Version 0.28.0[/b]
 Add bounded one-scan batch exposure and read-only crop lighting queries.
 Freeze fixture definitions, close the missing-debug-API prototype path and reject

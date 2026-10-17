@@ -1,6 +1,6 @@
 # Repository onboarding
 
-Project Version: 0.28.0
+Project Version: 0.29.0
 
 Public repository: https://github.com/B47ANCE/B47ANCEDSpectrum
 
@@ -89,3 +89,11 @@ feature/spectrum-batched-queries starts from feature/spectrum-consumers (79775cd
 and targets that branch with a stacked PR. Version 0.28.0 is a MINOR API addition
 plus targeted bug fixes. No open predecessor PR is merged. Historical validation
 and supplied artwork stay intact. No deployment, packaging or upload is implied.
+
+## Notification and remaining-audit branch
+
+feature/spectrum-notifications starts from a2a0183 on
+feature/spectrum-batched-queries and uses a stacked PR targeting that branch.
+0.29.0 is a MINOR observer API addition plus observation/debug hardening. Previous
+validation/audit bytes remain historical. Native API findings are portable metadata
+and original descriptions only; no game classes/assets/source bodies are bundled.

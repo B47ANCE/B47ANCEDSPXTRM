@@ -19,7 +19,8 @@ lightWorks owns lighting, optical effects, UV, sunlight exposure, and sunburn. B
 Current source includes L0-L5/L7 optical and bulb foundations, an L6 mounted-laser
 presentation slice, explicit advanced fixture adapters, arbitrary-angle world-light
 geometry, clothing protection/status and conservative known-record migration.
-Current L8 adds bounded one-scan exposure batches and paged crop-light observations.
+Current L8 includes one-scan exposure batches, paged crop-light observations and
+bounded process-local post-commit notifications with lifecycle/teardown rules.
 See MASTER_ROADMAP.md, CONSUMER_INTEGRATIONS.md and AUDIT_0_28_0.md for current
 completion/gate status; FEATURE_COMPLETION.md retains the 0.26.0 milestone.
 Native model rotation/blood redraw, live calibration, dedicated verification and
@@ -110,3 +111,7 @@ receipt/quarantine handling are implemented in LegacyMigration; known registered
 records can convert. The two evidenced Nightfall stored-field IDs now have explicit Spectrum-owned
 aliases (0.27.0). Conflicting records and other unknown identities remain
 quarantined. See CONSUMER_INTEGRATIONS.md; FEATURE_COMPLETION.md is historical.
+
+Current source closure and blockers: AUDIT_CLOSURE.md. Native model-yaw setters
+are now evidenced in vanilla Lua; production mapping and blood/FBO remain runtime
+gates, with a guarded SP probe and concrete acceptance rather than a Java fallback.

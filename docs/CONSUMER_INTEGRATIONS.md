@@ -1,6 +1,6 @@
 # Spectrum consumer contracts
 
-Project Version: 0.28.0
+Project Version: 0.29.0
 
 This MINOR iteration adds optional API capabilities and four sandbox settings.
 Technical Mod ID, namespace, Workshop item and existing save schemas stay intact.
@@ -148,3 +148,11 @@ installation. Historical validation/0.27.0-* records retain their original block
 Source and API PASS do not verify installation, exact engine version, SP or
 dedicated behavior. See IN_GAME_TEST_HANDOFF.md and AUDIT_0_28_0.md.
 SP NOT TESTED; G7 BLOCKED / NOT TESTED; stable-release G8 BLOCKED.
+
+## Post-commit observation
+
+Optional consumers can invalidate their own caches through the version-1
+Notifications observer surface. See CONSUMER_NOTIFICATIONS.md for producer scope,
+late attachment, safe teardown and failure/drop diagnostics. No bus event grants
+a treatment, inventory action, crop mutation or client authority. Domain-owned
+transactions remain with Medical/Water/Farming and are not globally mirrored.

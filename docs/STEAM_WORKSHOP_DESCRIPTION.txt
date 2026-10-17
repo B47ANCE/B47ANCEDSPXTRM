@@ -1,6 +1,6 @@
 [h1]⚠ DEVELOPMENT BUILD — NOT YET PLAYABLE ⚠[/h1]
 
-[b]Mod Version: 0.28.0[/b]
+[b]Mod Version: 0.29.0[/b]
 
 [b]This mod is under active development and is not yet considered playable or release-ready.[/b]
 
@@ -155,3 +155,10 @@ Clustered exposure and paged read-only crop-light APIs reuse one bounded source
 scan for up to 32 nearby targets. No growth effect or cached treatment evidence.
 Three audit fixes harden prototype debug gating, fixture registration and laser
 geometry. MP testing build - dedicated multiplayer NOT TESTED.
+
+[h2]Advisory consumer notifications[/h2]
+Bounded process-local notifications follow Spectrum commit boundaries with copied
+payloads and failure diagnostics. They grant no gameplay authority or network
+replay. Debug fixture helpers require confirmed debug mode; mutations are SP-only.
+Native model-yaw setters are evidenced, but production model mapping and blood/FBO
+rendering still need in-game evidence. MP testing build - dedicated multiplayer NOT TESTED.

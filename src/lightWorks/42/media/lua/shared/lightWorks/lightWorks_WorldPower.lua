@@ -80,6 +80,8 @@ function WorldPower.setActive(item,value,operationId)
     state.processedOperations[#state.processedOperations+1]=operationId
     while #state.processedOperations>32 do table.remove(state.processedOperations,1)end
     call(item,"setActivated",value);call(item,"syncItemFields")
+    local Notices=require "lightWorks/lightWorks_Notifications"
+    Notices.publish("world","activation",Notices.item(item),{active=value,operationId=operationId})
     return true,{active=value,operationId=operationId}
 end
 
@@ -123,8 +125,10 @@ function WorldPower.updateItem(item,worldAgeHours)
     if consumed~=true then return false,remaining or"energy consumption failed"end
     state.lastPowerUpdateHours=now
     local powerOk,powerState=pcall(Power.getConsumerPowerState,item)
+    local depleted=false
     if powerOk and type(powerState)=="table"and powerState.known==true and powerState.powered~=true then
         state.active=false;call(item,"setActivated",false)
+        depleted=true
         -- Reuse the existing semantic-state message on depletion. Field sync
         -- alone does not tell current clients to clear their saved active flag.
         if type(isServer)=="function" and isServer()==true and type(sendServerCommand)=="function" then
@@ -137,6 +141,10 @@ function WorldPower.updateItem(item,worldAgeHours)
         end
     end
     call(item,"syncItemFields")
+    if depleted then
+        local Notices=require "lightWorks/lightWorks_Notifications"
+        Notices.publish("world","depleted",Notices.item(item),{active=false})
+    end
     return true,rate*elapsed,remaining
 end
 

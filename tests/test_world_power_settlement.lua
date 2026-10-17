@@ -29,10 +29,15 @@ assert(WorldPower.setActive(failed,false,"failed-off"),"the rejected operation m
 local depleted=item();depleted.getID=function()return 55 end
 depleted.getWorldItem=function()return{getX=function()return 3.5 end,getY=function()return 4.5 end,getZ=function()return 0 end}end
 local packet;isServer=function()return true end
+local noticeSeen=false;local synced=false
+require("lightWorks/lightWorks_Notifications").subscribe("world","depletion-order",function(e)
+    if e.action=="depleted" then assert(packet and synced,"native and semantic sync precede advisory callbacks");noticeSeen=true end
+end)
 sendServerCommand=function(module,command,args)packet={module=module,command=command,args=args}end
 powerWorks.getConsumerPowerState=function()return{known=true,powered=false}end
-depleted.syncItemFields=function(self)assert(self.active==false,"native field sync must observe the final depleted state")end
+depleted.syncItemFields=function(self)assert(self.active==false,"native field sync must observe the final depleted state");synced=true end
 assert(WorldPower.updateItem(depleted,20.25))
 assert(packet and packet.command=="worldEmitterState"and packet.args.itemId==55 and packet.args.active==false,
     "depletion must reuse the world semantic-state message so existing clients clear their active flag")
+assert(noticeSeen)
 print("lightWorks world-power settlement and retry checkpoint checks passed")

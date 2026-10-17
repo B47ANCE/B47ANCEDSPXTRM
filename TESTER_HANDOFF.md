@@ -1,4 +1,4 @@
-# B47ANCED Spectrum 0.28.0 playtester handoff
+# B47ANCED Spectrum 0.29.0 playtester handoff
 
 Begin only after B47ANCEDPower is reviewed as PASS. Enable only B47ANCEDPower and
 B47ANCED Spectrum (Mod ID `lightWorks`) on a disposable save and run `lightWorksTestStart(true)`.
@@ -33,3 +33,8 @@ consumer helpers report API presence only. No deployment or runtime test has run
 0.28.0: compare single-crop and LWIntegrationCropLightingBatch output on a small
 field. Test walls, on/off, incomplete samples, paging and unchanged crop state.
 Use docs/AUDIT_0_28_0.md for the three defect reproductions and acceptance.
+
+0.29.0: test observer attach/query/teardown, callback failure, rejected/replayed
+operations and separate client/server buses. Follow docs/NATIVE_PRESENTATION_GATES.md
+for explicit disposable SP yaw previews and restoration; no default mapping or
+production blood redraw is enabled. Mutating local fixture helpers are SP-only.

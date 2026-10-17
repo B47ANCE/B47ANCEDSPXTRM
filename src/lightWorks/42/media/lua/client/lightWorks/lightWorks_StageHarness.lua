@@ -1,5 +1,5 @@
 -- Development-only staged validation harness.
-if type(isDebugEnabled)=="function" and isDebugEnabled()~=true then return {} end
+if type(isDebugEnabled)~="function" or isDebugEnabled()~=true then return {} end
 
 local lightWorks=require "lightWorks/lightWorks_TestHarness"
 local API=rawget(_G,"lightWorks")

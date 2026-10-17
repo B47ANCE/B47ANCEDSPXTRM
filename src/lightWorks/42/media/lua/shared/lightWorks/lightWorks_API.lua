@@ -1,12 +1,14 @@
 lightWorks = lightWorks or {}
 local lightWorks = lightWorks
 local Access = require "lightWorks/lightWorks_ItemAccess"
+local Notices=require "lightWorks/lightWorks_Notifications"
+lightWorks.Notifications=Notices.observers
 local function burnoutAuthority()
     if type(isServer)=="function" and isServer()==true then return true end
     return not(type(isClient)=="function" and isClient()==true)
 end
 
-lightWorks.VERSION = "0.28.0"
+lightWorks.VERSION = "0.29.0"
 lightWorks.MODDATA_KEY = "lightWorks"
 -- UV is a mechanical emission with one canonical visible representation.
 -- Emitter profiles still control strength, reach, cone geometry and falloff.
@@ -70,7 +72,12 @@ function lightWorks.applySandbox()
     local root=rawget(_G,"SandboxVars")
     local values=root and root.lightWorks
     if not values then return false end
-    for key,value in pairs(Sandbox.read(values)) do lightWorks.Config[key]=value end
+    local changed=false
+    for key,value in pairs(Sandbox.read(values)) do
+        if lightWorks.Config[key]~=value then changed=true end
+        lightWorks.Config[key]=value
+    end
+    if changed then Notices.publish("sandbox","applied",{kind="project"}) end
     return true
 end
 lightWorks.applySandbox()
@@ -114,6 +121,7 @@ function lightWorks.registerBulb(def)
 
     lightWorks.Bulbs[profile.item] = profile
     if lightWorks.ConsumerIntegrations then lightWorks.ConsumerIntegrations.refreshNightfall() end
+    Notices.publish("registry","bulbRegistered",{kind="item",itemType=profile.item})
     return profile
 end
 
@@ -174,6 +182,7 @@ function lightWorks.registerLight(def)
     end
 
     lightWorks.Lights[profile.item] = profile
+    Notices.publish("registry","lightRegistered",{kind="item",itemType=profile.item})
     return profile
 end
 
@@ -820,6 +829,8 @@ function lightWorks.burnOutBulb(lightItem)
     -- Preserve the fact that this was a burnout rather than a manual removal.
     state.burnedOut = true
     state.lastBurnedBulbType = removedType
+
+    Notices.publish("bulb","burnedOut",Notices.item(lightItem),{previousBulb=removedType})
 
     return true, lightWorks.Config.BurnedBulbItem, nil
 end

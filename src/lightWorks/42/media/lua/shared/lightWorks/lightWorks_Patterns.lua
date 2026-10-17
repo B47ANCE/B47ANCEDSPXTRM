@@ -1,4 +1,5 @@
 local Operations=require "lightWorks/lightWorks_Operations"
+local Notices=require "lightWorks/lightWorks_Notifications"
 local lightWorks=require "lightWorks/lightWorks_API"
 local Patterns={MAX_PATTERNS=32,MAX_OPERATIONS=32,registry={}}
 local TAU=math.pi*2
@@ -76,7 +77,9 @@ function Patterns.set(item,id,operationId)
     end
     state.processedOperations[#state.processedOperations+1]=operationId
     while #state.processedOperations>Patterns.MAX_OPERATIONS do table.remove(state.processedOperations,1)end
-    return true,{id=id,dutyCycle=Patterns.getDutyCycle(item)}
+    local result={id=id,dutyCycle=Patterns.getDutyCycle(item)}
+    Notices.publish("pattern","selected",Notices.item(item),{pattern=id,operationId=operationId})
+    return true,result
 end
 
 local function square(duty)return function(phase)return phase<duty and 1 or 0 end end

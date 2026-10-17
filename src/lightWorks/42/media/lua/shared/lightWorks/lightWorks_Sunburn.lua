@@ -1,6 +1,7 @@
 local lightWorks=require "lightWorks/lightWorks_API"
 local UV=require "lightWorks/lightWorks_UV"
 local Operations=require "lightWorks/lightWorks_Operations"
+local Notices=require "lightWorks/lightWorks_Notifications"
 local Sunburn={SCHEMA_VERSION=1,MAX_DELTA_HOURS=.25,MAX_PROVIDERS=32,MAX_OPERATIONS=32}
 local providers={}
 
@@ -17,9 +18,11 @@ local function dataFor(character,create)
     if state==nil and create then state={schemaVersion=1,dose=0,severity=0,processedOperations={}};data.lightWorksSunburn=state end
     if state==nil then return{schemaVersion=1,dose=0,severity=0,processedOperations={}}end
     if type(state)~="table"or state.schemaVersion~=1 then return nil,"unsupported sunburn state"end
-    if state.processedOperations==nil then state.processedOperations={} end
-    if not Operations.validHistory(state.processedOperations) or type(state.dose)~="number" or not finite(state.dose) or state.dose<0 or state.dose>1
+    local history=state.processedOperations
+    if history==nil then history={} end
+    if not Operations.validHistory(history) or type(state.dose)~="number" or not finite(state.dose) or state.dose<0 or state.dose>1
         or type(state.severity)~="number" or not finite(state.severity) or state.severity<0 or state.severity>1 then return nil,"malformed sunburn state" end
+    if create and state.processedOperations==nil then state.processedOperations=history end
     return state
 end
 local function snapshot(state)return{schemaVersion=1,dose=clamp(state.dose,0,1),severity=clamp(state.severity,0,1),
@@ -54,6 +57,7 @@ function Sunburn.update(character,worldAgeHours)
     if not now and type(getGameTime)=="function"then local ok,value=pcall(function()return getGameTime():getWorldAgeHours()end);if ok then now=finite(value)end end
     if not now then return nil,"world age unavailable"end
     local state,err=dataFor(character,true);if not state then return nil,err end
+    local beforeDose,beforeSeverity,beforeNatural,beforeProtection=state.dose,state.severity,state.lastNaturalUV,state.lastProtection
     local previous=finite(state.lastWorldAgeHours)
     if not previous then state.lastWorldAgeHours=now;return snapshot(state)end
     if now<=previous then return snapshot(state)end
@@ -77,7 +81,12 @@ function Sunburn.update(character,worldAgeHours)
     state.dose=clamp(doseHours/maximum,0,1)
     state.severity=doseHours<=first and 0 or clamp((doseHours-first)/(maximum-first),0,1)
     state.lastNaturalUV=natural;state.lastProtection=protection;state.lastProtectionDetails=details
-    transmit(character);return snapshot(state)
+    transmit(character)
+    local result=snapshot(state)
+    if state.dose~=beforeDose or state.severity~=beforeSeverity or state.lastNaturalUV~=beforeNatural or state.lastProtection~=beforeProtection then
+        Notices.publish("sunburn","updated",Notices.character(character),{dose=state.dose,severity=state.severity})
+    end
+    return result
 end
 
 function Sunburn.applyTreatment(character,amount,operationId)
@@ -92,7 +101,10 @@ function Sunburn.applyTreatment(character,amount,operationId)
     local doseHours=state.dose*maximum;state.severity=doseHours<=first and 0 or clamp((doseHours-first)/(maximum-first),0,1)
     state.processedOperations[#state.processedOperations+1]=operationId
     while #state.processedOperations>Sunburn.MAX_OPERATIONS do table.remove(state.processedOperations,1)end
-    transmit(character);return true,snapshot(state)
+    transmit(character)
+    local result=snapshot(state)
+    Notices.publish("sunburn","treated",Notices.character(character),{dose=state.dose,severity=state.severity,operationId=operationId})
+    return true,result
 end
 
 lightWorks.Sunburn=Sunburn

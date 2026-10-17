@@ -2,7 +2,7 @@
 
 B47ANCED Spectrum is a Lua-only lighting and optical-effects framework for Project Zomboid Build 42.
 
-- Version: `0.28.0`
+- Version: `0.29.0`
 - Mod ID: `lightWorks`
 - Author: B47ANCE
 - Minimum game version: `42.20.3`
@@ -56,8 +56,8 @@ The display name is B47ANCED Spectrum. The technical Mod ID, Lua API/require nam
 Public source: https://github.com/B47ANCE/B47ANCEDSpectrum
 
 `VERSION` is the sole project-version authority. This iteration is a
-MINOR query iteration with one-scan batch exposure and paged read-only crop
-lighting, plus three reproduced audit fixes. It remains a development build. See [Repository setup](docs/REPOSITORY_SETUP.md),
+MINOR notification iteration with post-commit consumer invalidations,
+read-only observation hardening and a manual native model-rotation probe. It remains a development build. See [Repository setup](docs/REPOSITORY_SETUP.md),
 [Versioning](docs/VERSIONING.md), [Changelog](CHANGELOG.md), and
 [Current validation](docs/VALIDATION.md).
 
@@ -126,3 +126,17 @@ one bounded source scan for up to 32 nearby targets. They return read-only
 observations with explicit completeness and paging; they do not change crop growth
 or supply cached treatment evidence. Debug mode adds LWIntegrationCropLightingBatch.
 Current query contracts and exact limits are in the consumer documentation above.
+
+## Consumer notifications and audit closure
+
+Version-1 [consumer notifications](docs/CONSUMER_NOTIFICATIONS.md) now cover the
+owning Spectrum commit boundaries without networking or replaying old events.
+Listeners receive independent bounded payloads and cannot cancel completed state;
+errors and queue overflow are reported through observer diagnostics. Gameplay
+consumers must continue querying and validating authoritative state.
+
+The [audit closure matrix](docs/AUDIT_CLOSURE.md) separates implemented source from
+remaining engine evidence and consumer-owned content. [Native presentation gates](docs/NATIVE_PRESENTATION_GATES.md)
+record the verified rotation setter/getter route and the guarded SP-only probe.
+Default model alignment and production blood redraw remain unverified. Debug
+fixture helpers require confirmed debug mode and refuse multiplayer mutations.

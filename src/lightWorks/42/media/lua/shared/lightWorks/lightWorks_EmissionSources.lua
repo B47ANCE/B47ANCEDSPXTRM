@@ -4,6 +4,7 @@ pcall(require,"lightWorks/lightWorks_LowPowerFlicker")
 
 lightWorks.EmissionSources=lightWorks.EmissionSources or {}
 local Sources=lightWorks.EmissionSources
+local Notices=require "lightWorks/lightWorks_Notifications"
 local providers=Sources.providers or {}
 Sources.providers=providers
 
@@ -95,10 +96,15 @@ function Sources.registerProvider(definition)
     local count=0;for _ in pairs(providers) do count=count+1 end
     assert(providers[definition.id] or count<64,"emission provider limit")
     providers[definition.id]={id=definition.id,priority=finite(definition.priority) or 0,inspect=definition.inspect}
+    Notices.publish("registry","providerRegistered",{kind="provider",id=definition.id})
     return providers[definition.id]
 end
 
-function Sources.unregisterProvider(id)local existed=providers[id]~=nil;providers[id]=nil;return existed end
+function Sources.unregisterProvider(id)
+    local existed=providers[id]~=nil;providers[id]=nil
+    if existed then Notices.publish("registry","providerRemoved",{kind="provider",id=id}) end
+    return existed
+end
 
 -- Providers may expose physical destruction only through this explicit
 -- contract. requestAttack must issue or configure an engine-native physical

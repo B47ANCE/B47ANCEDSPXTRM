@@ -2,6 +2,7 @@ local Operations=require "lightWorks/lightWorks_Operations"
 local API=require "lightWorks/lightWorks_API"
 local Access=require "lightWorks/lightWorks_ItemAccess"
 local Direction=require "lightWorks/lightWorks_Direction"
+local Notices=require "lightWorks/lightWorks_Notifications"
 local Orientation={}
 function Orientation.set(item,value,operationId)
     if type(isClient)=="function" and isClient()==true
@@ -22,6 +23,7 @@ function Orientation.set(item,value,operationId)
     while #history>32 do table.remove(history,1) end
     data.lightWorksWorldEmitter=state
     Access.call(item,"transmitModData")
+    Notices.publish("orientation","selected",Notices.item(item),{orientation=value,operationId=operationId})
     return true,value
 end
 return Orientation

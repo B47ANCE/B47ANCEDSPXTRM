@@ -1,3 +1,4 @@
+isDebugEnabled=function()return true end
 package.loaded["lightWorks/lightWorks_StageHarness"]=nil
 local output={};getFileWriter=function(name,create,append)assert(name=="theWorks Test Results - lightWorks.txt"and create and not append);output={};return{writeln=function(_,line)output[#output+1]=line end,close=function()end}end
 getCore=function()return{getVersionNumber=function()return"42.20.3-test"end}end

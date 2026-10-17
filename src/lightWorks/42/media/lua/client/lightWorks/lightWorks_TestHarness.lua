@@ -1,5 +1,5 @@
--- Development-only in-game harness; host tests omit the engine predicate.
-if type(isDebugEnabled)=="function" and isDebugEnabled()~=true then return {} end
+-- Development-only in-game harness; confirmed debug mode is required.
+if type(isDebugEnabled)~="function" or isDebugEnabled()~=true then return {} end
 
 require "lightWorks/lightWorks_API"
 require "lightWorks/lightWorks_Vanilla"
@@ -14,6 +14,9 @@ local Harness = lightWorks.TestHarness
 Harness.tourCompletionListeners = Harness.tourCompletionListeners or {}
 local KIT_MARKER = "lightWorks.TestKitVersion"
 local tour = { active=false, index=0, results={} }
+local function spOnly()
+    return not(type(isClient)=="function" and isClient()==true) and not(type(isServer)=="function" and isServer()==true)
+end
 
 local TOUR_LIGHTS = {
     {type="Base.HandTorch",name="standard flashlight",expect="A medium white/purple forward beam appears. Its inventory icon and ground model must not change color."},
@@ -58,6 +61,7 @@ local function log(message)
 end
 
 function Harness.giveKit(force)
+    if not spOnly() then return false,"SP-only fixture helper; use validated gameplay actions in MP" end
     local player = player0()
     if not player then return false, "player unavailable" end
     local inventory = player:getInventory()
@@ -94,6 +98,7 @@ local function resolveLight(player, lightType)
 end
 
 function Harness.queueChange(lightType, bulbType)
+    if not spOnly() then return false,"SP-only fixture helper; use validated gameplay actions in MP" end
     local player = player0()
     if not player then return false, "player unavailable" end
     Harness.giveKit(false)
@@ -119,6 +124,7 @@ function Harness.queueChange(lightType, bulbType)
 end
 
 function Harness.queueRemove(lightType)
+    if not spOnly() then return false,"SP-only fixture helper; use validated gameplay actions in MP" end
     local player = player0()
     if not player then return false, "player unavailable" end
     Harness.giveKit(false)
@@ -131,6 +137,7 @@ function Harness.queueRemove(lightType)
 end
 
 function Harness.queueCycle(lightType)
+    if not spOnly() then return false,"SP-only fixture helper; use validated gameplay actions in MP" end
     local player = player0()
     if not player then return false, "player unavailable" end
     Harness.giveKit(false)
@@ -154,6 +161,7 @@ function Harness.queueCycle(lightType)
 end
 
 function Harness.runChecks()
+    if not spOnly() then return false,"SP-only fixture helper; use validated gameplay actions in MP" end
     local player = player0()
     if not player then return false, "player unavailable" end
     Harness.giveKit(false)
@@ -320,6 +328,7 @@ local function updateTour()
 end
 
 function Harness.startTour()
+    if not spOnly() then return false,"SP-only fixture helper; use validated gameplay actions in MP" end
     if tour.active then log("Guided tour is already running"); return false, "already running" end
     local player = player0()
     if not player then return false, "player unavailable" end
@@ -331,6 +340,7 @@ function Harness.startTour()
 end
 
 function Harness.startReleaseSuite()
+    if not spOnly() then return false,"SP-only fixture helper; use validated gameplay actions in MP" end
     if tour.active then log("Release suite cannot start while the guided tour is active"); return false, "already running" end
     log("RELEASE SUITE: automated API/state checks followed by the guided visual tour")
     local checksOK, results = Harness.runChecks()

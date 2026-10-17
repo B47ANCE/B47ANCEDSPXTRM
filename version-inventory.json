@@ -72,7 +72,15 @@
       "pattern": "^Project Version: (?P<version>\\S+)$"
     },
     {
-      "path": "docs/AUDIT_0_28_0.md",
+      "path": "docs/CONSUMER_NOTIFICATIONS.md",
+      "pattern": "^Project Version: (?P<version>\\S+)$"
+    },
+    {
+      "path": "docs/NATIVE_PRESENTATION_GATES.md",
+      "pattern": "^Project Version: (?P<version>\\S+)$"
+    },
+    {
+      "path": "docs/AUDIT_CLOSURE.md",
       "pattern": "^Project Version: (?P<version>\\S+)$"
     }
   ],
@@ -109,6 +117,16 @@
       "category": "dependency",
       "reference": "B47ANCEDPower required Mod ID; Project Nightfall and Medical consumer APIs",
       "reason": "Dependencies and consumers retain independent identities and versions."
+    },
+    {
+      "category": "compatibility",
+      "reference": "docs/CONSUMER_NOTIFICATIONS.md contract 1",
+      "reason": "Notification contract/schema is independent of project SemVer."
+    },
+    {
+      "category": "pz",
+      "reference": "docs/validation/api-evidence-25485521.json and native-metadata-25485521.json",
+      "reason": "Exact installed-game build/API evidence is independent of project SemVer."
     }
   ],
   "historical": [
@@ -151,6 +169,14 @@
     {
       "reference": "docs/validation/0.28.0-*.json",
       "reason": "Point-in-time host/source preflight evidence, with independent dependency versions and dirty/HEAD states; not PZ runtime or a newer source pairing."
+    },
+    {
+      "reference": "docs/AUDIT_0_28_0.md, docs/validation/0.28.0-audit.md",
+      "reason": "Exact 0.28.0 audit and validation; current closure and blockers are recorded separately."
+    },
+    {
+      "reference": "docs/validation/0.29.0-*.json",
+      "reason": "Point-in-time offline source/API pairing snapshots, not PZ runtime or newer source proof."
     }
   ]
 }

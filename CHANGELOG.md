@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.29.0] - Consumer notifications and remaining audit closure
+
+- Add bounded post-commit advisory notifications with isolated listeners and copied payloads.
+- Preserve Sunburn state on read-only queries; add native model-rotation evidence and
+  an explicit debug/SP-only preview/restore probe. No default model mapping is guessed.
+- Complete authorized source work and record remaining engine/runtime/consumer gates.
+  No external mod writes, deployment, launch, package or upload.
+
 ## [0.28.0] - Bounded field queries and audit hardening
 
 - Add one-scan batch exposure and paged read-only crop lighting queries for L8.

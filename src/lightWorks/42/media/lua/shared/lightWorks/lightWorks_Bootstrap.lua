@@ -31,8 +31,12 @@ local function buildCatalog(reason)
     print(string.format("[lightWorks] Light catalog built: candidates=%d verified=%d awaitingReview=%d",summary.total,summary.verified,summary.review))
 end
 
-if Events and Events.OnGameStart then Events.OnGameStart.Add(function() buildCatalog("OnGameStart") end) end
-if Events and Events.OnServerStarted then Events.OnServerStarted.Add(function() buildCatalog("OnServerStarted") end) end
+local function ready(reason)
+    buildCatalog(reason)
+    require("lightWorks/lightWorks_Notifications").publish("lifecycle","ready",{kind="project"},{reason=reason})
+end
+if Events and Events.OnGameStart then Events.OnGameStart.Add(function() ready("OnGameStart") end) end
+if Events and Events.OnServerStarted then Events.OnServerStarted.Add(function() ready("OnServerStarted") end) end
 
 local sunburnFrame=0
 if Events and Events.OnTick then Events.OnTick.Add(function()
@@ -41,7 +45,7 @@ if Events and Events.OnTick then Events.OnTick.Add(function()
     for _,character in ipairs(require("lightWorks/lightWorks_Players").collect(false)) do Sunburn.update(character) end
 end)end
 
-if type(isDebugEnabled)~="function" or isDebugEnabled()==true then
+if type(isDebugEnabled)=="function" and isDebugEnabled()==true then
     function LWExportLightReview(filename)
         buildCatalog("developer-export")
         local ok,result=lightWorks.LightCatalog.exportReviewReport(filename)

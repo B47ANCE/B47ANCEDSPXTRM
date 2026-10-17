@@ -36,6 +36,10 @@ function Drop.install()
         if backing then WorldPower.prepareBacking(backing,item)
         else data.lightWorksWorldEmitter=previous end
         if not ok then error(result,0) end -- preserve the real native failure
+        if backing and result~=false then
+            local Notices=require "lightWorks/lightWorks_Notifications"
+            Notices.publish("world","placed",Notices.item(item))
+        end
         return result
     end
     ISDropWorldItemAction.lightWorksAuthorityDropWrapped=true
