@@ -31,7 +31,7 @@ matching provenance and current changelog. It does not establish gameplay gates.
 The preserved local `Contents` tree is a stale legacy snapshot, not a current
 mirror. Existing `dist` archives, checksum/upload records and dated research stay
 at their actual versions and remain excluded from Git. New packages read only
-`src/lightWorks` and write only `dist/current`. No historical files are rewritten.
+`src/B47ANCEDSPXTRM` and write only `dist/current`. No historical files are rewritten.
 
 The version checker and policy were copied unchanged from the team's existing
 B47ANCEDRooms framework-derived files. Imported byte hashes:

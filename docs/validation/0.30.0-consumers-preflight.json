@@ -1,0 +1,67 @@
+{
+  "profile": "consumers",
+  "sourcePreflight": "PASS",
+  "issues": [],
+  "sources": {
+    "spectrum": {
+      "id": "B47ANCEDSPXTRM",
+      "declaredVersion": "0.30.0",
+      "sourceSHA256": "1c5263de70e961837756fbd72f26d3034583dffd3a00ff1f8c803416e2911b44",
+      "sourceFiles": 150,
+      "head": "06c3072698af27710eef545996605b07738a704e",
+      "dirty": true
+    },
+    "power": {
+      "id": "B47ANCEDPower",
+      "declaredVersion": "0.17.0-dev.1",
+      "sourceSHA256": "91ab63b8bde17d77b6f311e25c9e03652226c5a72ed503c5fe16cf0052f041ce",
+      "sourceFiles": 113,
+      "head": "40ff9ebfe247d56d7dd2e308e7b7eabfb61a7ce0",
+      "dirty": false
+    },
+    "mortis": {
+      "id": "ProjectMORTIS",
+      "declaredVersion": "0.25.0-dev.4",
+      "sourceSHA256": "7125fb82d2b870f90823dc5a4baaba7ca4a76f31f17f6ec43df7f80eadecdbca",
+      "sourceFiles": 187,
+      "head": "f0358fef2ec4519cbfb26bad641699488c7f8ec9",
+      "dirty": false
+    },
+    "knowledge": {
+      "id": "B47ANCEDKnowledgeAndWisdom",
+      "declaredVersion": "0.16.0",
+      "sourceSHA256": "d9f0f7742b0a68ddbcbc4fab2f3fa09293fbc976c468dfc71a56ec375d1c5572",
+      "sourceFiles": 117,
+      "head": "6ba66c0d8f246d438f2e2f3c974fee9f77fdb426",
+      "dirty": false
+    },
+    "medical": {
+      "id": "B47ANCEDHealthCare",
+      "declaredVersion": "0.11.0",
+      "sourceSHA256": "29e6207c948544d83b7ea458d7b0a38f5eb39f2bea048c857ddb8721e7ff54c5",
+      "sourceFiles": 116,
+      "head": "158389ff5bde9f8e09bb9e6c546d512f33178344",
+      "dirty": false
+    },
+    "water": {
+      "id": "waterWorks",
+      "declaredVersion": "0.33.1",
+      "sourceSHA256": "87d63fd34d3ff185042311e539a764a3ebe4bf4489a823470bb5511a10f91ecb",
+      "sourceFiles": 50,
+      "head": null,
+      "versionStatus": "legacy metadata only; no canonical version adopted by Spectrum"
+    },
+    "farming": {
+      "id": "farmWorks",
+      "declaredVersion": "0.8.0",
+      "sourceSHA256": "b991e2e867aab78a1d1b5fced3a5ebbcc90c6e93af62fa7c4e617da9d23eb9a1",
+      "sourceFiles": 11,
+      "head": null,
+      "versionStatus": "legacy metadata only; no canonical version adopted by Spectrum"
+    }
+  },
+  "SP": "NOT TESTED",
+  "G7": "BLOCKED / NOT TESTED",
+  "stableG8": "BLOCKED",
+  "deployment": "NOT PERFORMED"
+}

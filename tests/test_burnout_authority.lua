@@ -22,7 +22,7 @@ access.addItem=function(got,kind)assert(got==player and kind==API.Config.BurnedB
 access.syncServiceState=function(got,target)assert(got==player and target==item);synced=synced+1;return true end
 local Burnout=require "lightWorks/lightWorks_BurnoutAuthority"
 assert(tick==Burnout.onTick,"authority loop must register once")
-assert(dofile("src/lightWorks/42/media/lua/shared/lightWorks/lightWorks_BurnoutAuthority.lua")==Burnout,
+assert(dofile("src/B47ANCEDSPXTRM/42/media/lua/shared/lightWorks/lightWorks_BurnoutAuthority.lua")==Burnout,
     "duplicate shared/client loads must reuse one authority loop")
 tick();hours=hours+2/60;tick()
 assert(not API.hasBulb(item)and added==1 and synced==1,"dedicated burnout must mutate, award and sync once")

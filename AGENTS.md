@@ -6,11 +6,12 @@ Team skills are installed at C:\Users\willi\.agents\skills.
 Preserve project-specific identity, instructions, source, local settings and runtime evidence.
 <!-- /PZ-CODEX-MANAGED-STARTUP -->
 
-# B47ANCED Spectrum repository
+# B47ANCED SPXTRM repository
 
-- Display name: B47ANCED Spectrum. Technical Mod ID and Lua namespace:
-  `lightWorks`; required Mod ID: `B47ANCEDPower`; Workshop ID: `3788592008`.
-- Authoritative source: `src/lightWorks`. Root `Contents` is a preserved stale
+- Display name: B47ANCED SPXTRM. Technical Mod ID: `B47ANCEDSPXTRM`.
+  Retained Lua/item/save/sandbox/protocol namespace: `lightWorks`.
+  Required Mod ID: `B47ANCEDPower`; Workshop ID: `3788592008`.
+- Authoritative source: `src/B47ANCEDSPXTRM`. Root `Contents` is a preserved stale
   packaging snapshot. Never build from it, overwrite it or delete it implicitly.
 - Canonical version: root `VERSION`; see `docs/VERSION_POLICY.md`,
   `docs/VERSIONING.md` and `version-inventory.json`. Current mirrors must match.

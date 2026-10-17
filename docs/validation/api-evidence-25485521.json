@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "records": [
+    {
+      "api_library": "Project Zomboid vanilla Lua/exposed engine APIs",
+      "receiver_type": "InventoryItem",
+      "signature_scope": "observed_vanilla_call",
+      "game_version": "UNKNOWN",
+      "steam_build": "25485521",
+      "side": "shared",
+      "returns": "UNKNOWN from the Lua caller; native declaration returns void.",
+      "mutation": "Native item world Z rotation is changed. Vanilla drop subsequently transmits the complete world item. Actual client/server convergence and per-model compass alignment are NOT TESTED.",
+      "status": "VERIFIED",
+      "runtime_status": "NOT_TESTED",
+      "verified_on": "2026-10-16",
+      "notes": "Observed installed vanilla Lua call, not game execution. Numeric yaw convention, safe bounds, model alignment and dedicated availability remain unverified. Spectrum uses this only in a manual SP debug probe.",
+      "symbol": "setWorldZRotation",
+      "signature": "item:setWorldZRotation(self.rotation)",
+      "evidence": [
+        {
+          "kind": "vanilla_lua",
+          "path": "media/lua/shared/TimedActions/ISDropWorldItemAction.lua",
+          "sha256": "1a1db7308a9cee66889ed197320d8ceb9a8373fcdf557d8e14d27b10ef644db3",
+          "lines": [
+            81,
+            87
+          ],
+          "statement": "Vanilla complete obtains the placed item, assigns world Z rotation, then transmits its backing complete item."
+        }
+      ]
+    },
+    {
+      "api_library": "Project Zomboid vanilla Lua/exposed engine APIs",
+      "receiver_type": "InventoryItem",
+      "signature_scope": "observed_vanilla_call",
+      "game_version": "UNKNOWN",
+      "steam_build": "25485521",
+      "side": "client",
+      "returns": "Numeric value is rounded by vanilla UI; native declaration returns float.",
+      "mutation": "Read of the native item field; no gameplay mutation observed.",
+      "status": "VERIFIED",
+      "runtime_status": "NOT_TESTED",
+      "verified_on": "2026-10-16",
+      "notes": "Observed installed vanilla Lua call, not game execution. Numeric yaw convention, safe bounds, model alignment and dedicated availability remain unverified. Spectrum uses this only in a manual SP debug probe.",
+      "symbol": "getWorldZRotation",
+      "signature": "o.item:getWorldZRotation()",
+      "evidence": [
+        {
+          "kind": "vanilla_lua",
+          "path": "media/lua/client/ISUI/ISExtendedPlacementUI.lua",
+          "sha256": "a7fc58b9644092a39faba304437485db5e080222d1c51979e9ee577ff221edd7",
+          "lines": [
+            476,
+            486
+          ],
+          "statement": "Placement UI obtains the inventory item from its world backing and saves original X/Y/Z rotations."
+        }
+      ]
+    },
+    {
+      "api_library": "Project Zomboid vanilla Lua/exposed engine APIs",
+      "receiver_type": "IsoSprite",
+      "signature_scope": "native_metadata_only",
+      "game_version": "UNKNOWN",
+      "steam_build": "25485521",
+      "side": "UNKNOWN",
+      "returns": "Native descriptor returns void; Lua invocation UNKNOWN.",
+      "mutation": "Native rendering declaration only. Lua dispatch, FBO/depth ordering, scene visibility and multiplayer presentation UNKNOWN.",
+      "status": "UNKNOWN",
+      "runtime_status": "NOT_TESTED",
+      "verified_on": "2026-10-16",
+      "notes": "This is not proof of Lua exposure or production rendering. The existing debug spike requires actual in-game FBO/depth evidence; no Java fallback is authorized.",
+      "symbol": "renderBloodSplat",
+      "signature": "native renderBloodSplat(float,float,float,ColorInfo)",
+      "evidence": [
+        {
+          "kind": "native_inspection",
+          "path": "projectzomboid.jar",
+          "sha256": "e1a69eb743ede60b213a0fe7f8b83d4fcab773036d256cc4543a336f3b058a33",
+          "lines": [
+            1,
+            1
+          ],
+          "statement": "IsoSprite declares public renderBloodSplat with descriptor (FFFLzombie/core/textures/ColorInfo;)V; class digest is recorded in Spectrum native metadata."
+        }
+      ]
+    }
+  ]
+}

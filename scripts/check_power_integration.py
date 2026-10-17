@@ -27,15 +27,19 @@ def main():
     runtime = LuaRuntime(unpack_returned_tuples=True)
     runtime.globals().package.path = (
         str(shared / "?.lua").replace("\\", "/") + ";"
-        + str(ROOT / "src/lightWorks/42/media/lua/shared/?.lua").replace("\\", "/")
+        + str(ROOT / "src/B47ANCEDSPXTRM/42/media/lua/shared/?.lua").replace("\\", "/")
     )
     runtime.execute("""
         local API=require "lightWorks/lightWorks_API"
         require "lightWorks/lightWorks_Vanilla"
+        require "lightWorks/lightWorks_FirstPartyContent"
         require "lightWorks/lightWorks_Patterns"
         require "lightWorks/lightWorks_powerWorks"
         assert(API.registerPowerProfiles(),"maintained power contract rejected")
         assert(API.powerWorks==B47ANCEDPower and powerWorks==nil,"no legacy alias may be required")
+        for _,kind in ipairs({"UVAInspectionLamp","UVCServiceLamp","GrowLamp"}) do
+            assert(B47ANCEDPower.isRegisteredConsumer("lightWorks."..kind),"specialist power profile missing")
+        end
         local data={B47ANCEDPower={batteryType="Base.Battery",baseUseDelta=.001,
             capacity=2.5,resistance=1}}
         local item={fraction=1,useDelta=.001,active=true}

@@ -10,6 +10,8 @@ assert(ray.blocked and ray.x<4 and ray.distance>3,"laser must stop before thin w
 unloaded=true;assert(Lasers.trace(cell,{x=.5,y=.5,z=0},1,0,10)==nil,"unknown paths must not reveal geometry")
 unloaded=false;wall=100
 assert(math.abs(Lasers.trace(cell,{x=.5,y=.5,z=0},1,1,5).distance-5)<.00001)
+assert(not Lasers.trace(cell,{x=.5,y=.5,z=0},1e308,1e308,10),
+    "overflowing finite direction magnitude cannot claim a ray travelled without moving")
 assert(not pcall(Lasers.register,{item="Bad",range=math.huge}))
 Vector2={new=function()return {}end}
 local part={getFullType=function()return "Base.Laser"end}

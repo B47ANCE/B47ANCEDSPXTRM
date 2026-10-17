@@ -1,0 +1,59 @@
+{
+  "profile": "nightfall",
+  "sourcePreflight": "PASS",
+  "issues": [],
+  "sources": {
+    "spectrum": {
+      "id": "lightWorks",
+      "declaredVersion": "0.29.0",
+      "sourceSHA256": "65c03e4160e9f0a9eddf630c514008d5d8dbc7e138e169adc6923105efc4c58e",
+      "sourceFiles": 112,
+      "head": "a2a018393c417c5e29dfda6153266c65b0e5da41",
+      "dirty": true
+    },
+    "power": {
+      "id": "B47ANCEDPower",
+      "declaredVersion": "0.17.0-dev.1",
+      "sourceSHA256": "91ab63b8bde17d77b6f311e25c9e03652226c5a72ed503c5fe16cf0052f041ce",
+      "sourceFiles": 113,
+      "head": "40ff9ebfe247d56d7dd2e308e7b7eabfb61a7ce0",
+      "dirty": false
+    },
+    "nightfall": {
+      "id": "ProjectNightfall",
+      "declaredVersion": "0.29.1-dev.1",
+      "sourceSHA256": "0898047dcc6b9144bd198c62ff2cdc27b07c33f009cf5776c356c8ff077ca666",
+      "sourceFiles": 152,
+      "head": "9a681a1f62df87a7eccf946b9796cee92ff8a798",
+      "dirty": false
+    },
+    "mortis": {
+      "id": "ProjectMORTIS",
+      "declaredVersion": "0.25.0-dev.4",
+      "sourceSHA256": "7125fb82d2b870f90823dc5a4baaba7ca4a76f31f17f6ec43df7f80eadecdbca",
+      "sourceFiles": 187,
+      "head": "38157805b85d218386dddccd60d5d13cf0ad8065",
+      "dirty": false
+    },
+    "knowledge": {
+      "id": "B47ANCEDKnowledgeAndWisdom",
+      "declaredVersion": "0.15.0",
+      "sourceSHA256": "33899f2d9fda4b7969f0e8b0ba173844cbc307cd7ca5820adf5d31d88d4aa495",
+      "sourceFiles": 115,
+      "head": "ca5b724c63d49ab224f96b2daea3e17ad7498e44",
+      "dirty": false
+    },
+    "medical": {
+      "id": "B47ANCEDHealthCare",
+      "declaredVersion": "0.10.0",
+      "sourceSHA256": "b3aed10d914e26b32ece903fb778d841cfb49dbb4d45be57a4d22f331c845da7",
+      "sourceFiles": 113,
+      "head": "0c7fd8defe24d859db69d585c7a3f0b5f9649c76",
+      "dirty": false
+    }
+  },
+  "SP": "NOT TESTED",
+  "G7": "BLOCKED / NOT TESTED",
+  "stableG8": "BLOCKED",
+  "deployment": "NOT PERFORMED"
+}
