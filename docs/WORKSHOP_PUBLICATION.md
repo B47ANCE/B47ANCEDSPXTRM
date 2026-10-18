@@ -1,43 +1,43 @@
 # SPXTRM Workshop test publication
 
-Project Version: 0.30.1
+Project Version: 0.30.2
 
-The owner explicitly requested publication on 2026-10-17. This authorizes an update
-of existing Workshop item 3788592008, App ID 108600, with current SPXTRM content and
-owner-supplied thumbnail. It does not authorize local deployment, game/server launch,
-a new item, visibility changes, a main merge, a stable tag or a Steam restart.
+The owner explicitly requested the new mod icon, unchanged thumbnail, merge of
+all SPXTRM open PRs after checks and publication on 2026-10-18. Existing PR #8 is
+merged after passing checks; submit/merge the icon PR after its CI passes. Build
+and upload from the exact clean merged public main SHA. No stable tag is implied.
 
 Canonical text remains WORKSHOP_DESCRIPTION.txt and WORKSHOP_CHANGE_NOTE.txt;
 docs/STEAM_WORKSHOP_DESCRIPTION.txt and workshop.txt mirror the description.
-Preparation consolidates repeated feature text below the Steamworks 8,000-byte
-description limit (https://partner.steamgames.com/doc/api/ISteamRemoteStorage#k_cchPublishedDocumentDescriptionMax), preserves credits/BBCode, corrects stale activation and absent-UVC claims and explicitly records
-native presentation, consumer and dedicated test limitations. This is a documentation
-checkpoint within the existing PATCH artwork iteration, with no gameplay change.
+Only version and current change notes change for this icon iteration. Description
+uses real line breaks, preserves credits and is below the Steamworks 8000-byte
+limit. Both texts retain MP testing build - dedicated multiplayer NOT TESTED.
 
-Build with `python scripts/build.py` from authoritative src/B47ANCEDSPXTRM, never
-root Contents. It preserves prior outputs, generates dist/current with deterministic
-ZIP and per-member SHA-256 provenance, and runs `python scripts/check_versions.py
---release`. Validate CRC, paths, duplicate/case collisions, exact staging hashes,
-Lua-only content and the exact thumbnail. Record the final clean public source
-commit, archive hash, game source build 25485521 (running engine version UNKNOWN),
-IDs, validation and VDF/staging hashes in the ignored distribution manifest before
-upload. Retain the old local ZIP, backups and legacy VDF unchanged for recovery.
-Historical lightWorks packages use the old Mod ID and are not a compatible rollback
-promise for changed enabled-mod lists; use disposable test saves and retain backups.
+Reuse scripts/build.py for authoritative src/B47ANCEDSPXTRM. Never build from or
+overwrite historical root Contents. Prior current ZIP/provenance are preserved
+with verified hashes under dist/release-backups; previous staging/VDF/upload logs
+and original supplied PNGs are unchanged. Prior 0.30.1 publication evidence is
+in ignored dist/workshop-publish/0.30.1-4cd64d25/release-manifest.json. It confirmed
+SteamCMD success; public API/page verification was unavailable, not a native PASS.
 
-The original local SteamCMD VDF is under Zomboid/Workshop/_steamcmd/lightWorks.vdf;
-it points to stale source and serializes literal newline escapes. Preserve it as
-history. Create an isolated submission under dist/workshop-publish for the current
-verified archive, content folder, preview and current reviewed text. Omit the VDF
-visibility field to preserve the item's existing visibility. Use the verified local
-SteamCMD executable and existing cached account; never place authentication secrets
-in source, VDFs or reports. No wrapper or submission step restarts Steam.
+Prepare an isolated dist/workshop-publish submission from the verified current
+archive. Verify CRC, paths, duplicates, case collisions, exact member/source/stage
+hashes, Lua-only content, icon alpha/dimensions and unchanged thumbnail. Reuse the
+exact prior Workshop preview JPEG (derived from the unchanged PNG under Steam's
+1 MB preview limit). Bind final Git SHA, version, IDs, package/VDF/preview/member
+hashes and actual validation in a pre-upload manifest. Game source build 25485521;
+exact running engine version UNKNOWN. No game/server launch or local installation.
 
-Missing dedicated evidence permits only a labelled Workshop MP test upload under
-the shared WORKSHOP_MP_TESTING policy. G7 BLOCKED / NOT TESTED; stable G8 BLOCKED.
-SteamCMD must explicitly confirm success for item 3788592008. Upload is distribution
-evidence only. Public-page/API verification may be unavailable; record that gap.
-After success ask separately before restarting Steam, then humans test subscription,
-startup, client join/rejoin, state synchronization, persistence and server restart.
-Actual result and exact hashes belong in the ignored per-publication manifest/log;
-this document records preparation, not a claim that upload already succeeded.
+Use the verified existing SteamCMD executable/cached account, App ID 108600 and
+existing item 3788592008. VDF contentfolder targets only current Contents/mods/
+B47ANCEDSPXTRM. Omit visibility to preserve the existing setting. Use current
+changenote only. No passwords/tokens in source, VDF, arguments or reports. Inspect
+upload behavior: no automatic Steam restart. Verify Committing update...Success
+and exit zero; record any public-page/preview verification gap separately.
+
+G7 BLOCKED / NOT TESTED and stable G8 BLOCKED. This is authorized Workshop MP test
+distribution only. Humans must verify subscription/download, startup, icon display,
+client join/rejoin, synchronization, duplication, persistence and server restarts
+before those gates can pass. Ask for separate explicit Steam restart confirmation
+after successful upload; a prior decline/approval does not answer that new request.
+Keep the exact result in ignored publication provenance; preparation is not upload.

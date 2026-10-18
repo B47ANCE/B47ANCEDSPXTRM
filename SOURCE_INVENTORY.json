@@ -57,7 +57,7 @@
   "notes": [
     "Legacy Contents is a stale preserved packaging snapshot, not a current mirror; no files are regenerated there.",
     "Lua-only runtime; Lupa is a development dependency, not distributed with the mod.",
-    "Owner-supplied SPXTRM thumbnail/preview replaces the current artwork pair; the existing game icon and historical artwork are preserved."
+    "Owner-supplied SPXTRM thumbnail/preview replaces the current artwork pair; the thumbnail is unchanged in 0.30.2; the owner-selected transparent flashlight replaces only the game icon. Historical artwork is preserved in Git and packages."
   ],
   "artwork": {
     "thumbnail": {
@@ -73,8 +73,20 @@
     },
     "icon": {
       "path": "src/B47ANCEDSPXTRM/42/icon.png",
-      "sha256": "ee7351b8932db9969c20344c7328de4281292c5b9896ae3ee3ea32906b8159ef",
-      "status": "unchanged"
+      "sha256": "4c8e5f4cd4be9eb1d4de0e94c845177085cc6fbacddad093d27db9722b03f585",
+      "width": 64,
+      "height": 64,
+      "mode": "RGBA",
+      "status": "owner-selected replacement",
+      "authoritative_source": "artwork/spxtrm-icon-master.png",
+      "source_sha256": "b1ee66534aa0f782a3a552105517123c5f9351f14d840b5c3dba0fc58e24bac2",
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "generation_prompt": "artwork/spxtrm-icon-prompt.txt",
+      "provenance": "Owner selected built-in image_gen flashlight cutout on 2026-10-18. Master retained byte-for-byte; 64x64 alpha PNG export via System.Drawing high-quality bicubic. No text, emitted beam or background fill.",
+      "previous_sha256": "ee7351b8932db9969c20344c7328de4281292c5b9896ae3ee3ea32906b8159ef"
     }
   }
 }

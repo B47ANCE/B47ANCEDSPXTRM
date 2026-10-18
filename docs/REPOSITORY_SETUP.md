@@ -1,6 +1,6 @@
 # Repository onboarding
 
-Project Version: 0.30.1
+Project Version: 0.30.2
 
 Public repository: https://github.com/B47ANCE/B47ANCEDSPXTRM
 
@@ -60,7 +60,7 @@ visibility alone does not establish a reuse license.
 The owner-supplied SPXTRM artwork replaces the current preview/thumbnail pair.
 The original source/artwork ledger and 0.25.3 validation remain historical; see
 [ARTWORK.md](ARTWORK.md) and [VALIDATION.md](VALIDATION.md) for current provenance
-and evidence. The existing game icon and historical packages are preserved.
+and evidence. The thumbnail stays unchanged in 0.30.2; only the mod icon uses the transparent flashlight cutout. Historical packages are preserved.
 
 ## Audit fixes branch
 

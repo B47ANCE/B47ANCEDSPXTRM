@@ -1,3 +1,9 @@
+[b]Version 0.30.2[/b]
+
+B47ANCED SPXTRM - MP testing build - dedicated multiplayer NOT TESTED
+
+Replace the mod-list icon with the transparent flashlight cutout. Thumbnail and Workshop preview artwork are unchanged. No gameplay, save, API or activation-ID changes. Offline checks PASS; in-game display, SP and dedicated gameplay NOT TESTED. Native model calibration/blood rendering and crop growth remain incomplete. G7 and stable G8 BLOCKED.
+
 [b]Version 0.30.1[/b]
 B47ANCED SPXTRM - MP testing build - dedicated multiplayer NOT TESTED
 Replace thumbnail and preview with the owner's supplied SPXTRM artwork. Enable Mod ID B47ANCEDSPXTRM instead of lightWorks and update B47ANCEDPower/Nightfall requirements together. Includes the existing specialist lamps, opt-in timed UVC Water action, consumer notifications and optical-material/model contracts. Crop growth, native blood rendering and measured built-in model calibration remain incomplete. Offline checks PASS; SP and dedicated gameplay NOT TESTED. G7 and stable G8 BLOCKED. This is test distribution, not stable-release approval.

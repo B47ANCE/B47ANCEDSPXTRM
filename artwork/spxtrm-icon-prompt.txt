@@ -1,0 +1,6 @@
+Tool: built-in image_gen
+Transparent background: true
+
+Use case: background-extraction.
+Input image: edit target, the supplied SPXTRM thumbnail.
+Create one square transparent PNG icon containing ONLY the large tan/beige and black flashlight lying diagonally in the foreground of the input. Preserve its recognizable shape, diagonal orientation (wide round lens at lower left, long tan body extending up and to the right), warm cream illuminated lens, black ribbed bezel and end cap, dark rectangular switch, tan body panels, and the original crisp pixel-art rendering and restrained earthy colors. Keep the entire single flashlight visible; center it and let it occupy approximately 85% of the square canvas with comfortable clear padding. Extract/redraw only as needed for a clean faithful isolated silhouette. Remove all lettering, both other flashlights, loose bulbs, shadows on the ground, all emitted light beams, haze, glow outside the item, and the entire dark background. Absolutely no text, no watermark, no badge, no frame, no backdrop or background fill. Outside the flashlight must be actual alpha transparency, not black, white, or a painted checkerboard. Preserve the warm bright lens within the physical flashlight only. Single foreground flashlight only.
