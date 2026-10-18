@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.30.1] - 2026-10-17
+
+- Replace the thumbnail and Workshop preview with owner-supplied SPXTRM artwork, preserving exact original bytes. Game icon, gameplay, activation IDs and APIs are unchanged.
+- PATCH artwork iteration; offline checks recorded in docs/VALIDATION.md. In-game display and dedicated multiplayer remain NOT TESTED; no package, deployment or upload.
+
 ## [0.30.0] - 2026-10-16
 
 - Pre-1.0 MINOR compatibility transition: activation ID becomes B47ANCEDSPXTRM; existing Lua/save/item/sandbox/protocol identifiers remain stable. Public repository/source folder renamed with original history/Workshop item retained.

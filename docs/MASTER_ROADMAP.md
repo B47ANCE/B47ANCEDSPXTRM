@@ -1,6 +1,6 @@
 # B47ANCED SPXTRM Master Roadmap
 
-Canonical version: 0.30.0.
+Canonical version: 0.30.1.
 
 ## Implemented in source with offline coverage
 

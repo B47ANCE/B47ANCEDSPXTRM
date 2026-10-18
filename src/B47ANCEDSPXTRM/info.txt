@@ -35,8 +35,8 @@ Known limitations:
 Author:
 B47ANCE
 
-Version: 0.30.0
-0.30.0
+Version: 0.30.1
+0.30.1
 
 Internal Mod ID:
 B47ANCEDSPXTRM
