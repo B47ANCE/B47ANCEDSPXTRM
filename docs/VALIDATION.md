@@ -47,3 +47,8 @@ adoption or shared catalog/settings changes are outside this presentation patch.
 [RUNTIME GATE] In-game icon display, native lighting/model/blood rendering,
 consumer behavior, SP/dedicated synchronization, joins/restarts and save/reload
 remain NOT TESTED. No local deployment, game/server launch or stable tag.
+
+[VERIFIED, live Workshop API before upload] Existing item/App ID and public visibility
+confirmed. Live title/banner edits are preserved; current canonical description
+reconciles that text, version and compact test status. Upload omits title, preview
+and visibility setters. Source/thumbnail/gameplay remain unchanged by this checkpoint.

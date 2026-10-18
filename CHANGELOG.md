@@ -3,6 +3,7 @@
 ## [0.30.2] - 2026-10-18
 
 - Replace only the mod icon with the owner-selected transparent flashlight cutout; preserve its full-resolution master and export a 64x64 RGBA PNG. All thumbnail/preview artwork remains byte-identical.
+- Publication metadata preserves live Workshop title/banner edits; update the version and retain a compact MP-testing status notice without replacing the preview.
 - PATCH presentation change; no gameplay, API, save, sandbox, activation-ID or dependency changes. Existing PR #8 merged after CI PASS; icon iteration receives its own reviewed PR.
 - Offline checks recorded in docs/VALIDATION.md. Workshop distribution is an explicitly authorized MP test build; in-game icon/SP/dedicated behavior remain NOT TESTED. G7 and stable G8 remain BLOCKED.
 
