@@ -14,8 +14,6 @@ For experimental testing, bug reports, compatibility work and artwork collaborat
 
 Features may change substantially, be temporarily disabled, or require a fresh save while development continues. A proper release announcement will be made when B47ANCED SPXTRM reaches a stable playable state.
 
-[url=https://ibb.co/TByLqTWH][img]https://i.ibb.co/mCp8FBNH/title.png[/img][/url]
-
 [h1]B47ANCED SPXTRM[/h1]
 
 Lighting, optics, sunlight, ultraviolet exposure, and serviceable-light infrastructure for theWorks ecosystem.
@@ -142,12 +140,5 @@ and reactive-material contracts do not enable unmeasured model mappings or blood
 rendering. Update B47ANCEDPower and all clients/server together; numeric aiming
 angles are unsupported by older clients.
 
-[h2]Testing status and limitations[/h2]
-Offline source checks, 54 host-Lua regressions and 59 Lua 5.1 syntax checks pass.
-Minimum declared game version: 42.20.3. Installed source evidence: Steam build
-25485521; exact running engine version is unverified. Single-player and dedicated
-multiplayer gameplay remain NOT TESTED. Native model calibration, blood/FBO/depth
-rendering, item/fluid/action replication, save/reload and joins/restarts still need
-in-game evidence. Health Care self-care requires the separately tested consumer
-implementation. Water treatment reduces biological quality only and is not a
-potability guarantee. G7 BLOCKED / NOT TESTED; stable-release G8 BLOCKED.
+[h2]Testing status[/h2]
+Declared minimum PZ version: 42.20.3. Offline checks PASS; in-game icon/SP and dedicated gameplay NOT TESTED. Native model calibration, blood rendering and crop growth remain incomplete. G7 and stable G8 BLOCKED.
