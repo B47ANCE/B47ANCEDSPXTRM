@@ -1,6 +1,9 @@
 # Spectrum consumer notification contract
 
-Project Version: 0.30.0
+Project Version: 0.30.1
+
+Artwork-only patch; prior source/offline observations retain their originally
+recorded versions. No consumer pairing or PZ runtime evidence was refreshed.
 Contract Version: 1
 
 Notifications are bounded, synchronous, process-local advisory invalidations.

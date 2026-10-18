@@ -1,6 +1,9 @@
 # Native presentation evidence and runtime gates
 
-Project Version: 0.30.0
+Project Version: 0.30.1
+
+Artwork-only patch; prior source/offline observations retain their originally
+recorded versions. No consumer pairing or PZ runtime evidence was refreshed.
 Steam build: 25485521. Full engine version: UNKNOWN.
 
 ## World-model yaw: source route verified, alignment untested

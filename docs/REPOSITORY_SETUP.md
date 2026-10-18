@@ -1,6 +1,6 @@
 # Repository onboarding
 
-Project Version: 0.30.0
+Project Version: 0.30.1
 
 Public repository: https://github.com/B47ANCE/B47ANCEDSPXTRM
 
@@ -57,7 +57,7 @@ visibility alone does not establish a reuse license.
 
 ## Subsequent thumbnail iteration
 
-The owner-supplied Spectrum artwork replaces the current preview/thumbnail pair.
+The owner-supplied SPXTRM artwork replaces the current preview/thumbnail pair.
 The original source/artwork ledger and 0.25.3 validation remain historical; see
 [ARTWORK.md](ARTWORK.md) and [VALIDATION.md](VALIDATION.md) for current provenance
 and evidence. The existing game icon and historical packages are preserved.

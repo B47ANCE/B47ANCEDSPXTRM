@@ -1,8 +1,8 @@
-# Spectrum thumbnail
+# SPXTRM thumbnail
 
-The owner supplied and explicitly selected this image on 2026-10-16.
-`artwork/spectrum-thumbnail.png` is the authoritative full-resolution PNG.
-The existing project thumbnail and Workshop preview form a matching pair:
+The owner supplied and explicitly selected this replacement image on 2026-10-17.
+`artwork/spectrum-thumbnail.png` remains the authoritative full-resolution PNG;
+the established filename is retained. The text in this image reads SPXTRM.
 
 | Role | File |
 | --- | --- |
@@ -10,16 +10,15 @@ The existing project thumbnail and Workshop preview form a matching pair:
 | Workshop preview | `preview.png` |
 | Existing mod thumbnail/poster reference | `src/B47ANCEDSPXTRM/thumbnail.png` |
 
-All three contain the exact supplied bytes: 1254 x 1254 RGB PNG, 1,559,539 bytes,
-SHA-256 `44e03c1e64fd9bdcbbf767b81ec3f08850c00dcb4e3709e9f374046e34eea119`.
-No AI regeneration, crop, resize or color conversion was applied. Artwork was
+All three contain the exact supplied bytes: 1254 x 1254 PNG, 1,483,761 bytes,
+SHA-256 `34bea63dd537f1236471b29e47e73f17d866b7f35086c669a8e3f0baabca72d7`.
+No regeneration, crop, resize or color conversion was applied. Artwork was
 supplied for project use; no broader license grant is inferred.
 
-The 32 x 32 RGBA game icon at `src/B47ANCEDSPXTRM/42/icon.png` is unchanged.
-The previous preview and thumbnail are recoverable from commit
-`886f97d449de192a778dc241157948b5f9cf2214`, and legacy local packages retain their
-original artwork. The legacy provenance ledger still describes the original
-handoff bytes; it is not a checksum list for newly replaced current artwork.
+The game icon at `src/B47ANCEDSPXTRM/42/icon.png` is unchanged. The previous
+Spectrum-lettered artwork remains recoverable from parent commit
+`b57577372bf2a9004a05e1d224316ff67efff3ce`; older artwork remains in Git history
+and historical local packages. No historical source/package/evidence was replaced.
 
 The build command already reads `preview.png` and `src/B47ANCEDSPXTRM`; no packaging
 script change is needed. No package was generated and no live Workshop metadata

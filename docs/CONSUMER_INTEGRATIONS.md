@@ -1,6 +1,9 @@
 # Spectrum consumer contracts
 
-Project Version: 0.30.0
+Project Version: 0.30.1
+
+Artwork-only patch; prior source/offline observations retain their originally
+recorded versions. No consumer pairing or PZ runtime evidence was refreshed.
 
 This MINOR iteration adds optional API capabilities and four sandbox settings.
 Technical Mod ID, namespace, Workshop item and existing save schemas stay intact.

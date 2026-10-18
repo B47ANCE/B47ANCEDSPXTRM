@@ -57,7 +57,7 @@
   "notes": [
     "Legacy Contents is a stale preserved packaging snapshot, not a current mirror; no files are regenerated there.",
     "Lua-only runtime; Lupa is a development dependency, not distributed with the mod.",
-    "Owner-supplied Spectrum thumbnail/preview replaces the current artwork pair; the existing game icon and historical artwork are preserved."
+    "Owner-supplied SPXTRM thumbnail/preview replaces the current artwork pair; the existing game icon and historical artwork are preserved."
   ],
   "artwork": {
     "thumbnail": {
@@ -66,10 +66,10 @@
         "preview.png",
         "src/B47ANCEDSPXTRM/thumbnail.png"
       ],
-      "sha256": "44e03c1e64fd9bdcbbf767b81ec3f08850c00dcb4e3709e9f374046e34eea119",
+      "sha256": "34bea63dd537f1236471b29e47e73f17d866b7f35086c669a8e3f0baabca72d7",
       "width": 1254,
       "height": 1254,
-      "provenance": "Owner-supplied image explicitly selected in chat on 2026-10-16; copied byte-for-byte without resizing or regeneration."
+      "provenance": "Owner-supplied SPXTRM image explicitly selected in chat on 2026-10-17; copied byte-for-byte without resizing or regeneration."
     },
     "icon": {
       "path": "src/B47ANCEDSPXTRM/42/icon.png",

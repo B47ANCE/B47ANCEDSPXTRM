@@ -84,11 +84,7 @@
       "pattern": "^Project Version: (?P<version>\\S+)$"
     },
     {
-      "path": "docs/FEATURE_PASS_0_30_0.md",
-      "pattern": "^Project Version: (?P<version>\\S+)$"
-    },
-    {
-      "path": "docs/SPXTRM_MIGRATION.md",
+      "path": "docs/WORKSHOP_PUBLICATION.md",
       "pattern": "^Project Version: (?P<version>\\S+)$"
     }
   ],
@@ -189,6 +185,10 @@
     {
       "reference": "docs/validation/0.29.0-audit.md",
       "reason": "Exact prior 0.29.0 offline validation; not current runtime proof."
+    },
+    {
+      "reference": "docs/FEATURE_PASS_0_30_0.md, docs/SPXTRM_MIGRATION.md, docs/validation/0.30.0-feature-pass.md",
+      "reason": "Exact 0.30.0 feature, identity transition and offline validation records; artwork replaced separately in 0.30.1. Not current runtime proof."
     }
   ]
 }
