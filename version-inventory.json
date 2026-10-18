@@ -82,6 +82,10 @@
     {
       "path": "docs/AUDIT_CLOSURE.md",
       "pattern": "^Project Version: (?P<version>\\S+)$"
+    },
+    {
+      "path": "docs/WORKSHOP_PUBLICATION.md",
+      "pattern": "^Project Version: (?P<version>\\S+)$"
     }
   ],
   "changelog": {

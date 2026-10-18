@@ -3,7 +3,8 @@
 ## [0.30.1] - 2026-10-17
 
 - Replace the thumbnail and Workshop preview with owner-supplied SPXTRM artwork, preserving exact original bytes. Game icon, gameplay, activation IDs and APIs are unchanged.
-- PATCH artwork iteration; offline checks recorded in docs/VALIDATION.md. In-game display and dedicated multiplayer remain NOT TESTED; no package, deployment or upload.
+- Publication preparation corrects stale Workshop activation-ID and UVC feature text, retaining MP-testing labels and runtime limitations.
+- PATCH artwork iteration; offline checks recorded in docs/VALIDATION.md. In-game display and dedicated multiplayer remain NOT TESTED; Workshop distribution is an explicitly authorized MP test build only.
 
 ## [0.30.0] - 2026-10-16
 
