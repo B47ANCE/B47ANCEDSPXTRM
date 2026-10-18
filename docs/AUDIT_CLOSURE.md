@@ -1,6 +1,6 @@
 # Feature/audit closure and remaining gates
 
-Project Version: 0.30.1
+Project Version: 0.30.2
 
 Artwork-only patch; prior source/offline observations retain their originally
 recorded versions. No consumer pairing or PZ runtime evidence was refreshed.

@@ -189,6 +189,10 @@
     {
       "reference": "docs/FEATURE_PASS_0_30_0.md, docs/SPXTRM_MIGRATION.md, docs/validation/0.30.0-feature-pass.md",
       "reason": "Exact 0.30.0 feature, identity transition and offline validation records; artwork replaced separately in 0.30.1. Not current runtime proof."
+    },
+    {
+      "reference": "docs/validation/0.30.1-thumbnail.md, docs/validation/0.30.1-publication-preparation.md",
+      "reason": "Exact prior thumbnail-only validation and publication-preparation record; not current icon/runtime proof. Published package and upload manifest retained locally with their original hashes."
     }
   ]
 }

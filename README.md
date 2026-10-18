@@ -2,7 +2,7 @@
 
 B47ANCED SPXTRM is a Lua-only lighting and optical-effects framework for Project Zomboid Build 42.
 
-- Version: `0.30.1`
+- Version: `0.30.2`
 - Mod ID: `B47ANCEDSPXTRM`
 - Author: B47ANCE
 - Minimum game version: `42.20.3`
@@ -77,7 +77,7 @@ Dedicated multiplayer G7 is **BLOCKED / NOT TESTED**. Stable-release G8 is
 **BLOCKED**. Original source/API audits are historical evidence; neither those
 records nor host tests establish current PZ runtime behavior.
 
-Current thumbnail: owner-supplied SPXTRM artwork; see [Artwork provenance](docs/ARTWORK.md). The game icon and historical packages are preserved.
+Current thumbnail: owner-supplied SPXTRM artwork; see [Artwork provenance](docs/ARTWORK.md). The mod icon is the owner-selected transparent flashlight cutout; historical packages are preserved.
 
 
 The nine defects audited at `886f97d` are corrected in source with offline
